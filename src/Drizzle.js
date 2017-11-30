@@ -29,12 +29,15 @@ class Drizzle {
   }
 
   getWeb3() {
+    this.store.dispatch({type: 'WEB3_INITIALIZING'})
+
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider.
       this.web3 = new Web3(window.web3.currentProvider)
 
       console.log('Injected web3 detected.')
+      this.store.dispatch({type: 'WEB3_INITIALIZED'})
 
       return this.getAccounts()
     } else {
@@ -47,15 +50,18 @@ class Drizzle {
           case 'ws':
             var provider = new Web3.providers.WebsocketProvider(this.options.web3.fallback.url)
             this.web3 = new Web3(provider)
+            this.store.dispatch({type: 'WEB3_INITIALIZED'})
             return this.getAccounts()
             break
           default:
             // Invalid options; throw.
+            this.store.dispatch({type: 'WEB3_FAILED'})
             console.error('Invalid web3 fallback provided.')
         }
       }
 
       // Out of web3 options; throw.
+      this.store.dispatch({type: 'WEB3_FAILED'})
       console.error('Cannot initialize web3.')
     }
   }
@@ -149,12 +155,6 @@ class Drizzle {
               {
                 const index = contractAddresses.indexOf(txs[i].from) !== -1 ? contractAddresses.indexOf(txs[i].from) : contractAddresses.indexOf(txs[i].to)
                 const contractName = contractNames[index]
-
-                console.log('index:')
-                console.log(index)
-
-                console.log('contractName:')
-                console.log(contractName)
 
                 return this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractName]})
               }

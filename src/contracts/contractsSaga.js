@@ -6,10 +6,10 @@ import { call, put, select, takeLatest, takeEvery } from 'redux-saga/effects'
 
 function derpContractVar({contract, fnName, fnIndex, args, argsHash}) {
   return contract.methods[fnName](...args).call()
-  .then((result) => {
+  .then(result => {
     return result
   })
-  .catch((error) => {
+  .catch(error => {
     console.error('Error in ' + contract.contractArtifact.contractName + ': ' + fnName)
     return console.error(error)
   })
@@ -56,9 +56,6 @@ function* callSyncContract(action) {
 
   const contractsState = yield select(getContractsState)
   const contractState = contractsState[contractName]
-
-  console.log('contractState:')
-  console.log(contractState)
 
   // Iterate over functions and hashes
   for (var fnName in contractState)
