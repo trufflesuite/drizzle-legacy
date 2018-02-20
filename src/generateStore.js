@@ -33,8 +33,6 @@ function generateStore(options) {
 
   }
 
-  console.log(contractsInitialState)
-
   var preloadedState = {
     accounts: {},
     contracts: contractsInitialState,

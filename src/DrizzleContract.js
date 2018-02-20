@@ -1,5 +1,5 @@
 class DrizzleContract {
-  constructor(contractArtifact, web3, store) {
+  constructor(contractArtifact, web3, store, events = []) {
     this.contractArtifact = contractArtifact
     this.abi = contractArtifact.abi
     this.web3 = web3
@@ -7,6 +7,7 @@ class DrizzleContract {
 
     var networkId = 0
 
+    // Instantiate the contract.
     web3.eth.net.getId()
     .then((networkId) => {
       var web3Contract = new web3.eth.Contract(
@@ -18,6 +19,7 @@ class DrizzleContract {
         }
       )
 
+      // Merge web3 contract instance into DrizzleContract instance.
       Object.assign(this, web3Contract)
 
       for (var i = 0; i < this.abi.length; i++) {
@@ -32,9 +34,26 @@ class DrizzleContract {
         }
       }
 
+      // Register event listeners if any events.
+      if (events.length > 0) {
+        for (i = 0; i < events.length; i++) {
+          const eventName = events[i]
+
+          store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName})
+        }
+      }
+
       const name = contractArtifact.contractName
 
       store.dispatch({type: 'CONTRACT_INITIALIZED', name})
+
+      return networkId
+    })
+    .catch((error) => {
+      console.error('Error retrieving network ID:')
+      console.error(error)
+
+      return
     })
   }
 
@@ -81,8 +100,8 @@ class DrizzleContract {
       contract.store.dispatch({type: 'PUSH_TO_STACK'})
 
       // TODO: FOR DEMO, MOVE MOVE MOVE
-      const name = contract.contractArtifact.contractName
-      contract.store.dispatch({type: 'CONTRACT_SYNC_IND', contractName: name})
+      //const name = contract.contractArtifact.contractName
+      //contract.store.dispatch({type: 'CONTRACT_SYNC_IND', contractName: name})
       
       // Dispatch tx to saga
       // When txhash received, will be value of stack ID
@@ -113,7 +132,14 @@ class DrizzleContract {
     {
       if (typeof args[i] !== 'function')
       {
-        var hashPiece = web3.utils.sha3(args[i])
+        var argToHash = args[i]
+
+        // Stringify objects to allow hashing
+        if (typeof argToHash === 'object') {
+          argToHash = JSON.stringify(argToHash)
+        }
+
+        var hashPiece = web3.utils.sha3(argToHash)
 
         hashString += hashPiece
       }

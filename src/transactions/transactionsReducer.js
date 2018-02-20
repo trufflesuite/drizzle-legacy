@@ -6,7 +6,8 @@ const transactionsReducer = (state = initialState, action) => {
         return {
             ...state,
             [action.txHash]: {
-                status: 'pending'
+                status: 'pending',
+                confirmations: []
             }
         }
     }
@@ -17,7 +18,7 @@ const transactionsReducer = (state = initialState, action) => {
             ...state,
             [action.txHash]: {
                 ...state[action.txHash],
-                confirmaitons: [
+                confirmations: [
                     ...state[action.txHash].confirmations,
                     action.confirmationReceipt
                 ]

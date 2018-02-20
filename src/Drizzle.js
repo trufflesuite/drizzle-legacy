@@ -86,9 +86,10 @@ class Drizzle {
     // Get all JSON artifacts passed in by user, instantiating and storing each contract.
     for (var i = 0; i < this.options.contracts.length; i++)
     {
-      var contractArtifact = this.options.contracts[i]
+      const contractArtifact = this.options.contracts[i]
+      const events = contractArtifact.contractName in this.options.events ? this.options.events[contractArtifact.contractName] : []
 
-      this.contracts[contractArtifact.contractName] = new DrizzleContract(contractArtifact, web3, store)
+      this.contracts[contractArtifact.contractName] = new DrizzleContract(contractArtifact, web3, store, events)
     }
 
     // Wait until all contracts are intialized before observing changes

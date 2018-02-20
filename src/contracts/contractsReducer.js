@@ -12,28 +12,20 @@ const contractsReducer = (state = initialState, action) => {
       [action.name]: {
         ...state[action.name],
         initialized: true,
-        synced: true
+        synced: true,
+        events: []
       }
     }
   }
 
   if (action.type === 'CONTRACT_SYNCING')
   {
-    return {
-      ...state,
-      [action.contractName]: {
-        ...state[action.contractName],
-        synced: false
-      }
-    }
-  }
+    const contractName = action.contract.contractArtifact.contractName
 
-  if (action.type === 'CONTRACT_SYNC_IND')
-  {
     return {
       ...state,
-      [action.contractName]: {
-        ...state[action.contractName],
+      [contractName]: {
+        ...state[contractName],
         synced: false
       }
     }
@@ -46,6 +38,17 @@ const contractsReducer = (state = initialState, action) => {
       [action.contractName]: {
         ...state[action.contractName],
         synced: true
+      }
+    }
+  }
+
+  if (action.type === 'CONTRACT_SYNC_IND')
+  {
+    return {
+      ...state,
+      [action.contractName]: {
+        ...state[action.contractName],
+        synced: false
       }
     }
   }
@@ -69,6 +72,43 @@ const contractsReducer = (state = initialState, action) => {
             value: action.value
           }
         }
+      }
+    }
+  }
+
+  if (action.type === 'ERROR_CONTRACT_VAR')
+  {
+    return {
+      ...state,
+      [action.name]: {
+        ...state[action.name],
+        [action.variable]: {
+          ...state[action.name][action.variable],
+          [action.argsHash]: {
+            ...state[action.name][action.variable][action.argsHash],
+            args: action.args,
+            fnIndex: action.fnIndex,
+            error: action.error
+          }
+        }
+      }
+    }
+  }
+
+  /*
+   * Contract Events
+   */
+
+  if (action.type === 'EVENT_FIRED')
+  {
+    return {
+      ...state,
+      [action.name]: {
+        ...state[action.name],
+        events: [
+          ...state[action.name].events,
+          action.event
+        ]
       }
     }
   }
