@@ -87,7 +87,8 @@ class Drizzle {
     for (var i = 0; i < this.options.contracts.length; i++)
     {
       const contractArtifact = this.options.contracts[i]
-      const events = contractArtifact.contractName in this.options.events ? this.options.events[contractArtifact.contractName] : []
+
+      const events = this.options.events && contractArtifact.contractName in this.options.events ? this.options.events[contractArtifact.contractName] : []
 
       this.contracts[contractArtifact.contractName] = new DrizzleContract(contractArtifact, web3, store, events)
     }
