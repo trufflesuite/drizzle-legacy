@@ -1,6 +1,5 @@
 import 'babel-polyfill' // Required for async/await in redux-saga
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleware from 'redux-thunk'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 import reducer from './reducer'
@@ -47,8 +46,7 @@ function generateStore(options) {
     preloadedState,
     composeEnhancers(
       applyMiddleware(
-        sagaMiddleware,
-        thunkMiddleware
+        sagaMiddleware
       )
     )
   )
