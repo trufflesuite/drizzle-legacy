@@ -103,6 +103,7 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
     ]
   },
   web3: {
+    ignoreMetamask, 
     fallback: {
       type
       url
@@ -118,6 +119,9 @@ An object consisting of contract names each containing an array of strings of th
 
 ### `web3` (object)
 Options regarding `web3` instantiation.
+
+#### `ignoreMetamask` (Boolean)
+If true Drizzle will ignore any injected web3 provider (including Metamask) that is present in the window context. Defaults to false. 
 
 #### `fallback` (object)
 An object consisting of the type and url of a fallback web3 provider. This is used if no injected provider, such as MetaMask or Mist, is detected.
