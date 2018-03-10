@@ -31,8 +31,14 @@ class Drizzle {
   getWeb3() {
     this.store.dispatch({type: 'WEB3_INITIALIZING'})
 
+    // Check if we are going to ignore metamask 
+    const ignoreMetamask = ('ignoreMetamask' in this.options.web3) ? 
+          this.options.web3.ignoreMetamask : 
+          false
+
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof window.web3 !== 'undefined') {
+    if (typeof window.web3 !== 'undefined' && !ignoreMetamask) {
+
       // Use Mist/MetaMask's provider.
       this.web3 = new Web3(window.web3.currentProvider)
 
