@@ -3,6 +3,7 @@ const path = require('path');
 process.env.BABEL_ENV = 'production';
 
 module.exports = {
+  watch: true,
   entry: './src/index.js',
   output: {
     filename: 'drizzle.js',

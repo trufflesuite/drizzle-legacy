@@ -1,16 +1,17 @@
 const initialState = {}
 
 const contractsReducer = (state = initialState, action) => {
+
   /*
    * Contract Status
    */
-
   if (action.type === 'CONTRACT_INITIALIZED')
   {
     return {
       ...state,
-      [action.name]: {
-        ...state[action.name],
+      [action.contract.options.address]: {
+        ...action.contract,
+        ...state[action.contract],
         initialized: true,
         synced: true,
         events: []

@@ -5,6 +5,8 @@ class DrizzleContract {
     this.web3 = web3
     this.store = store
 
+    store.dispatch({ type: 'CONTRACT_ADDED', contract: this })
+
     var networkId = 0
 
     // Instantiate the contract.
@@ -45,7 +47,7 @@ class DrizzleContract {
 
       const name = contractArtifact.contractName
 
-      store.dispatch({type: 'CONTRACT_INITIALIZED', name})
+      store.dispatch({ type: 'CONTRACT_INITIALIZED', contract: this})
 
       return networkId
     })
@@ -102,11 +104,11 @@ class DrizzleContract {
       // TODO: FOR DEMO, MOVE MOVE MOVE
       //const name = contract.contractArtifact.contractName
       //contract.store.dispatch({type: 'CONTRACT_SYNC_IND', contractName: name})
-      
+
       // Dispatch tx to saga
       // When txhash received, will be value of stack ID
       contract.store.dispatch({type: 'SEND_CONTRACT_TX', contract, fnName, fnIndex, args, stackId})
-     
+
       // return stack ID
       return stackId
     }

@@ -89,7 +89,7 @@ class Drizzle {
       const contractArtifact = this.options.contracts[i]
       const events = contractArtifact.contractName in this.options.events ? this.options.events[contractArtifact.contractName] : []
 
-      this.contracts[contractArtifact.contractName] = new DrizzleContract(contractArtifact, web3, store, events)
+      new DrizzleContract(contractArtifact, web3, store, events)
     }
 
     // Wait until all contracts are intialized before observing changes
@@ -155,9 +155,9 @@ class Drizzle {
               if (contractAddresses.indexOf(txs[i].from) !== -1 || contractAddresses.indexOf(txs[i].to) !== -1)
               {
                 const index = contractAddresses.indexOf(txs[i].from) !== -1 ? contractAddresses.indexOf(txs[i].from) : contractAddresses.indexOf(txs[i].to)
-                const contractName = contractNames[index]
+                const contractAddress = contractAddresses[index]
 
-                return this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractName]})
+                return this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractAddress]})
               }
             }
           }
