@@ -16,6 +16,7 @@ class Drizzle {
     // Function Bindings
     this.getWeb3 = this.getWeb3.bind(this)
     this.getAccounts = this.getAccounts.bind(this)
+    this.addContract = this.addContract.bind(this)
     this.getContracts = this.getContracts.bind(this)
     this.observeBlocks = this.observeBlocks.bind(this)
 
@@ -79,20 +80,25 @@ class Drizzle {
     })
   }
 
-  getContracts() {
+  addContract(contractArtifact, events) {
     var store = this.store
     var web3 = this.web3
+    new DrizzleContract(contractArtifact, web3, store, events)
+  }
+
+  getContracts() {
+    var store = this.store
 
     // Get all JSON artifacts passed in by user, instantiating and storing each contract.
     for (var i = 0; i < this.options.contracts.length; i++)
     {
       const contractArtifact = this.options.contracts[i]
       const events = contractArtifact.contractName in this.options.events ? this.options.events[contractArtifact.contractName] : []
-
-      new DrizzleContract(contractArtifact, web3, store, events)
+      this.addContract(contractArtifact, events)
     }
 
     // Wait until all contracts are intialized before observing changes
+    // (julien) Is that still needed? Probably not...
     this.readytoObserve = store.subscribe(() => {
       const state = store.getState()
       var initializedContracts = 0

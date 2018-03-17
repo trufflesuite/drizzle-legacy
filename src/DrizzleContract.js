@@ -10,9 +10,9 @@ class DrizzleContract {
     var networkId = 0
 
     // Instantiate the contract.
-    web3.eth.net.getId()
+    this.web3.eth.net.getId()
     .then((networkId) => {
-      var web3Contract = new web3.eth.Contract(
+      var web3Contract = new this.web3.eth.Contract(
         this.abi,
         this.contractArtifact.networks[networkId].address,
         {
