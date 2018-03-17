@@ -24,9 +24,17 @@ class DrizzleContract {
       // Merge web3 contract instance into DrizzleContract instance.
       Object.assign(this, web3Contract)
 
+      // Constant getters
+      // for (var i2 = 0; i2 < this.abi.length; i2++) {
+      //   var item = this.abi[i2];
+
+      //   if (item.type == "function" && item.constant === true) {
+      //     contractsInitialState[contractName][item.name] = { }
+      //   }
+      // }
+
       for (var i = 0; i < this.abi.length; i++) {
         var item = this.abi[i]
-
         if (item.type == "function" && item.constant === true) {
           this.methods[item.name].cacheCall = this.cacheCallFunction(item.name, i)
         }
