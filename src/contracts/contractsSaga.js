@@ -6,7 +6,7 @@ import { call, put, select, take, takeLatest, takeEvery } from 'redux-saga/effec
  */
 
 function createContractEventChannel({contract, eventName}) {
-  const contractAddress = contract.options.address
+  const contractAddress = contract.address
 
   return eventChannel(emit => {
     const eventListener = contract.events[eventName]().on('data', event => {
@@ -85,7 +85,7 @@ function* callSendContractTx({contract, fnName, fnIndex, args, stackId}) {
   }
 
   // Get address to mark as desynchronized on tx creation
-  const contractAddress = contract.options.address
+  const contractAddress = contract.address
 
   // Create the transaction object and execute the tx.
   const txObject = yield call(contract.methods[fnName], ...args)
@@ -125,7 +125,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
     const callResult = yield call(txObject.call, callArgs)
 
     var dispatchArgs = {
-      contractAddress: contract.options.contractAddress,
+      contractAddress: contract.address,
       variable: contract.abi[fnIndex].name,
       argsHash: argsHash,
       args: args,
@@ -139,7 +139,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
     console.error(error)
 
     var errorArgs = {
-      contractAddress: contract.options.address,
+      contractAddress: contract.address,
       variable: contract.abi[fnIndex].name,
       argsHash: argsHash,
       args: args,
