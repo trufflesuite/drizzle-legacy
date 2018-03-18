@@ -1,70 +1,52 @@
 class DrizzleContract {
-  constructor(contractArtifact, web3, store, events = []) {
-    this.contractArtifact = contractArtifact
+  constructor(contractArtifact, address, web3, store, events = []) {
     this.abi = contractArtifact.abi
+    this.name = contractArtifact.contractName
+    this.address = address
     this.web3 = web3
     this.store = store
 
-    store.dispatch({ type: 'CONTRACT_ADDED', contract: this })
-
-    var networkId = 0
-
     // Instantiate the contract.
-    this.web3.eth.net.getId()
-    .then((networkId) => {
-      var web3Contract = new this.web3.eth.Contract(
-        this.abi,
-        this.contractArtifact.networks[networkId].address,
-        {
-          from: this.store.getState().accounts[0],
-          data: this.contractArtifact.deployedBytecode
-        }
-      )
+    var web3Contract = new this.web3.eth.Contract(
+      this.abi,
+      address,
+      {
+        from: this.store.getState().accounts[0],
+        data: contractArtifact.deployedBytecode
+      }
+    )
 
-      // Merge web3 contract instance into DrizzleContract instance.
-      Object.assign(this, web3Contract)
+    // Merge web3 contract instance into DrizzleContract instance.
+    Object.assign(this, web3Contract)
 
-      // Constant getters
-      // for (var i2 = 0; i2 < this.abi.length; i2++) {
-      //   var item = this.abi[i2];
+    // Constant getters
+    // for (var i2 = 0; i2 < this.abi.length; i2++) {
+    //   var item = this.abi[i2];
 
-      //   if (item.type == "function" && item.constant === true) {
-      //     contractsInitialState[contractName][item.name] = { }
-      //   }
-      // }
+    //   if (item.type == "function" && item.constant === true) {
+    //     contractsInitialState[contractName][item.name] = { }
+    //   }
+    // }
 
-      for (var i = 0; i < this.abi.length; i++) {
-        var item = this.abi[i]
-        if (item.type == "function" && item.constant === true) {
-          this.methods[item.name].cacheCall = this.cacheCallFunction(item.name, i)
-        }
-
-        if (item.type == "function" && item.constant === false) {
-          this.methods[item.name].cacheSend = this.cacheSendFunction(item.name, i)
-        }
+    for (var i = 0; i < this.abi.length; i++) {
+      var item = this.abi[i]
+      if (item.type == "function" && item.constant === true) {
+        this.methods[item.name].cacheCall = this.cacheCallFunction(item.name, i)
       }
 
-      // Register event listeners if any events.
-      if (events.length > 0) {
-        for (i = 0; i < events.length; i++) {
-          const eventName = events[i]
-
-          store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName})
-        }
+      if (item.type == "function" && item.constant === false) {
+        this.methods[item.name].cacheSend = this.cacheSendFunction(item.name, i)
       }
+    }
 
-      const name = contractArtifact.contractName
-
-      store.dispatch({ type: 'CONTRACT_INITIALIZED', contract: this})
-
-      return networkId
-    })
-    .catch((error) => {
-      console.error('Error retrieving network ID:')
-      console.error(error)
-
-      return
-    })
+    // Register event listeners if any events.
+    if (events.length > 0) {
+      for (i = 0; i < events.length; i++) {
+        const eventName = events[i]
+        store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName})
+      }
+    }
+    store.dispatch({ type: 'CONTRACT_INITIALIZED', contract: this })
   }
 
   cacheCallFunction(fnName, fnIndex, fn) {
@@ -78,7 +60,7 @@ class DrizzleContract {
       if (args.length > 0) {
         argsHash = contract.generateArgsHash(args)
       }
-      const contractName = contract.contractArtifact.contractName
+      const contractName = contract.name
       const functionState = contract.store.getState().contracts[contractName][fnName]
 
       // If call result is in state and fresh, return value instead of calling
@@ -110,7 +92,7 @@ class DrizzleContract {
       contract.store.dispatch({type: 'PUSH_TO_STACK'})
 
       // TODO: FOR DEMO, MOVE MOVE MOVE
-      //const name = contract.contractArtifact.contractName
+      //const name = contract.name
       //contract.store.dispatch({type: 'CONTRACT_SYNC_IND', contractName: name})
 
       // Dispatch tx to saga

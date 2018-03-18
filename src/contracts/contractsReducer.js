@@ -9,7 +9,7 @@ const contractsReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      [action.contract.options.address]: {
+      [action.contract.address]: {
         ...action.contract,
         ...state[action.contract],
         initialized: true,
@@ -21,7 +21,7 @@ const contractsReducer = (state = initialState, action) => {
 
   if (action.type === 'CONTRACT_SYNCING')
   {
-    const contractAddress = action.contract.options.address
+    const contractAddress = action.contract.address
     return {
       ...state,
       [contractAddress]: {
