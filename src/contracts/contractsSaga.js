@@ -6,17 +6,17 @@ import { call, put, select, take, takeLatest, takeEvery } from 'redux-saga/effec
  */
 
 function createContractEventChannel({contract, eventName}) {
-  const name = contract.contractArtifact.contractName
+  const contractAddress = contract.address
 
   return eventChannel(emit => {
     const eventListener = contract.events[eventName]().on('data', event => {
-      emit({type: 'EVENT_FIRED', name, event})
+      emit({type: 'EVENT_FIRED', contractAddress, event})
     })
     .on('changed', event => {
-      emit({type: 'EVENT_CHANGED', name, event})
+      emit({type: 'EVENT_CHANGED', contractAddress, event})
     })
     .on('error', error => {
-      emit({type: 'EVENT_ERROR', name, error})
+      emit({type: 'EVENT_ERROR', contractAddress, error})
       emit(END)
     })
 
@@ -41,7 +41,7 @@ function* callListenForContractEvent({contract, eventName}) {
  * Send and Cache
  */
 
-function createTxChannel({txObject, stackId, sendArgs = {}, contractName}) {
+function createTxChannel({txObject, stackId, sendArgs = {}, contractAddress}) {
   var persistTxHash
 
   return eventChannel(emit => {
@@ -49,10 +49,10 @@ function createTxChannel({txObject, stackId, sendArgs = {}, contractName}) {
       persistTxHash = txHash
 
       emit({type: 'TX_BROADCASTED', txHash, stackId})
-      emit({type: 'CONTRACT_SYNC_IND', contractName})
+      emit({type: 'CONTRACT_SYNC_IND', contractAddress})
     })
     .on('confirmation', (confirmationNumber, receipt) => {
-      emit({type: 'TX_CONFIRMAITON', confirmationReceipt: receipt, txHash: persistTxHash})
+      emit({type: 'TX_CONFIRMATION', confirmationReceipt: receipt, txHash: persistTxHash})
     })
     .on('receipt', receipt => {
       emit({type: 'TX_SUCCESSFUL', receipt: receipt, txHash: persistTxHash})
@@ -84,12 +84,12 @@ function* callSendContractTx({contract, fnName, fnIndex, args, stackId}) {
     args.length = args.length - 1
   }
 
-  // Get name to mark as desynchronized on tx creation
-  const contractName = contract.contractArtifact.contractName
+  // Get address to mark as desynchronized on tx creation
+  const contractAddress = contract.address
 
   // Create the transaction object and execute the tx.
   const txObject = yield call(contract.methods[fnName], ...args)
-  const txChannel = yield call(createTxChannel, {txObject, stackId, sendArgs, contractName})
+  const txChannel = yield call(createTxChannel, {txObject, stackId, sendArgs, contractAddress})
 
   try {
     while (true) {
@@ -117,36 +117,36 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
     delete args[args.length - 1]
     args.length = args.length - 1
   }
-  
+
   // Create the transaction object and execute the call.
   const txObject = yield call(contract.methods[fnName], ...args)
-  
+
   try {
     const callResult = yield call(txObject.call, callArgs)
 
     var dispatchArgs = {
-      name: contract.contractArtifact.contractName,
+      contractAddress: contract.address,
       variable: contract.abi[fnIndex].name,
       argsHash: argsHash,
       args: args,
       value: callResult,
       fnIndex: fnIndex
     }
-  
-    yield put({type: 'GOT_CONTRACT_VAR', ...dispatchArgs})  
+
+    yield put({type: 'GOT_CONTRACT_VAR', ...dispatchArgs})
   }
   catch (error) {
     console.error(error)
 
     var errorArgs = {
-      name: contract.contractArtifact.contractName,
+      contractAddress: contract.address,
       variable: contract.abi[fnIndex].name,
       argsHash: argsHash,
       args: args,
       error: error,
       fnIndex: fnIndex
     }
-  
+
     yield put({type: 'ERROR_CONTRACT_VAR', ...errorArgs})
   }
 }

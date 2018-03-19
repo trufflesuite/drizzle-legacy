@@ -1,5 +1,5 @@
 const initialState = {}
-  
+
 const transactionsReducer = (state = initialState, action) => {
     if (action.type === 'TX_BROADCASTED')
     {
@@ -12,7 +12,7 @@ const transactionsReducer = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'TX_CONFIRMAITON')
+    if (action.type === 'TX_CONFIRMATION')
     {
         return {
             ...state,

@@ -1,16 +1,17 @@
 const initialState = {}
 
 const contractsReducer = (state = initialState, action) => {
+
   /*
    * Contract Status
    */
-
   if (action.type === 'CONTRACT_INITIALIZED')
   {
     return {
       ...state,
-      [action.name]: {
-        ...state[action.name],
+      [action.contract.address]: {
+        ...action.contract,
+        ...state[action.contract],
         initialized: true,
         synced: true,
         events: []
@@ -20,12 +21,11 @@ const contractsReducer = (state = initialState, action) => {
 
   if (action.type === 'CONTRACT_SYNCING')
   {
-    const contractName = action.contract.contractArtifact.contractName
-
+    const contractAddress = action.contract.address
     return {
       ...state,
-      [contractName]: {
-        ...state[contractName],
+      [contractAddress]: {
+        ...state[contractAddress],
         synced: false
       }
     }
@@ -35,8 +35,8 @@ const contractsReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      [action.contractName]: {
-        ...state[action.contractName],
+      [action.contractAddress]: {
+        ...state[action.contractAddress],
         synced: true
       }
     }
@@ -46,8 +46,8 @@ const contractsReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      [action.contractName]: {
-        ...state[action.contractName],
+      [action.contractAddress]: {
+        ...state[action.contractAddress],
         synced: false
       }
     }
@@ -61,12 +61,12 @@ const contractsReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      [action.name]: {
-        ...state[action.name],
+      [action.contractAddress]: {
+        ...state[action.contractAddress],
         [action.variable]: {
-          ...state[action.name][action.variable],
+          ...state[action.contractAddress][action.variable],
           [action.argsHash]: {
-            ...state[action.name][action.variable][action.argsHash],
+            ...state[action.contractAddress][action.variable][action.argsHash],
             args: action.args,
             fnIndex: action.fnIndex,
             value: action.value
@@ -80,12 +80,12 @@ const contractsReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      [action.name]: {
-        ...state[action.name],
+      [action.contractAddress]: {
+        ...state[action.contractAddress],
         [action.variable]: {
-          ...state[action.name][action.variable],
+          ...state[action.contractAddress][action.variable],
           [action.argsHash]: {
-            ...state[action.name][action.variable][action.argsHash],
+            ...state[action.contractAddress][action.variable][action.argsHash],
             args: action.args,
             fnIndex: action.fnIndex,
             error: action.error
@@ -103,10 +103,10 @@ const contractsReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      [action.name]: {
-        ...state[action.name],
+      [action.contractAddress]: {
+        ...state[action.contractAddress],
         events: [
-          ...state[action.name].events,
+          ...state[action.contractAddress].events,
           action.event
         ]
       }

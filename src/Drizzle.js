@@ -12,10 +12,13 @@ class Drizzle {
     this.initialized = false
     this.store = store
     this.web3 = {}
+    this.networkId = null
 
     // Function Bindings
     this.getWeb3 = this.getWeb3.bind(this)
+    this.connect = this.connect.bind(this)
     this.getAccounts = this.getAccounts.bind(this)
+    this.addContract = this.addContract.bind(this)
     this.getContracts = this.getContracts.bind(this)
     this.observeBlocks = this.observeBlocks.bind(this)
 
@@ -39,7 +42,7 @@ class Drizzle {
       console.log('Injected web3 detected.')
       this.store.dispatch({type: 'WEB3_INITIALIZED'})
 
-      return this.getAccounts()
+      return this.connect()
     } else {
 
       if (this.options.web3.fallback) {
@@ -51,7 +54,7 @@ class Drizzle {
             var provider = new Web3.providers.WebsocketProvider(this.options.web3.fallback.url)
             this.web3 = new Web3(provider)
             this.store.dispatch({type: 'WEB3_INITIALIZED'})
-            return this.getAccounts()
+            return this.connect()
             break
           default:
             // Invalid options; throw.
@@ -66,56 +69,46 @@ class Drizzle {
     }
   }
 
+  connect() {
+    return this.web3.eth.net.getId()
+      .then((_networkId) => {
+        this.networkId = _networkId
+        return this.getAccounts()
+      }).then(() => {
+        this.getContracts()
+        return this.observeBlocks()
+      }).catch((error) => {
+        console.error('Error fetching accounts:')
+        console.error(error)
+      })
+  }
+
   getAccounts() {
     var web3 = this.web3
-
     return new Promise((resolve, reject) => {
       this.store.dispatch({type: 'ACCOUNTS_FETCHING', web3, resolve, reject})
-    }).then(() => {
-      this.getContracts()
-    }).catch((error) => {
-      console.error('Error fetching accounts:')
-      console.error(error)
     })
+  }
+
+  addContract(contractArtifact, address, events) {
+    var store = this.store
+    var web3 = this.web3
+    return new DrizzleContract(contractArtifact, address, web3, store, events)
   }
 
   getContracts() {
     var store = this.store
-    var web3 = this.web3
-
     // Get all JSON artifacts passed in by user, instantiating and storing each contract.
     for (var i = 0; i < this.options.contracts.length; i++)
     {
       const contractArtifact = this.options.contracts[i]
       const events = contractArtifact.contractName in this.options.events ? this.options.events[contractArtifact.contractName] : []
-
-      this.contracts[contractArtifact.contractName] = new DrizzleContract(contractArtifact, web3, store, events)
+      this.addContract(contractArtifact, contractArtifact.networks[this.networkId].address, events)
     }
-
-    // Wait until all contracts are intialized before observing changes
-    this.readytoObserve = store.subscribe(() => {
-      const state = store.getState()
-      var initializedContracts = 0
-
-      for (var contract in state.contracts)
-      {
-        if (state.contracts[contract].initialized === true)
-        {
-          initializedContracts++
-
-          if (initializedContracts === Object.keys(state.contracts).length)
-          {
-            // All contracts are initialized, we can begin observing changes
-            this.observeBlocks()
-          }
-        }
-      }
-    })
   }
 
   observeBlocks() {
     // Cancels our store subscription.
-    this.readytoObserve()
 
     this.store.dispatch({type: 'DRIZZLE_INITIALIZED'})
 
@@ -126,7 +119,7 @@ class Drizzle {
     for (var contract in this.contracts)
     {
       contractNames.push(this.contracts[contract].contractArtifact.contractName)
-      contractAddresses.push(this.contracts[contract].options.address)
+      contractAddresses.push(this.contracts[contract].address)
     }
 
     // Observe new blocks and re-sync contracts.
@@ -155,9 +148,9 @@ class Drizzle {
               if (contractAddresses.indexOf(txs[i].from) !== -1 || contractAddresses.indexOf(txs[i].to) !== -1)
               {
                 const index = contractAddresses.indexOf(txs[i].from) !== -1 ? contractAddresses.indexOf(txs[i].from) : contractAddresses.indexOf(txs[i].to)
-                const contractName = contractNames[index]
+                const contractAddress = contractAddresses[index]
 
-                return this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractName]})
+                return this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractAddress]})
               }
             }
           }
