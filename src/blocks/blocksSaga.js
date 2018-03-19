@@ -4,12 +4,11 @@ import { call, put, take, takeEvery, takeLatest } from 'redux-saga/effects'
 // TODO
 // TODO: Turn into "pollsSaga"
 // Poll for multiple things depending on options:
-// accounts, accountBalances, blocks
+// accounts (includes accountBalances), blocks
 // "blocks" option automatically passed by web3 provider detection
 // Object shape: {
-//   accounts: true,
-//   accountBalances: false,
-//   blocks: true
+//   accounts: <<INTERVAL>>,
+//   blocks: <<INTERVAL>>
 // }
 // TODO
 // TODO
@@ -64,7 +63,7 @@ function* callCreateBlockChannel({contracts, contractAddresses, contractNames, w
  * Poll for Blocks
  */
 
-function createBlockPollChannel({contracts, contractAddresses, contractNames, web3}) {
+function createBlockPollChannel({contracts, contractAddresses, contractNames, interval, web3}) {
   return eventChannel(emit => {
     const blockPoller = setInterval(() => {
       web3.eth.getBlock('latest').then((block) => {
@@ -74,7 +73,7 @@ function createBlockPollChannel({contracts, contractAddresses, contractNames, we
         emit({type: 'BLOCKS_FAILED', error})
         emit(END)
       })
-    }, 1500)
+    }, interval) // options.polls.blocks
     
     const unsubscribe = () => {
       clearInterval(blockPoller)
@@ -84,8 +83,8 @@ function createBlockPollChannel({contracts, contractAddresses, contractNames, we
   })
 }
 
-function* callCreateBlockPollChannel({contracts, contractAddresses, contractNames, web3}) {
-  const blockChannel = yield call(createBlockPollChannel, {contracts, contractAddresses, contractNames, web3})
+function* callCreateBlockPollChannel({contracts, contractAddresses, contractNames, interval, web3}) {
+  const blockChannel = yield call(createBlockPollChannel, {contracts, contractAddresses, contractNames, interval, web3})
 
   try {
     while (true) {
