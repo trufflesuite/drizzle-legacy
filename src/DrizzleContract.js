@@ -60,12 +60,12 @@ class DrizzleContract {
       if (args.length > 0) {
         argsHash = contract.generateArgsHash(args)
       }
-      const contractName = contract.name
-      const functionState = contract.store.getState().contracts[contractName][fnName]
+      const contractAddress = contract.address
+      const functionState = contract.store.getState().contracts[contractAddress][fnName]
 
       // If call result is in state and fresh, return value instead of calling
       if (argsHash in functionState) {
-        if (contract.store.getState().contracts[contractName].synced === true) {
+        if (contract.store.getState().contracts[contractAddress].synced === true) {
           return argsHash
         }
       }
