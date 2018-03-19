@@ -93,7 +93,7 @@ class Drizzle {
   addContract(contractArtifact, address, events) {
     var store = this.store
     var web3 = this.web3
-    new DrizzleContract(contractArtifact, address, web3, store, events)
+    return new DrizzleContract(contractArtifact, address, web3, store, events)
   }
 
   getContracts() {
