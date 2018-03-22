@@ -31,9 +31,9 @@ class Drizzle {
   getWeb3() {
     this.store.dispatch({type: 'WEB3_INITIALIZING'})
 
-    // Check if we are going to ignore metamask 
-    const ignoreMetamask = ('ignoreMetamask' in this.options.web3) ? 
-          this.options.web3.ignoreMetamask : 
+    // Check if we are going to ignore metamask
+    const ignoreMetamask = ('ignoreMetamask' in this.options.web3) ?
+          this.options.web3.ignoreMetamask :
           false
 
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -56,6 +56,9 @@ class Drizzle {
           case 'ws':
             var provider = new Web3.providers.WebsocketProvider(this.options.web3.fallback.url)
             this.web3 = new Web3(provider)
+            if (typeof window.web3 !== 'undefined') {
+              this.metamaskWeb3 = window.web3;
+            }
             this.store.dispatch({type: 'WEB3_INITIALIZED'})
             return this.getAccounts()
             break
@@ -73,11 +76,19 @@ class Drizzle {
   }
 
   getAccounts() {
-    var web3 = this.web3
+    var web3 = this.metamaskWeb3 || this.web3
 
     return new Promise((resolve, reject) => {
       this.store.dispatch({type: 'ACCOUNTS_FETCHING', web3, resolve, reject})
-    }).then(() => {
+    })
+    .then(() => {
+      let state = this.store.getState()
+      let accounts = state.accounts.ids;
+      return new Promise((resolve, reject) => {
+        this.store.dispatch({type: 'GET_BALANCES', web3, accounts, resolve, reject})
+      });
+    })
+    .then(() => {
       this.getContracts()
     }).catch((error) => {
       console.error('Error fetching accounts:')
@@ -87,7 +98,7 @@ class Drizzle {
 
   getContracts() {
     var store = this.store
-    var web3 = this.web3
+    var web3 = this.metamaskWeb3 || this.web3
 
     // Get all JSON artifacts passed in by user, instantiating and storing each contract.
     for (var i = 0; i < this.options.contracts.length; i++)
@@ -122,11 +133,15 @@ class Drizzle {
   observeBlocks() {
     // Cancels our store subscription.
     this.readytoObserve()
+    let web3 = this.web3
 
     this.store.dispatch({type: 'DRIZZLE_INITIALIZED'})
 
+    let state = this.store.getState()
+
     var contractAddresses = []
     var contractNames = []
+    var accountAddresses = state.accounts.ids;
 
     // Collect contract addresses in an array for later comparison in txs.
     for (var contract in this.contracts)
@@ -162,13 +177,18 @@ class Drizzle {
               {
                 const index = contractAddresses.indexOf(txs[i].from) !== -1 ? contractAddresses.indexOf(txs[i].from) : contractAddresses.indexOf(txs[i].to)
                 const contractName = contractNames[index]
-
-                return this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractName]})
+                this.store.dispatch({type: 'CONTRACT_SYNCING', contract: this.contracts[contractName]})
+              }
+              // TODO update ETH balance of accounts
+              if (accountAddresses.indexOf(txs[i].from) !== -1 || accountAddresses.indexOf(txs[i].to) !== -1)
+              {
+                const index = accountAddresses.indexOf(txs[i].from) !== -1 ? accountAddresses.indexOf(txs[i].from) : accountAddresses.indexOf(txs[i].to)
+                const account = accountAddresses[index]
+                this.store.dispatch({ type: 'GET_ACCOUNT_BALANCE', account, web3 })
               }
             }
           }
-
-          return
+          return true;
         })
         .catch((error) => {
           console.error('Error in block fetching:')
