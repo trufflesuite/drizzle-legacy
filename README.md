@@ -60,7 +60,7 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
 
    The contract instance has all of its standard web3 properties and methods. For example, you could still call as normal if you don't want something in the store:
    ```javascript
-   // (depricated) drizzle.contracts.SimpleStorage.methods.storedData().call()
+   // (deprecated) drizzle.contracts.SimpleStorage.methods.storedData().call()
    state.contracts.SimpleStorage.methods.storedData().call()
    ```
 
@@ -74,7 +74,7 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
    // If Drizzle is initialized (and therefore web3, accounts and contracts), continue.
    if (state.drizzleStatus.initialized) {
     // Declare this transaction to be observed. We'll receive the stackId for reference.
-    // (depricated) const stackId = drizzle.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
+    // (deprecated) const stackId = drizzle.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
     const stackId = state.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
 
     // Use the dataKey to display the transaction status.
@@ -152,7 +152,7 @@ An object consisting of the type and url of a fallback web3 provider. This is us
       initialized,
       synced,
       events,
-      state:
+      state: {
         callerFunctionName: {
           argsHash: {
             args,
