@@ -45,11 +45,13 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
 
    // If Drizzle is initialized (and therefore web3, accounts and contracts), continue.
    if (state.drizzleStatus.initialized) {
+
     // Declare this call to be cached and synchronized. We'll receive the store key for recall.
-    const dataKey = drizzle.contracts.SimpleStorage.methods.storedData.cacheCall()
+    // (deprecated) const dataKey = drizzle.contracts.SimpleStorage.methods.storedData.cacheCall()
+    const dataKey = state.contracts.SimpleStorage.methods.storedData.cacheCall()
 
     // Use the dataKey to display data from the store.
-    return state.contracts.SimpleStorage.methods.storedData[dataKey].value
+    return state.contracts.SimpleStorage.state.storedData[dataKey].value
    }
 
    // If Drizzle isn't initialized, display some loading indication.
@@ -58,7 +60,8 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
 
    The contract instance has all of its standard web3 properties and methods. For example, you could still call as normal if you don't want something in the store:
    ```javascript
-   drizzle.contracts.SimpleStorage.methods.storedData().call()
+   // (deprecated) drizzle.contracts.SimpleStorage.methods.storedData().call()
+   state.contracts.SimpleStorage.methods.storedData().call()
    ```
 
 1. Send a contract transaction. Calling the `cacheSend()` function on a contract will send the desired transaction and return a corresponding transaction hash so the status can be retrieved from the store. The last argument can optionally be an options object with the typical from, gas and gasPrice keys. Drizzle will update the transaction's state in the store (pending, success, error) and store the transaction receipt. For more information on how this works, see [How Data Stays Fresh](#how-data-stays-fresh).
@@ -71,7 +74,8 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
    // If Drizzle is initialized (and therefore web3, accounts and contracts), continue.
    if (state.drizzleStatus.initialized) {
     // Declare this transaction to be observed. We'll receive the stackId for reference.
-    const stackId = drizzle.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
+    // (deprecated) const stackId = drizzle.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
+    const stackId = state.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
 
     // Use the dataKey to display the transaction status.
     if (state.transactionStack[stackId]) {
@@ -103,6 +107,9 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
     ]
   },
   web3: {
+    ignoreMetamask,
+    block: false, // not sure why, but this is needed defaults bug?
+    useMetamask, // will use metamask to query account balances and send tx
     fallback: {
       type
       url
@@ -119,8 +126,14 @@ An object consisting of contract names each containing an array of strings of th
 ### `web3` (object)
 Options regarding `web3` instantiation.
 
+#### `ignoreMetamask` (Boolean)
+If true Drizzle will ignore any injected web3 provider (including Metamask) that is present in the window context. Defaults to false. 
+
+#### `useMetamask` (Boolean)
+If true Drizzle will use injected web3 provider (like Metamask) that is present in the window context to query accounts and send transactions. Defaults to false. 
+
 #### `fallback` (object)
-An object consisting of the type and url of a fallback web3 provider. This is used if no injected provider, such as MetaMask or Mist, is detected.
+An object consisting of the type and url of a fallback web3 provider. This is used if no injected provider, such as MetaMask or Mist, is detected or together with Metamaks to get contract updates via websockets.
 
 `type` (string): The type of web3 fallback, currently `ws` (web socket) is the only possibility.
 
@@ -130,18 +143,24 @@ An object consisting of the type and url of a fallback web3 provider. This is us
 
 ```javascript
 {
-  accounts,
+  accounts: {
+    ids: [],
+    balances: {}
+  }
   contracts: {
     contractName: {
       initialized,
       synced,
       events,
-      callerFunctionName: {
-        argsHash: {
-          args,
-          value
+      state: {
+        callerFunctionName: {
+          argsHash: {
+            args,
+            value
+          }
         }
-      }
+      },
+      methods: {}
     }
   },
   transactions: {
@@ -163,7 +182,8 @@ An object consisting of the type and url of a fallback web3 provider. This is us
 ```
 
 ### `accounts` (array)
-An array of account addresses from `web3`.
+`ids` (array): An array of account addresses from `web3`.
+`balances` (object): Object containing ETH balances of accounts indexed by id.
 
 ### `contracts` (object)
 A series of contract state objects, indexed by the contract name as declared in its ABI.
@@ -175,7 +195,9 @@ A series of contract state objects, indexed by the contract name as declared in 
 
 `events` (array): An array of event objects. Drizzle will only listen for the events we declared in options.
 
-The contract's state also includes the state of each constant function called on the contract (`callerFunctionName`). The functions are indexed by name, and contain the outputs indexed by a hash of the arguments passed during the call (`argsHash`). If no arguments were passed, the hash is `0x0`. Drizzle reads from the store for you, so it should be unnecessary to touch this data cache manually.
+`state` (object): The contract's state also the state of each constant function called on the contract (`callerFunctionName`). The functions are indexed by name, and contain the outputs indexed by a hash of the arguments passed during the call (`argsHash`). If no arguments were passed, the hash is `0x0`. Drizzle reads from the store for you, so it should be unnecessary to touch this data cache manually.
+
+### callerFunctionName (object)
 
 `args` (array): Arguments passed to function call.
 `value` (mixed): Value returned from function call.

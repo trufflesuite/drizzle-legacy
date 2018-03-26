@@ -5,6 +5,13 @@ const contractsReducer = (state = initialState, action) => {
    * Contract Status
    */
 
+  if (action.type === 'INIT_CONTRACT_STATE') {
+    return {
+      ...state,
+      [action.contractName]: action.initialState
+    }
+  }
+
   if (action.type === 'CONTRACT_INITIALIZED')
   {
     return {
@@ -13,7 +20,9 @@ const contractsReducer = (state = initialState, action) => {
         ...state[action.name],
         initialized: true,
         synced: true,
-        events: []
+        events: [],
+        methods: action.methods,
+        address: action.address
       }
     }
   }
@@ -63,13 +72,16 @@ const contractsReducer = (state = initialState, action) => {
       ...state,
       [action.name]: {
         ...state[action.name],
-        [action.variable]: {
-          ...state[action.name][action.variable],
-          [action.argsHash]: {
-            ...state[action.name][action.variable][action.argsHash],
-            args: action.args,
-            fnIndex: action.fnIndex,
-            value: action.value
+        state: {
+          ...state[action.name].state,
+          [action.variable]: {
+            ...state[action.name].state[action.variable],
+            [action.argsHash]: {
+              ...state[action.name].state[action.variable][action.argsHash],
+              args: action.args,
+              fnIndex: action.fnIndex,
+              value: action.value
+            }
           }
         }
       }
@@ -82,13 +94,16 @@ const contractsReducer = (state = initialState, action) => {
       ...state,
       [action.name]: {
         ...state[action.name],
-        [action.variable]: {
-          ...state[action.name][action.variable],
-          [action.argsHash]: {
-            ...state[action.name][action.variable][action.argsHash],
-            args: action.args,
-            fnIndex: action.fnIndex,
-            error: action.error
+        state: {
+          ...state[action.name].state,
+          [action.variable]: {
+            ...state[action.name][action.variable],
+            [action.argsHash]: {
+              ...state[action.name][action.variable][action.argsHash],
+              args: action.args,
+              fnIndex: action.fnIndex,
+              error: action.error
+            }
           }
         }
       }

@@ -117,11 +117,10 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
     delete args[args.length - 1]
     args.length = args.length - 1
   }
-  
-  // Create the transaction object and execute the call.
-  const txObject = yield call(contract.methods[fnName], ...args)
-  
   try {
+    // Create the transaction object and execute the call.
+    const txObject = yield call(contract.methods[fnName], ...args)
+
     const callResult = yield call(txObject.call, callArgs)
 
     var dispatchArgs = {
@@ -132,8 +131,8 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
       value: callResult,
       fnIndex: fnIndex
     }
-  
-    yield put({type: 'GOT_CONTRACT_VAR', ...dispatchArgs})  
+
+    yield put({type: 'GOT_CONTRACT_VAR', ...dispatchArgs})
   }
   catch (error) {
     console.error(error)
@@ -146,7 +145,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
       error: error,
       fnIndex: fnIndex
     }
-  
+
     yield put({type: 'ERROR_CONTRACT_VAR', ...errorArgs})
   }
 }
@@ -161,7 +160,7 @@ function* callSyncContract(action) {
   const contractName = contract.contractArtifact.contractName
 
   const contractsState = yield select(getContractsState)
-  var contractFnsState = Object.assign({}, contractsState[contractName])
+  var contractFnsState = Object.assign({}, contractsState[contractName].state)
 
   // Remove unecessary keys
   delete contractFnsState.initialized

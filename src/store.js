@@ -1,4 +1,4 @@
-import 'babel-polyfill' // Required for async/await in redux-saga
+// import 'babel-polyfill' // Required for async/await in redux-saga
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createSagaMiddleware from 'redux-saga'
