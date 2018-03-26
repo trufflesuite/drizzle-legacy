@@ -26,33 +26,26 @@ function* callGetAccounts(action) {
 }
 
 function* callGetBalances(action) {
+  try {
   if (!action.accounts || !action.accounts.length) {
-    console.error('No accounts found!')
-    yield call(action.reject, {source: 'accounts', message: 'Failed to get balances.'})
+    console.error('No accounts')
+    return;
   }
-
   const balances = yield all(action.accounts.map(account => {
     return callGetAccountBalance({ ...action, account })
   }))
-
-  yield call(action.resolve)
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function* callGetAccountBalance(action) {
   try {
     const balance = yield call(getBalance, action.account, action.web3)
-
-  // if (!balance) {
-  //   console.error('Failed to get balance');
-  //   yield call(action.reject, {source: 'accounts', message: 'Failed to get balance.'})
-  // }
-
     yield put({type: 'ACCOUNT_BALANCE_FETCHED', balance})
   } catch (err) {
     console.log(err);
   }
-
-  // yield call(action.resolve)
 }
 
 function* accountsSaga() {

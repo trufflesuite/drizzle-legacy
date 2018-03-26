@@ -11,7 +11,8 @@ const drizzleStatusReducer = (state = initialState, action) => {
   {
     return {
       ...state,
-      initialized: true
+      initialized: true,
+      // drizzleInstance: action.drizzleInstance
     }
   }
   return state

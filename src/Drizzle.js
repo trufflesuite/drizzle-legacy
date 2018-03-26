@@ -18,6 +18,7 @@ class Drizzle {
     this.getAccounts = this.getAccounts.bind(this)
     this.getContracts = this.getContracts.bind(this)
     this.observeBlocks = this.observeBlocks.bind(this)
+    this.watchAccounts = this.watchAccounts.bind(this)
 
     // Drizzle load event
     this.ready = new Event('DrizzleReady')
@@ -33,11 +34,15 @@ class Drizzle {
 
     // Check if we are going to ignore metamask
     const ignoreMetamask = ('ignoreMetamask' in this.options.web3) ?
-          this.options.web3.ignoreMetamask :
-          false
+      this.options.web3.ignoreMetamask :
+      false
+
+    const useMetamask = ('useMetamask' in this.options.web3) ?
+      this.options.web3.useMetamask :
+      false;
 
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof window.web3 !== 'undefined' && !ignoreMetamask) {
+    if (typeof window.web3 !== 'undefined' && !ignoreMetamask && !useMetamask) {
 
       // Use Mist/MetaMask's provider.
       this.web3 = new Web3(window.web3.currentProvider)
@@ -56,8 +61,10 @@ class Drizzle {
           case 'ws':
             var provider = new Web3.providers.WebsocketProvider(this.options.web3.fallback.url)
             this.web3 = new Web3(provider)
-            if (typeof window.web3 !== 'undefined') {
-              this.metamaskWeb3 = window.web3;
+            if (typeof window.web3 !== 'undefined' && useMetamask) {
+              var metamaksProvider = window.web3.currentProvider
+              window.web3 = new Web3(metamaksProvider)
+              this.metamaskWeb3 = window.web3
             }
             this.store.dispatch({type: 'WEB3_INITIALIZED'})
             return this.getAccounts()
@@ -84,16 +91,34 @@ class Drizzle {
     .then(() => {
       let state = this.store.getState()
       let accounts = state.accounts.ids;
-      return new Promise((resolve, reject) => {
-        this.store.dispatch({type: 'GET_BALANCES', web3, accounts, resolve, reject})
-      });
-    })
-    .then(() => {
+      this.store.dispatch({type: 'GET_BALANCES', web3, accounts})
+      this.watchAccounts();
       this.getContracts()
     }).catch((error) => {
       console.error('Error fetching accounts:')
       console.error(error)
     })
+  }
+
+  /**
+   * Watch for metamask login and account changes
+   * setInterval is unfortunately still the best way to detect account changes
+   */
+  watchAccounts() {
+    var web3 = this.metamaskWeb3 || this.web3
+    var accountInterval = setInterval(async () => {
+      let state = this.store.getState()
+      let accounts = state.accounts.ids;
+      let newAccounts = await web3.eth.getAccounts()
+      if (newAccounts[0] !== accounts[0]) {
+        await new Promise((resolve, reject) => {
+          this.store.dispatch({type: 'ACCOUNTS_FETCHING', web3, resolve, reject})
+        })
+        state = this.store.getState()
+        accounts = state.accounts.ids;
+        this.store.dispatch({type: 'GET_BALANCES', web3, accounts})
+      }
+    }, 300);
   }
 
   getContracts() {
@@ -135,7 +160,7 @@ class Drizzle {
     this.readytoObserve()
     let web3 = this.web3
 
-    this.store.dispatch({type: 'DRIZZLE_INITIALIZED'})
+    this.store.dispatch({type: 'DRIZZLE_INITIALIZED', drizzleInstance: this })
 
     let state = this.store.getState()
 
@@ -150,6 +175,7 @@ class Drizzle {
       contractAddresses.push(this.contracts[contract].options.address)
     }
 
+    // TODO reconnection logic
     // Observe new blocks and re-sync contracts.
     this.web3.eth.subscribe('newBlockHeaders', (error, result) => {
       if (error)

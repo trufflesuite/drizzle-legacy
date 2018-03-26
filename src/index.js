@@ -1,13 +1,11 @@
 import Drizzle from './Drizzle.js'
 import generateStore from './generateStore'
-/*import ethereumMiddleware from './ethereumMiddleware.js'
-import ethereumReducers from './ethereumReducers.js'
-import ethereumSaga from './ethereumSaga.js'*/
+import reducer from './reducer.js'
+import rootSaga from './rootSaga'
 
 export {
   Drizzle,
-  generateStore
-  /*ethereumMiddleware,
-  ethereumReducers,
-  ethereumSaga*/
+  generateStore,
+  reducer,
+  rootSaga
 }

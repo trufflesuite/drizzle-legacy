@@ -19,6 +19,8 @@ class DrizzleContract {
         }
       )
 
+      this.initContractState();
+
       // Merge web3 contract instance into DrizzleContract instance.
       Object.assign(this, web3Contract)
 
@@ -44,8 +46,10 @@ class DrizzleContract {
       }
 
       const name = contractArtifact.contractName
+      let methods = this.methods;
+      let address = this._address;
 
-      store.dispatch({type: 'CONTRACT_INITIALIZED', name})
+      store.dispatch({type: 'CONTRACT_INITIALIZED', name, methods, address})
 
       return networkId
     })
@@ -55,6 +59,29 @@ class DrizzleContract {
 
       return
     })
+  }
+
+  initContractState() {
+    // Initial contract details
+    var contractName = this.contractArtifact.contractName
+
+    // initialize contract state
+    var initialState = {
+      initialized: false,
+      synced: false,
+      state: {}
+    }
+
+    // Constant getters
+    for (var i = 0; i < this.abi.length; i++) {
+      var item = this.abi[i]
+
+      if (item.type == "function" && item.constant === true) {
+        initialState.state[item.name] = {}
+      }
+    }
+
+    this.store.dispatch({ type: 'INIT_CONTRACT_STATE', contractName, initialState });
   }
 
   cacheCallFunction(fnName, fnIndex, fn) {
@@ -69,7 +96,7 @@ class DrizzleContract {
         argsHash = contract.generateArgsHash(args)
       }
       const contractName = contract.contractArtifact.contractName
-      const functionState = contract.store.getState().contracts[contractName][fnName]
+      const functionState = contract.store.getState().contracts[contractName].state[fnName]
 
       // If call result is in state and fresh, return value instead of calling
       if (argsHash in functionState) {
