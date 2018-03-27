@@ -1,6 +1,5 @@
 import Drizzle from './Drizzle.js'
 import generateStore from './generateStore'
-import generateContractsInitialState from './generateContractsInitialState'
 
 // Reducers
 import accountsReducer from './accounts/accountsReducer'
