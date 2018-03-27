@@ -8,7 +8,10 @@ const contractsReducer = (state = initialState, action) => {
   if (action.type === 'INIT_CONTRACT_STATE') {
     return {
       ...state,
-      [action.contractName]: action.initialState
+      [action.contractName]: {
+        ...state[action.contractName],
+        ...action.initialState
+      }
     }
   }
 
@@ -21,8 +24,6 @@ const contractsReducer = (state = initialState, action) => {
         initialized: true,
         synced: true,
         events: [],
-        methods: action.methods,
-        address: action.address
       }
     }
   }
@@ -97,9 +98,9 @@ const contractsReducer = (state = initialState, action) => {
         state: {
           ...state[action.name].state,
           [action.variable]: {
-            ...state[action.name][action.variable],
+            ...state[action.name].state[action.variable],
             [action.argsHash]: {
-              ...state[action.name][action.variable][action.argsHash],
+              ...state[action.name].state[action.variable][action.argsHash],
               args: action.args,
               fnIndex: action.fnIndex,
               error: action.error

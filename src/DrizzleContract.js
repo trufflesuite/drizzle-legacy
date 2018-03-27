@@ -46,10 +46,8 @@ class DrizzleContract {
       }
 
       const name = contractArtifact.contractName
-      let methods = this.methods;
-      let address = this._address;
 
-      store.dispatch({type: 'CONTRACT_INITIALIZED', name, methods, address})
+      store.dispatch({type: 'CONTRACT_INITIALIZED', name})
 
       return networkId
     })
@@ -69,7 +67,9 @@ class DrizzleContract {
     var initialState = {
       initialized: false,
       synced: false,
-      state: {}
+      state: {},
+      methods: this.methods,
+      address: this._adress
     }
 
     // Constant getters
