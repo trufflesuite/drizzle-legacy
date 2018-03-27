@@ -47,7 +47,6 @@ class DrizzleContract {
       initialized: false,
       synced: false,
       state: {},
-      methods: this.methods,
       address: this._address
     }
 

@@ -19,7 +19,6 @@ function generateStore(options) {
 
   const store = createStore(
     reducer,
-    preloadedState,
     composeEnhancers(
       applyMiddleware(
         sagaMiddleware
