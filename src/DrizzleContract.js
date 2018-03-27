@@ -22,6 +22,8 @@ class DrizzleContract {
       }
     }
 
+    this.initContractState();
+
     // Register event listeners if any events.
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
@@ -36,6 +38,31 @@ class DrizzleContract {
     }
   }
 
+  initContractState() {
+    // Initial contract details
+    var contractName = this.contractArtifact.contractName
+
+    // initialize contract state
+    var initialState = {
+      initialized: false,
+      synced: false,
+      state: {},
+      methods: this.methods,
+      address: this._address
+    }
+
+    // Constant getters
+    for (var i = 0; i < this.abi.length; i++) {
+      var item = this.abi[i]
+
+      if (item.type == "function" && item.constant === true) {
+        initialState.state[item.name] = {}
+      }
+    }
+
+    this.store.dispatch({ type: 'INIT_CONTRACT_STATE', contractName, initialState });
+  }
+
   cacheCallFunction(fnName, fnIndex, fn) {
     var contract = this
 
@@ -47,8 +74,13 @@ class DrizzleContract {
       if (args.length > 0) {
         argsHash = contract.generateArgsHash(args)
       }
+<<<<<<< HEAD
       const contractName = contract.contractName
       const functionState = contract.store.getState().contracts[contractName][fnName]
+=======
+      const contractName = contract.contractArtifact.contractName
+      const functionState = contract.store.getState().contracts[contractName].state[fnName]
+>>>>>>> refactor contaract state
 
       // If call result is in state and fresh, return value instead of calling
       if (argsHash in functionState) {

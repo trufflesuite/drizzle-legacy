@@ -225,7 +225,7 @@ function* callSyncContract(action) {
   const contractName = contract.contractName
 
   const contractsState = yield select(getContractsState)
-  var contractFnsState = Object.assign({}, contractsState[contractName])
+  var contractFnsState = Object.assign({}, contractsState[contractName].state)
 
   // Remove unnecessary keys
   delete contractFnsState.initialized

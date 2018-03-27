@@ -33,3 +33,12 @@ export function gotContractVar(results) {
     payload: results
   }
 }
+
+const INIT_CONTRACT_STATE = 'INIT_CONTRACT_STATE'
+
+export function initContractState(results) {
+  return {
+    type: INIT_CONTRACT_STATE,
+    payload: results
+  }
+}
