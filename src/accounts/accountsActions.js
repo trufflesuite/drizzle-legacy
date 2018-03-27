@@ -16,29 +16,29 @@ export function accountsFetched(results) {
   }
 }
 
-const GET_BALANCES = 'GET_BALANCES'
+// const GET_BALANCES = 'GET_BALANCES'
 
-export function getBalances(results) {
-  return {
-    type: GET_BALANCES,
-    payload: results
-  }
-}
+// export function getBalances(results) {
+//   return {
+//     type: GET_BALANCES,
+//     payload: results
+//   }
+// }
 
-const BALANCES_FETCHED = 'BALANCES_FETCHED'
+// const BALANCES_FETCHED = 'BALANCES_FETCHED'
 
-export function balcnesFetched(results) {
-  return {
-    type: BALANCES_FETCHED,
-    payload: results
-  }
-}
+// export function balcnesFetched(results) {
+//   return {
+//     type: BALANCES_FETCHED,
+//     payload: results
+//   }
+// }
 
-const GET_ACCOUNT_BALANCE = 'GET_ACCOUNT_BALANCE'
+// const GET_ACCOUNT_BALANCE = 'GET_ACCOUNT_BALANCE'
 
-export function getAccountBalance(results) {
-  return {
-    type: GET_ACCOUNT_BALANCE,
-    payload: results
-  }
-}
+// export function getAccountBalance(results) {
+//   return {
+//     type: GET_ACCOUNT_BALANCE,
+//     payload: results
+//   }
+// }

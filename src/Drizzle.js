@@ -90,9 +90,10 @@ class Drizzle {
     })
     .then(() => {
       let state = this.store.getState()
-      let accounts = state.accounts.ids;
-      this.store.dispatch({type: 'GET_BALANCES', web3, accounts})
+      let accounts = state.accounts;
+      this.store.dispatch({type: 'ACCOUNT_BALANCES_FETCHING', web3, accounts})
       this.watchAccounts();
+      this.watchNetwork();
       this.getContracts()
     }).catch((error) => {
       console.error('Error fetching accounts:')
@@ -108,17 +109,30 @@ class Drizzle {
     var web3 = this.metamaskWeb3 || this.web3
     var accountInterval = setInterval(async () => {
       let state = this.store.getState()
-      let accounts = state.accounts.ids;
+      let accounts = state.accounts;
       let newAccounts = await web3.eth.getAccounts()
       if (newAccounts[0] !== accounts[0]) {
         await new Promise((resolve, reject) => {
           this.store.dispatch({type: 'ACCOUNTS_FETCHING', web3, resolve, reject})
         })
         state = this.store.getState()
-        accounts = state.accounts.ids;
+        accounts = state.accounts;
         this.store.dispatch({type: 'GET_BALANCES', web3, accounts})
       }
     }, 300);
+  }
+
+  watchNetwork() {
+    var web3 = this.metamaskWeb3 || this.web3
+    var accountInterval = setInterval(async () => {
+      let state = this.store.getState()
+      let networkId = state.web3.networkId;
+      let newNetworkId = await web3.eth.net.getId()
+      if (networkId !== newNetworkId) {
+        networkId = newNetworkId;
+        this.store.dispatch({type: 'NETWORK_ID_FETCHED', web3, networkId})
+      }
+    }, 1000);
   }
 
   getContracts() {
@@ -166,7 +180,7 @@ class Drizzle {
 
     var contractAddresses = []
     var contractNames = []
-    var accountAddresses = state.accounts.ids;
+    var accountAddresses = Object.values(state.accounts);
 
     // Collect contract addresses in an array for later comparison in txs.
     for (var contract in this.contracts)

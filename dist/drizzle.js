@@ -7,7 +7,7 @@
 		exports["drizzle"] = factory(require("redux"), require("redux-saga"), require("web3"), require("redux-thunk"));
 	else
 		root["drizzle"] = factory(root["redux"], root["redux-saga"], root["web3"], root["redux-thunk"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_70__, __WEBPACK_EXTERNAL_MODULE_71__, __WEBPACK_EXTERNAL_MODULE_125__, __WEBPACK_EXTERNAL_MODULE_127__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_70__, __WEBPACK_EXTERNAL_MODULE_71__, __WEBPACK_EXTERNAL_MODULE_131__, __WEBPACK_EXTERNAL_MODULE_133__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 76);
+/******/ 	return __webpack_require__(__webpack_require__.s = 82);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -97,8 +97,8 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(33)('wks');
-var uid = __webpack_require__(20);
+var store = __webpack_require__(35)('wks');
+var uid = __webpack_require__(21);
 var Symbol = __webpack_require__(1).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -183,7 +183,7 @@ module.exports = $export;
 
 var anObject = __webpack_require__(5);
 var IE8_DOM_DEFINE = __webpack_require__(48);
-var toPrimitive = __webpack_require__(36);
+var toPrimitive = __webpack_require__(38);
 var dP = Object.defineProperty;
 
 exports.f = __webpack_require__(6) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
@@ -215,7 +215,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(12)(function () {
+module.exports = !__webpack_require__(11)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -257,45 +257,16 @@ module.exports = function (it) {
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-exports.__esModule = true;
-
-var _assign = __webpack_require__(26);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _assign2.default || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = __webpack_require__(47);
-var defined = __webpack_require__(29);
+var defined = __webpack_require__(31);
 module.exports = function (it) {
   return IObject(defined(it));
 };
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -308,7 +279,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -626,7 +597,36 @@ var cloneableGenerator = function cloneableGenerator(generatorFunc) {
     };
   };
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(73)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(72)))
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _assign = __webpack_require__(26);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _assign2.default || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
 
 /***/ }),
 /* 14 */
@@ -634,7 +634,7 @@ var cloneableGenerator = function cloneableGenerator(generatorFunc) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(46);
-var enumBugKeys = __webpack_require__(34);
+var enumBugKeys = __webpack_require__(36);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -657,7 +657,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(21);
+var aFunction = __webpack_require__(22);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -694,24 +694,31 @@ module.exports = function (bitmap, value) {
 
 /***/ }),
 /* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(91);
+
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(29);
+var defined = __webpack_require__(31);
 module.exports = function (it) {
   return Object(defined(it));
 };
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -722,20 +729,13 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
   if (typeof it != 'function') throw TypeError(it + ' is not a function!');
   return it;
 };
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(85);
 
 
 /***/ }),
@@ -769,10 +769,40 @@ exports.f = {}.propertyIsEnumerable;
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(122), __esModule: true };
+module.exports = { "default": __webpack_require__(128), __esModule: true };
 
 /***/ }),
 /* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_io__ = __webpack_require__(28);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "take", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["q"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takem", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["t"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "put", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["l"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "all", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "race", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["m"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "call", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["d"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "apply", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cps", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["g"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fork", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["i"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "spawn", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["p"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "join", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["k"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["e"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "select", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["n"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "actionChannel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancelled", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["f"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["h"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["j"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "setContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["o"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeEvery", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["r"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeLatest", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["s"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "throttle", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["u"]; });
+
+
+/***/ }),
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -798,8 +828,8 @@ module.exports = { "default": __webpack_require__(122), __esModule: true };
 /* harmony export (immutable) */ __webpack_exports__["s"] = takeLatest;
 /* harmony export (immutable) */ __webpack_exports__["u"] = throttle;
 /* unused harmony export asEffect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sagaHelpers__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sagaHelpers__ = __webpack_require__(135);
 
 
 
@@ -1069,7 +1099,7 @@ var asEffect = {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1077,7 +1107,7 @@ var asEffect = {
 
 exports.__esModule = true;
 
-var _from = __webpack_require__(134);
+var _from = __webpack_require__(140);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -1096,7 +1126,37 @@ exports.default = function (arr) {
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(67);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -1107,11 +1167,11 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(31);
+var toInteger = __webpack_require__(33);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -1119,7 +1179,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -1131,18 +1191,18 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(33)('keys');
-var uid = __webpack_require__(20);
+var shared = __webpack_require__(35)('keys');
+var uid = __webpack_require__(21);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
@@ -1154,7 +1214,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -1164,7 +1224,7 @@ module.exports = (
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(9);
@@ -1177,7 +1237,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
@@ -1195,12 +1255,12 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(89)(true);
+var $at = __webpack_require__(95)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
 __webpack_require__(51)(String, 'String', function (iterated) {
@@ -1219,13 +1279,13 @@ __webpack_require__(51)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // 25.4.1.5 NewPromiseCapability(C)
-var aFunction = __webpack_require__(21);
+var aFunction = __webpack_require__(22);
 
 function PromiseCapability(C) {
   var resolve, reject;
@@ -1244,20 +1304,20 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(2);
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
 var core = __webpack_require__(0);
 var LIBRARY = __webpack_require__(23);
-var wksExt = __webpack_require__(39);
+var wksExt = __webpack_require__(41);
 var defineProperty = __webpack_require__(4).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -1266,51 +1326,21 @@ module.exports = function (name) {
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
 
 
 /***/ }),
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_io__ = __webpack_require__(27);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "take", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["q"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takem", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["t"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "put", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["l"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "all", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "race", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["m"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "call", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["d"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "apply", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["c"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cps", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["g"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fork", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["i"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "spawn", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["p"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "join", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["k"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["e"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "select", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["n"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "actionChannel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancelled", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["f"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["h"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["j"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "setContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["o"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeEvery", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["r"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeLatest", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["s"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "throttle", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["u"]; });
-
-
-/***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return qEnd; });
 /* harmony export (immutable) */ __webpack_exports__["c"] = safeName;
 /* harmony export (immutable) */ __webpack_exports__["a"] = fsmIterator;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(12);
 
 
 var done = { done: true, value: undefined };
@@ -1362,7 +1392,7 @@ function fsmIterator(fsm, q0) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1374,9 +1404,9 @@ function fsmIterator(fsm, q0) {
 /* unused harmony export channel */
 /* unused harmony export eventChannel */
 /* unused harmony export stdChannel */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buffers__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scheduler__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buffers__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scheduler__ = __webpack_require__(137);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -1577,46 +1607,16 @@ function stdChannel(subscribe) {
     }
   });
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(73)))
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __webpack_require__(67);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (obj, key, value) {
-  if (key in obj) {
-    (0, _defineProperty2.default)(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(72)))
 
 /***/ }),
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(7);
-var toIObject = __webpack_require__(11);
-var arrayIndexOf = __webpack_require__(82)(false);
-var IE_PROTO = __webpack_require__(32)('IE_PROTO');
+var toIObject = __webpack_require__(10);
+var arrayIndexOf = __webpack_require__(88)(false);
+var IE_PROTO = __webpack_require__(34)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -1648,8 +1648,8 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(6) && !__webpack_require__(12)(function () {
-  return Object.defineProperty(__webpack_require__(35)('div'), 'a', { get: function () { return 7; } }).a != 7;
+module.exports = !__webpack_require__(6) && !__webpack_require__(11)(function () {
+  return Object.defineProperty(__webpack_require__(37)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
@@ -1657,7 +1657,7 @@ module.exports = !__webpack_require__(6) && !__webpack_require__(12)(function ()
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(88), __esModule: true };
+module.exports = { "default": __webpack_require__(94), __esModule: true };
 
 /***/ }),
 /* 50 */
@@ -1676,10 +1676,10 @@ var $export = __webpack_require__(3);
 var redefine = __webpack_require__(52);
 var hide = __webpack_require__(8);
 var has = __webpack_require__(7);
-var Iterators = __webpack_require__(18);
-var $iterCreate = __webpack_require__(90);
+var Iterators = __webpack_require__(19);
+var $iterCreate = __webpack_require__(96);
 var setToStringTag = __webpack_require__(24);
-var getPrototypeOf = __webpack_require__(92);
+var getPrototypeOf = __webpack_require__(98);
 var ITERATOR = __webpack_require__(2)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
@@ -1755,16 +1755,16 @@ module.exports = __webpack_require__(8);
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(5);
-var dPs = __webpack_require__(91);
-var enumBugKeys = __webpack_require__(34);
-var IE_PROTO = __webpack_require__(32)('IE_PROTO');
+var dPs = __webpack_require__(97);
+var enumBugKeys = __webpack_require__(36);
+var IE_PROTO = __webpack_require__(34)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(35)('iframe');
+  var iframe = __webpack_require__(37)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
@@ -1808,10 +1808,10 @@ module.exports = document && document.documentElement;
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(93);
+__webpack_require__(99);
 var global = __webpack_require__(1);
 var hide = __webpack_require__(8);
-var Iterators = __webpack_require__(18);
+var Iterators = __webpack_require__(19);
 var TO_STRING_TAG = __webpack_require__(2)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
@@ -1881,7 +1881,7 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(18);
+var Iterators = __webpack_require__(19);
 var ITERATOR = __webpack_require__(2)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -1896,7 +1896,7 @@ module.exports = function (it) {
 
 var classof = __webpack_require__(56);
 var ITERATOR = __webpack_require__(2)('iterator');
-var Iterators = __webpack_require__(18);
+var Iterators = __webpack_require__(19);
 module.exports = __webpack_require__(0).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -1910,7 +1910,7 @@ module.exports = __webpack_require__(0).getIteratorMethod = function (it) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(5);
-var aFunction = __webpack_require__(21);
+var aFunction = __webpack_require__(22);
 var SPECIES = __webpack_require__(2)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
@@ -1924,9 +1924,9 @@ module.exports = function (O, D) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(16);
-var invoke = __webpack_require__(99);
+var invoke = __webpack_require__(105);
 var html = __webpack_require__(54);
-var cel = __webpack_require__(35);
+var cel = __webpack_require__(37);
 var global = __webpack_require__(1);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -2028,7 +2028,7 @@ module.exports = function (exec) {
 
 var anObject = __webpack_require__(5);
 var isObject = __webpack_require__(9);
-var newPromiseCapability = __webpack_require__(38);
+var newPromiseCapability = __webpack_require__(40);
 
 module.exports = function (C, x) {
   anObject(C);
@@ -2120,7 +2120,7 @@ exports.default = function () {
 /* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(105), __esModule: true };
+module.exports = { "default": __webpack_require__(111), __esModule: true };
 
 /***/ }),
 /* 68 */
@@ -2131,11 +2131,11 @@ module.exports = { "default": __webpack_require__(105), __esModule: true };
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(110);
+var _iterator = __webpack_require__(116);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(112);
+var _symbol = __webpack_require__(118);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -2155,7 +2155,7 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = __webpack_require__(46);
-var hiddenKeys = __webpack_require__(34).concat('length', 'prototype');
+var hiddenKeys = __webpack_require__(36).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -2176,53 +2176,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_71__;
 
 /***/ }),
 /* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _regenerator = __webpack_require__(22);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-exports.default = root;
-
-var _effects = __webpack_require__(42);
-
-var _contractsSaga = __webpack_require__(133);
-
-var _contractsSaga2 = _interopRequireDefault(_contractsSaga);
-
-var _accountsSaga = __webpack_require__(138);
-
-var _accountsSaga2 = _interopRequireDefault(_accountsSaga);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _marked = /*#__PURE__*/_regenerator2.default.mark(root);
-
-function root() {
-  return _regenerator2.default.wrap(function root$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return (0, _effects.all)([(0, _effects.fork)(_accountsSaga2.default), (0, _effects.fork)(_contractsSaga2.default)]);
-
-        case 2:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, _marked, this);
-}
-
-/***/ }),
-/* 73 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2412,13 +2365,13 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export BUFFER_OVERFLOW */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return buffers; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(12);
 
 
 var BUFFER_OVERFLOW = "Channel's Buffer overflow!";
@@ -2523,6 +2476,421 @@ var buffers = {
 };
 
 /***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(26);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _extends2 = __webpack_require__(13);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _toConsumableArray2 = __webpack_require__(29);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _typeof2 = __webpack_require__(68);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _regenerator = __webpack_require__(18);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _reduxSaga = __webpack_require__(71);
+
+var _effects = __webpack_require__(27);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _marked = /*#__PURE__*/_regenerator2.default.mark(callListenForContractEvent),
+    _marked2 = /*#__PURE__*/_regenerator2.default.mark(callSendContractTx),
+    _marked3 = /*#__PURE__*/_regenerator2.default.mark(callCallContractFn),
+    _marked4 = /*#__PURE__*/_regenerator2.default.mark(callSyncContract),
+    _marked5 = /*#__PURE__*/_regenerator2.default.mark(contractsSaga);
+
+/*
+ * Events
+ */
+
+function createContractEventChannel(_ref) {
+  var contract = _ref.contract,
+      eventName = _ref.eventName;
+
+  var name = contract.contractArtifact.contractName;
+
+  return (0, _reduxSaga.eventChannel)(function (emit) {
+    var eventListener = contract.events[eventName]().on('data', function (event) {
+      emit({ type: 'EVENT_FIRED', name: name, event: event });
+    }).on('changed', function (event) {
+      emit({ type: 'EVENT_CHANGED', name: name, event: event });
+    }).on('error', function (error) {
+      emit({ type: 'EVENT_ERROR', name: name, error: error });
+      emit(_reduxSaga.END);
+    });
+
+    var unsubscribe = function unsubscribe() {
+      eventListener.removeListener(eventName);
+    };
+
+    return unsubscribe;
+  });
+}
+
+function callListenForContractEvent(_ref2) {
+  var contract = _ref2.contract,
+      eventName = _ref2.eventName;
+  var contractEventChannel, event;
+  return _regenerator2.default.wrap(function callListenForContractEvent$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0, _effects.call)(createContractEventChannel, { contract: contract, eventName: eventName });
+
+        case 2:
+          contractEventChannel = _context.sent;
+
+        case 3:
+          if (false) {
+            _context.next = 11;
+            break;
+          }
+
+          _context.next = 6;
+          return (0, _effects.take)(contractEventChannel);
+
+        case 6:
+          event = _context.sent;
+          _context.next = 9;
+          return (0, _effects.put)(event);
+
+        case 9:
+          _context.next = 3;
+          break;
+
+        case 11:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+/*
+ * Send and Cache
+ */
+
+function createTxChannel(_ref3) {
+  var txObject = _ref3.txObject,
+      stackId = _ref3.stackId,
+      _ref3$sendArgs = _ref3.sendArgs,
+      sendArgs = _ref3$sendArgs === undefined ? {} : _ref3$sendArgs,
+      contractName = _ref3.contractName;
+
+  var persistTxHash;
+
+  return (0, _reduxSaga.eventChannel)(function (emit) {
+    var txPromiEvent = txObject.send(sendArgs).on('transactionHash', function (txHash) {
+      persistTxHash = txHash;
+
+      emit({ type: 'TX_BROADCASTED', txHash: txHash, stackId: stackId });
+      emit({ type: 'CONTRACT_SYNC_IND', contractName: contractName });
+    }).on('confirmation', function (confirmationNumber, receipt) {
+      emit({ type: 'TX_CONFIRMAITON', confirmationReceipt: receipt, txHash: persistTxHash });
+    }).on('receipt', function (receipt) {
+      emit({ type: 'TX_SUCCESSFUL', receipt: receipt, txHash: persistTxHash });
+      emit(_reduxSaga.END);
+    }).on('error', function (error) {
+      emit({ type: 'TX_ERROR', error: error, txHash: persistTxHash });
+      emit(_reduxSaga.END);
+    });
+
+    var unsubscribe = function unsubscribe() {
+      txPromiEvent.off();
+    };
+
+    return unsubscribe;
+  });
+}
+
+function callSendContractTx(_ref4) {
+  var contract = _ref4.contract,
+      fnName = _ref4.fnName,
+      fnIndex = _ref4.fnIndex,
+      args = _ref4.args,
+      stackId = _ref4.stackId;
+  var finalArg, sendArgs, finalArgTest, contractName, txObject, txChannel, event;
+  return _regenerator2.default.wrap(function callSendContractTx$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          // Check for type of object and properties indicative of call/send options.
+          finalArg = args[args.length - 1];
+          sendArgs = {};
+          finalArgTest = (0, _effects.call)(isSendOrCallOptions, finalArg);
+
+
+          if ((typeof finalArg === 'undefined' ? 'undefined' : (0, _typeof3.default)(finalArg)) === 'object' && finalArgTest) {
+            sendArgs = finalArg;
+
+            delete args[args.length - 1];
+            args.length = args.length - 1;
+          }
+
+          // Get name to mark as desynchronized on tx creation
+          contractName = contract.contractArtifact.contractName;
+
+          // Create the transaction object and execute the tx.
+
+          _context2.next = 7;
+          return _effects.call.apply(undefined, [contract.methods[fnName]].concat((0, _toConsumableArray3.default)(args)));
+
+        case 7:
+          txObject = _context2.sent;
+          _context2.next = 10;
+          return (0, _effects.call)(createTxChannel, { txObject: txObject, stackId: stackId, sendArgs: sendArgs, contractName: contractName });
+
+        case 10:
+          txChannel = _context2.sent;
+          _context2.prev = 11;
+
+        case 12:
+          if (false) {
+            _context2.next = 20;
+            break;
+          }
+
+          _context2.next = 15;
+          return (0, _effects.take)(txChannel);
+
+        case 15:
+          event = _context2.sent;
+          _context2.next = 18;
+          return (0, _effects.put)(event);
+
+        case 18:
+          _context2.next = 12;
+          break;
+
+        case 20:
+          _context2.prev = 20;
+
+          txChannel.close();
+          return _context2.finish(20);
+
+        case 23:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, _marked2, this, [[11,, 20, 23]]);
+}
+
+/*
+ * Call and Cache
+ */
+
+function callCallContractFn(_ref5) {
+  var contract = _ref5.contract,
+      fnName = _ref5.fnName,
+      fnIndex = _ref5.fnIndex,
+      args = _ref5.args,
+      argsHash = _ref5.argsHash;
+  var finalArg, callArgs, finalArgTest, txObject, callResult, dispatchArgs, errorArgs;
+  return _regenerator2.default.wrap(function callCallContractFn$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          // Check for type of object and properties indicative of call/send options.
+          finalArg = args[args.length - 1];
+          callArgs = {};
+          finalArgTest = (0, _effects.call)(isSendOrCallOptions, finalArg);
+
+
+          if ((typeof finalArg === 'undefined' ? 'undefined' : (0, _typeof3.default)(finalArg)) === 'object' && finalArgTest) {
+            callArgs = finalArg;
+
+            delete args[args.length - 1];
+            args.length = args.length - 1;
+          }
+          _context3.prev = 4;
+          _context3.next = 7;
+          return _effects.call.apply(undefined, [contract.methods[fnName]].concat((0, _toConsumableArray3.default)(args)));
+
+        case 7:
+          txObject = _context3.sent;
+          _context3.next = 10;
+          return (0, _effects.call)(txObject.call, callArgs);
+
+        case 10:
+          callResult = _context3.sent;
+          dispatchArgs = {
+            name: contract.contractArtifact.contractName,
+            variable: contract.abi[fnIndex].name,
+            argsHash: argsHash,
+            args: args,
+            value: callResult,
+            fnIndex: fnIndex
+          };
+          _context3.next = 14;
+          return (0, _effects.put)((0, _extends3.default)({ type: 'GOT_CONTRACT_VAR' }, dispatchArgs));
+
+        case 14:
+          _context3.next = 22;
+          break;
+
+        case 16:
+          _context3.prev = 16;
+          _context3.t0 = _context3['catch'](4);
+
+          console.error(_context3.t0);
+
+          errorArgs = {
+            name: contract.contractArtifact.contractName,
+            variable: contract.abi[fnIndex].name,
+            argsHash: argsHash,
+            args: args,
+            error: _context3.t0,
+            fnIndex: fnIndex
+          };
+          _context3.next = 22;
+          return (0, _effects.put)((0, _extends3.default)({ type: 'ERROR_CONTRACT_VAR' }, errorArgs));
+
+        case 22:
+        case 'end':
+          return _context3.stop();
+      }
+    }
+  }, _marked3, this, [[4, 16]]);
+}
+
+/*
+ * Sync Contract
+ */
+
+function callSyncContract(action) {
+  var contract, contractName, contractsState, contractFnsState, fnName, argsHash, fnIndex, args;
+  return _regenerator2.default.wrap(function callSyncContract$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          // Get contract state from store
+          contract = action.contract;
+          contractName = contract.contractArtifact.contractName;
+          _context4.next = 4;
+          return (0, _effects.select)(getContractsState);
+
+        case 4:
+          contractsState = _context4.sent;
+          contractFnsState = (0, _assign2.default)({}, contractsState[contractName].state);
+
+          // Remove unecessary keys
+
+          delete contractFnsState.initialized;
+          delete contractFnsState.synced;
+          delete contractFnsState.events;
+
+          // Iterate over functions and hashes
+          _context4.t0 = _regenerator2.default.keys(contractFnsState);
+
+        case 10:
+          if ((_context4.t1 = _context4.t0()).done) {
+            _context4.next = 23;
+            break;
+          }
+
+          fnName = _context4.t1.value;
+          _context4.t2 = _regenerator2.default.keys(contractFnsState[fnName]);
+
+        case 13:
+          if ((_context4.t3 = _context4.t2()).done) {
+            _context4.next = 21;
+            break;
+          }
+
+          argsHash = _context4.t3.value;
+          fnIndex = contractFnsState[fnName][argsHash].fnIndex;
+          args = contractFnsState[fnName][argsHash].args;
+
+          // Pull args and call fn for each given function
+
+          _context4.next = 19;
+          return (0, _effects.put)({ type: 'CALL_CONTRACT_FN', contract: contract, fnName: fnName, fnIndex: fnIndex, args: args, argsHash: argsHash });
+
+        case 19:
+          _context4.next = 13;
+          break;
+
+        case 21:
+          _context4.next = 10;
+          break;
+
+        case 23:
+          _context4.next = 25;
+          return (0, _effects.put)({ type: 'CONTRACT_SYNCED', contractName: contractName });
+
+        case 25:
+        case 'end':
+          return _context4.stop();
+      }
+    }
+  }, _marked4, this);
+}
+
+var getContractsState = function getContractsState(state) {
+  return state.contracts;
+};
+
+function isSendOrCallOptions(options) {
+  if ('from' in options) return true;
+  if ('gas' in options) return true;
+  if ('gasPrice' in options) return true;
+  if ('value' in options) return true;
+
+  return false;
+}
+
+function contractsSaga() {
+  return _regenerator2.default.wrap(function contractsSaga$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return (0, _effects.takeEvery)('SEND_CONTRACT_TX', callSendContractTx);
+
+        case 2:
+          _context5.next = 4;
+          return (0, _effects.takeEvery)('CALL_CONTRACT_FN', callCallContractFn);
+
+        case 4:
+          _context5.next = 6;
+          return (0, _effects.takeEvery)('CONTRACT_SYNCING', callSyncContract);
+
+        case 6:
+          _context5.next = 8;
+          return (0, _effects.takeEvery)('LISTEN_FOR_EVENT', callListenForContractEvent);
+
+        case 8:
+        case 'end':
+          return _context5.stop();
+      }
+    }
+  }, _marked5, this);
+}
+
+exports.default = contractsSaga;
+
+/***/ }),
 /* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2533,51 +2901,131 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(70);
+var _regenerator = __webpack_require__(18);
 
-var _accountsReducer = __webpack_require__(139);
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _accountsReducer2 = _interopRequireDefault(_accountsReducer);
-
-var _contractsReducer = __webpack_require__(140);
-
-var _contractsReducer2 = _interopRequireDefault(_contractsReducer);
-
-var _drizzleStatusReducer = __webpack_require__(141);
-
-var _drizzleStatusReducer2 = _interopRequireDefault(_drizzleStatusReducer);
-
-var _transactionsReducer = __webpack_require__(142);
-
-var _transactionsReducer2 = _interopRequireDefault(_transactionsReducer);
-
-var _transactionStackReducer = __webpack_require__(143);
-
-var _transactionStackReducer2 = _interopRequireDefault(_transactionStackReducer);
-
-var _web3Reducer = __webpack_require__(144);
-
-var _web3Reducer2 = _interopRequireDefault(_web3Reducer);
+var _effects = __webpack_require__(27);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var reducer = (0, _redux.combineReducers)({
-  accounts: _accountsReducer2.default,
-  contracts: _contractsReducer2.default,
-  drizzleStatus: _drizzleStatusReducer2.default,
-  transactions: _transactionsReducer2.default,
-  transactionStack: _transactionStackReducer2.default,
-  web3: _web3Reducer2.default
-});
+var _marked = /*#__PURE__*/_regenerator2.default.mark(callGetAccounts),
+    _marked2 = /*#__PURE__*/_regenerator2.default.mark(accountsSaga);
 
-exports.default = reducer;
+function getAccounts(web3) {
+  return web3.eth.getAccounts().then(function (accounts) {
+    return accounts;
+  });
+}
+
+function callGetAccounts(action) {
+  var accounts;
+  return _regenerator2.default.wrap(function callGetAccounts$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0, _effects.call)(getAccounts, action.web3);
+
+        case 2:
+          accounts = _context.sent;
+
+          if (accounts) {
+            _context.next = 7;
+            break;
+          }
+
+          console.error('No accounts found!');
+          _context.next = 7;
+          return (0, _effects.call)(action.reject, { source: 'accounts', message: 'Failed to get accounts.' });
+
+        case 7:
+          _context.next = 9;
+          return (0, _effects.put)({ type: 'ACCOUNTS_FETCHED', accounts: accounts });
+
+        case 9:
+          _context.next = 11;
+          return (0, _effects.call)(action.resolve);
+
+        case 11:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+function accountsSaga() {
+  return _regenerator2.default.wrap(function accountsSaga$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return (0, _effects.takeLatest)('ACCOUNTS_FETCHING', callGetAccounts);
+
+        case 2:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, _marked2, this);
+}
+
+exports.default = accountsSaga;
 
 /***/ }),
 /* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(77);
+"use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(26);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {};
+
+var accountsReducer = function accountsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  if (action.type === 'ACCOUNTS_FETCHING') {
+    return state;
+  }
+
+  if (action.type === 'ACCOUNTS_FETCHED') {
+    return (0, _assign2.default)({}, state, action.accounts);
+  }
+
+  // if (action.type === 'BALANCES_FETCHED')
+  // {
+  //   let balances = {};
+  //   action.balances.forEach(balance => balances = { ...balances, ...balance })
+  //   return Object.assign({}, state, { balances: balances })
+  // }
+
+  // if (action.type === 'ACCOUNT_BALANCE_FETCHED')
+  // {
+  //   return Object.assign({}, state,
+  //     {
+  //       balances: {
+  //         ...state.balances,
+  //         ...action.balance
+  //       }
+  //     })
+  // }
+
+  return state;
+};
+
+exports.default = accountsReducer;
 
 /***/ }),
 /* 77 */
@@ -2589,30 +3037,101 @@ module.exports = __webpack_require__(77);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.rootSaga = exports.reducer = exports.generateStore = exports.Drizzle = undefined;
 
-var _Drizzle = __webpack_require__(78);
+var _toConsumableArray2 = __webpack_require__(29);
 
-var _Drizzle2 = _interopRequireDefault(_Drizzle);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _generateStore = __webpack_require__(126);
+var _defineProperty2 = __webpack_require__(30);
 
-var _generateStore2 = _interopRequireDefault(_generateStore);
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _reducer = __webpack_require__(75);
+var _extends14 = __webpack_require__(13);
 
-var _reducer2 = _interopRequireDefault(_reducer);
-
-var _rootSaga = __webpack_require__(72);
-
-var _rootSaga2 = _interopRequireDefault(_rootSaga);
+var _extends15 = _interopRequireDefault(_extends14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Drizzle = _Drizzle2.default;
-exports.generateStore = _generateStore2.default;
-exports.reducer = _reducer2.default;
-exports.rootSaga = _rootSaga2.default;
+var initialState = {};
+
+var contractsReducer = function contractsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  /*
+   * Contract Status
+   */
+
+  if (action.type === 'INIT_CONTRACT_STATE') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.contractName, (0, _extends15.default)({}, state[action.contractName], action.initialState)));
+  }
+
+  if (action.type === 'CONTRACT_INITIALIZED') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
+      initialized: true,
+      synced: true,
+      events: []
+    })));
+  }
+
+  if (action.type === 'CONTRACT_SYNCING') {
+    var contractName = action.contract.contractArtifact.contractName;
+
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, contractName, (0, _extends15.default)({}, state[contractName], {
+      synced: false
+    })));
+  }
+
+  if (action.type === 'CONTRACT_SYNCED') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.contractName, (0, _extends15.default)({}, state[action.contractName], {
+      synced: true
+    })));
+  }
+
+  if (action.type === 'CONTRACT_SYNC_IND') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.contractName, (0, _extends15.default)({}, state[action.contractName], {
+      synced: false
+    })));
+  }
+
+  /*
+   * Contract Functions
+   */
+
+  if (action.type === 'GOT_CONTRACT_VAR') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
+      state: (0, _extends15.default)({}, state[action.name].state, (0, _defineProperty3.default)({}, action.variable, (0, _extends15.default)({}, state[action.name].state[action.variable], (0, _defineProperty3.default)({}, action.argsHash, (0, _extends15.default)({}, state[action.name].state[action.variable][action.argsHash], {
+        args: action.args,
+        fnIndex: action.fnIndex,
+        value: action.value
+      })))))
+    })));
+  }
+
+  if (action.type === 'ERROR_CONTRACT_VAR') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
+      state: (0, _extends15.default)({}, state[action.name].state, (0, _defineProperty3.default)({}, action.variable, (0, _extends15.default)({}, state[action.name].state[action.variable], (0, _defineProperty3.default)({}, action.argsHash, (0, _extends15.default)({}, state[action.name].state[action.variable][action.argsHash], {
+        args: action.args,
+        fnIndex: action.fnIndex,
+        error: action.error
+      })))))
+    })));
+  }
+
+  /*
+   * Contract Events
+   */
+
+  if (action.type === 'EVENT_FIRED') {
+    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
+      events: [].concat((0, _toConsumableArray3.default)(state[action.name].events), [action.event])
+    })));
+  }
+
+  return state;
+};
+
+exports.default = contractsReducer;
 
 /***/ }),
 /* 78 */
@@ -2625,15 +3144,319 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = __webpack_require__(79);
+var _extends2 = __webpack_require__(13);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+  initialized: false
+};
+
+var drizzleStatusReducer = function drizzleStatusReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  /*
+   * Drizzle Status
+   */
+
+  if (action.type === 'DRIZZLE_INITIALIZED') {
+    return (0, _extends3.default)({}, state, {
+      initialized: true
+      // drizzleInstance: action.drizzleInstance
+    });
+  }
+  return state;
+};
+
+exports.default = drizzleStatusReducer;
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _toConsumableArray2 = __webpack_require__(29);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _defineProperty2 = __webpack_require__(30);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends6 = __webpack_require__(13);
+
+var _extends7 = _interopRequireDefault(_extends6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {};
+
+var transactionsReducer = function transactionsReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    if (action.type === 'TX_BROADCASTED') {
+        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, {
+            status: 'pending',
+            confirmations: []
+        }));
+    }
+
+    if (action.type === 'TX_CONFIRMAITON') {
+        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, (0, _extends7.default)({}, state[action.txHash], {
+            confirmations: [].concat((0, _toConsumableArray3.default)(state[action.txHash].confirmations), [action.confirmationReceipt])
+        })));
+    }
+
+    if (action.type === 'TX_SUCCESSFUL') {
+        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, (0, _extends7.default)({}, state[action.txHash], {
+            status: 'success',
+            receipt: action.receipt
+        })));
+    }
+
+    if (action.type === 'TX_ERROR') {
+        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, (0, _extends7.default)({}, state[action.txHash], {
+            status: 'error',
+            error: action.error
+        })));
+    }
+
+    return state;
+};
+
+exports.default = transactionsReducer;
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _toConsumableArray2 = __webpack_require__(29);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = [];
+
+var transactionStackReducer = function transactionStackReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    if (action.type === 'PUSH_TO_TXSTACK') {
+        state.push('');
+
+        return [].concat((0, _toConsumableArray3.default)(state));
+    }
+
+    if (action.type === 'POP_FROM_TXSTACK') {
+        state.pop();
+
+        return [].concat((0, _toConsumableArray3.default)(state));
+    }
+
+    if (action.type === 'TX_BROADCASTED') {
+        state[action.stackId] = action.txHash;
+
+        return [].concat((0, _toConsumableArray3.default)(state));
+    }
+
+    return state;
+};
+
+exports.default = transactionStackReducer;
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(13);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+  status: ''
+};
+
+var web3Reducer = function web3Reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  if (action.type === 'WEB3_INITIALIZING') {
+    return (0, _extends3.default)({}, state, {
+      status: 'initializing'
+    });
+  }
+
+  if (action.type === 'WEB3_INITIALIZED') {
+    return (0, _extends3.default)({}, state, {
+      status: 'initialized'
+    });
+  }
+
+  if (action.type === 'WEB3_FAILED') {
+    return (0, _extends3.default)({}, state, {
+      status: 'failed'
+    });
+  }
+
+  if (action.type === 'NETWORK_ID_FETCHED') {
+    return (0, _extends3.default)({}, state, {
+      networkId: action.networkId
+    });
+  }
+
+  if (action.type === 'NETWORK_ID_FAILED') {
+    return (0, _extends3.default)({}, state, {
+      networkId: action.networkId
+    });
+  }
+
+  return state;
+};
+
+exports.default = web3Reducer;
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(83);
+
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.drizzleSagas = exports.drizzleReducers = exports.generateStore = exports.Drizzle = undefined;
+
+var _Drizzle = __webpack_require__(84);
+
+var _Drizzle2 = _interopRequireDefault(_Drizzle);
+
+var _generateStore = __webpack_require__(132);
+
+var _generateStore2 = _interopRequireDefault(_generateStore);
+
+var _accountsReducer = __webpack_require__(76);
+
+var _accountsReducer2 = _interopRequireDefault(_accountsReducer);
+
+var _accountBalancesReducer = __webpack_require__(145);
+
+var _accountBalancesReducer2 = _interopRequireDefault(_accountBalancesReducer);
+
+var _contractsReducer = __webpack_require__(77);
+
+var _contractsReducer2 = _interopRequireDefault(_contractsReducer);
+
+var _drizzleStatusReducer = __webpack_require__(78);
+
+var _drizzleStatusReducer2 = _interopRequireDefault(_drizzleStatusReducer);
+
+var _transactionsReducer = __webpack_require__(79);
+
+var _transactionsReducer2 = _interopRequireDefault(_transactionsReducer);
+
+var _transactionStackReducer = __webpack_require__(80);
+
+var _transactionStackReducer2 = _interopRequireDefault(_transactionStackReducer);
+
+var _web3Reducer = __webpack_require__(81);
+
+var _web3Reducer2 = _interopRequireDefault(_web3Reducer);
+
+var _accountsSaga = __webpack_require__(75);
+
+var _accountsSaga2 = _interopRequireDefault(_accountsSaga);
+
+var _accountBalancesSaga = __webpack_require__(146);
+
+var _accountBalancesSaga2 = _interopRequireDefault(_accountBalancesSaga);
+
+var _contractsSaga = __webpack_require__(74);
+
+var _contractsSaga2 = _interopRequireDefault(_contractsSaga);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var drizzleReducers = {
+  accounts: _accountsReducer2.default,
+  accountBalances: _accountBalancesReducer2.default,
+  contracts: _contractsReducer2.default,
+  drizzleStatus: _drizzleStatusReducer2.default,
+  transactions: _transactionsReducer2.default,
+  transactionStack: _transactionStackReducer2.default,
+  web3: _web3Reducer2.default
+
+  // Sagas
+};
+
+// Reducers
+
+
+var drizzleSagas = [_accountsSaga2.default, _accountBalancesSaga2.default, _contractsSaga2.default];
+
+exports.Drizzle = _Drizzle2.default;
+exports.generateStore = _generateStore2.default;
+exports.drizzleReducers = drizzleReducers;
+exports.drizzleSagas = drizzleSagas;
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _values = __webpack_require__(147);
+
+var _values2 = _interopRequireDefault(_values);
+
+var _keys = __webpack_require__(85);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _regenerator = __webpack_require__(22);
+var _regenerator = __webpack_require__(18);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(87);
+var _asyncToGenerator2 = __webpack_require__(93);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -2649,13 +3472,13 @@ var _createClass2 = __webpack_require__(66);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _DrizzleContract = __webpack_require__(107);
+var _DrizzleContract = __webpack_require__(113);
 
 var _DrizzleContract2 = _interopRequireDefault(_DrizzleContract);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Web3 = __webpack_require__(125);
+var Web3 = __webpack_require__(131);
 
 var Drizzle = function () {
   function Drizzle(options, store) {
@@ -2749,9 +3572,10 @@ var Drizzle = function () {
         _this2.store.dispatch({ type: 'ACCOUNTS_FETCHING', web3: web3, resolve: resolve, reject: reject });
       }).then(function () {
         var state = _this2.store.getState();
-        var accounts = state.accounts.ids;
-        _this2.store.dispatch({ type: 'GET_BALANCES', web3: web3, accounts: accounts });
+        var accounts = state.accounts;
+        _this2.store.dispatch({ type: 'ACCOUNT_BALANCES_FETCHING', web3: web3, accounts: accounts });
         _this2.watchAccounts();
+        _this2.watchNetwork();
         _this2.getContracts();
       }).catch(function (error) {
         console.error('Error fetching accounts:');
@@ -2777,7 +3601,7 @@ var Drizzle = function () {
             switch (_context.prev = _context.next) {
               case 0:
                 state = _this3.store.getState();
-                accounts = state.accounts.ids;
+                accounts = state.accounts;
                 _context.next = 4;
                 return web3.eth.getAccounts();
 
@@ -2796,7 +3620,7 @@ var Drizzle = function () {
 
               case 8:
                 state = _this3.store.getState();
-                accounts = state.accounts.ids;
+                accounts = state.accounts;
                 _this3.store.dispatch({ type: 'GET_BALANCES', web3: web3, accounts: accounts });
 
               case 11:
@@ -2808,9 +3632,42 @@ var Drizzle = function () {
       })), 300);
     }
   }, {
+    key: 'watchNetwork',
+    value: function watchNetwork() {
+      var _this4 = this;
+
+      var web3 = this.metamaskWeb3 || this.web3;
+      var accountInterval = setInterval((0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var state, networkId, newNetworkId;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                state = _this4.store.getState();
+                networkId = state.web3.networkId;
+                _context2.next = 4;
+                return web3.eth.net.getId();
+
+              case 4:
+                newNetworkId = _context2.sent;
+
+                if (networkId !== newNetworkId) {
+                  networkId = newNetworkId;
+                  _this4.store.dispatch({ type: 'NETWORK_ID_FETCHED', web3: web3, networkId: networkId });
+                }
+
+              case 6:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this4);
+      })), 1000);
+    }
+  }, {
     key: 'getContracts',
     value: function getContracts() {
-      var _this4 = this;
+      var _this5 = this;
 
       var store = this.store;
       var web3 = this.metamaskWeb3 || this.web3;
@@ -2834,7 +3691,7 @@ var Drizzle = function () {
 
             if (initializedContracts === (0, _keys2.default)(state.contracts).length) {
               // All contracts are initialized, we can begin observing changes
-              _this4.observeBlocks();
+              _this5.observeBlocks();
             }
           }
         }
@@ -2843,7 +3700,7 @@ var Drizzle = function () {
   }, {
     key: 'observeBlocks',
     value: function observeBlocks() {
-      var _this5 = this;
+      var _this6 = this;
 
       // Cancels our store subscription.
       this.readytoObserve();
@@ -2855,7 +3712,7 @@ var Drizzle = function () {
 
       var contractAddresses = [];
       var contractNames = [];
-      var accountAddresses = state.accounts.ids;
+      var accountAddresses = (0, _values2.default)(state.accounts);
 
       // Collect contract addresses in an array for later comparison in txs.
       for (var contract in this.contracts) {
@@ -2876,7 +3733,7 @@ var Drizzle = function () {
           // Check block txs for our contract txs, if contract involved, sync contract.
           var blockNumber = blockHeader.number;
 
-          _this5.web3.eth.getBlock(blockNumber, true).then(function (block) {
+          _this6.web3.eth.getBlock(blockNumber, true).then(function (block) {
             var txs = block.transactions;
 
             if (txs.length > 0) {
@@ -2885,13 +3742,13 @@ var Drizzle = function () {
                 if (contractAddresses.indexOf(txs[i].from) !== -1 || contractAddresses.indexOf(txs[i].to) !== -1) {
                   var index = contractAddresses.indexOf(txs[i].from) !== -1 ? contractAddresses.indexOf(txs[i].from) : contractAddresses.indexOf(txs[i].to);
                   var contractName = contractNames[index];
-                  _this5.store.dispatch({ type: 'CONTRACT_SYNCING', contract: _this5.contracts[contractName] });
+                  _this6.store.dispatch({ type: 'CONTRACT_SYNCING', contract: _this6.contracts[contractName] });
                 }
                 // TODO update ETH balance of accounts
                 if (accountAddresses.indexOf(txs[i].from) !== -1 || accountAddresses.indexOf(txs[i].to) !== -1) {
                   var _index = accountAddresses.indexOf(txs[i].from) !== -1 ? accountAddresses.indexOf(txs[i].from) : accountAddresses.indexOf(txs[i].to);
                   var account = accountAddresses[_index];
-                  _this5.store.dispatch({ type: 'GET_ACCOUNT_BALANCE', account: account, web3: web3 });
+                  _this6.store.dispatch({ type: 'GET_ACCOUNT_BALANCE', account: account, web3: web3 });
                 }
               }
             }
@@ -2910,28 +3767,28 @@ var Drizzle = function () {
 exports.default = Drizzle;
 
 /***/ }),
-/* 79 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(80), __esModule: true };
+module.exports = { "default": __webpack_require__(86), __esModule: true };
 
 /***/ }),
-/* 80 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(81);
+__webpack_require__(87);
 module.exports = __webpack_require__(0).Object.keys;
 
 
 /***/ }),
-/* 81 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(19);
+var toObject = __webpack_require__(20);
 var $keys = __webpack_require__(14);
 
-__webpack_require__(84)('keys', function () {
+__webpack_require__(90)('keys', function () {
   return function keys(it) {
     return $keys(toObject(it));
   };
@@ -2939,14 +3796,14 @@ __webpack_require__(84)('keys', function () {
 
 
 /***/ }),
-/* 82 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(11);
-var toLength = __webpack_require__(30);
-var toAbsoluteIndex = __webpack_require__(83);
+var toIObject = __webpack_require__(10);
+var toLength = __webpack_require__(32);
+var toAbsoluteIndex = __webpack_require__(89);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -2968,10 +3825,10 @@ module.exports = function (IS_INCLUDES) {
 
 
 /***/ }),
-/* 83 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(31);
+var toInteger = __webpack_require__(33);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -2981,13 +3838,13 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 84 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(3);
 var core = __webpack_require__(0);
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(11);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -2997,7 +3854,7 @@ module.exports = function (KEY, exec) {
 
 
 /***/ }),
-/* 85 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3022,7 +3879,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(86);
+module.exports = __webpack_require__(92);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -3038,7 +3895,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 86 */
+/* 92 */
 /***/ (function(module, exports) {
 
 /**
@@ -3771,7 +4628,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 87 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3815,24 +4672,24 @@ exports.default = function (fn) {
 };
 
 /***/ }),
-/* 88 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(50);
-__webpack_require__(37);
+__webpack_require__(39);
 __webpack_require__(55);
-__webpack_require__(96);
-__webpack_require__(103);
-__webpack_require__(104);
+__webpack_require__(102);
+__webpack_require__(109);
+__webpack_require__(110);
 module.exports = __webpack_require__(0).Promise;
 
 
 /***/ }),
-/* 89 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(31);
-var defined = __webpack_require__(29);
+var toInteger = __webpack_require__(33);
+var defined = __webpack_require__(31);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -3851,7 +4708,7 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 90 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3871,7 +4728,7 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 91 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(4);
@@ -3890,13 +4747,13 @@ module.exports = __webpack_require__(6) ? Object.defineProperties : function def
 
 
 /***/ }),
-/* 92 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(7);
-var toObject = __webpack_require__(19);
-var IE_PROTO = __webpack_require__(32)('IE_PROTO');
+var toObject = __webpack_require__(20);
+var IE_PROTO = __webpack_require__(34)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -3909,15 +4766,15 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 93 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(94);
-var step = __webpack_require__(95);
-var Iterators = __webpack_require__(18);
-var toIObject = __webpack_require__(11);
+var addToUnscopables = __webpack_require__(100);
+var step = __webpack_require__(101);
+var Iterators = __webpack_require__(19);
+var toIObject = __webpack_require__(10);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -3950,14 +4807,14 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 94 */
+/* 100 */
 /***/ (function(module, exports) {
 
 module.exports = function () { /* empty */ };
 
 
 /***/ }),
-/* 95 */
+/* 101 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -3966,7 +4823,7 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 96 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3977,13 +4834,13 @@ var ctx = __webpack_require__(16);
 var classof = __webpack_require__(56);
 var $export = __webpack_require__(3);
 var isObject = __webpack_require__(9);
-var aFunction = __webpack_require__(21);
-var anInstance = __webpack_require__(97);
-var forOf = __webpack_require__(98);
+var aFunction = __webpack_require__(22);
+var anInstance = __webpack_require__(103);
+var forOf = __webpack_require__(104);
 var speciesConstructor = __webpack_require__(60);
 var task = __webpack_require__(61).set;
-var microtask = __webpack_require__(100)();
-var newPromiseCapabilityModule = __webpack_require__(38);
+var microtask = __webpack_require__(106)();
+var newPromiseCapabilityModule = __webpack_require__(40);
 var perform = __webpack_require__(62);
 var promiseResolve = __webpack_require__(63);
 var PROMISE = 'Promise';
@@ -4148,7 +5005,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(101)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(107)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -4180,7 +5037,7 @@ if (!USE_NATIVE) {
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(24)($Promise, PROMISE);
-__webpack_require__(102)(PROMISE);
+__webpack_require__(108)(PROMISE);
 Wrapper = __webpack_require__(0)[PROMISE];
 
 // statics
@@ -4246,7 +5103,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(64)(function
 
 
 /***/ }),
-/* 97 */
+/* 103 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -4257,14 +5114,14 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 
 /***/ }),
-/* 98 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(16);
 var call = __webpack_require__(57);
 var isArrayIter = __webpack_require__(58);
 var anObject = __webpack_require__(5);
-var toLength = __webpack_require__(30);
+var toLength = __webpack_require__(32);
 var getIterFn = __webpack_require__(59);
 var BREAK = {};
 var RETURN = {};
@@ -4288,7 +5145,7 @@ exports.RETURN = RETURN;
 
 
 /***/ }),
-/* 99 */
+/* 105 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -4310,7 +5167,7 @@ module.exports = function (fn, args, that) {
 
 
 /***/ }),
-/* 100 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
@@ -4384,7 +5241,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 101 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hide = __webpack_require__(8);
@@ -4397,7 +5254,7 @@ module.exports = function (target, src, safe) {
 
 
 /***/ }),
-/* 102 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4418,7 +5275,7 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 103 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4445,14 +5302,14 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 
 /***/ }),
-/* 104 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(3);
-var newPromiseCapability = __webpack_require__(38);
+var newPromiseCapability = __webpack_require__(40);
 var perform = __webpack_require__(62);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
@@ -4464,10 +5321,10 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
 
 
 /***/ }),
-/* 105 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(106);
+__webpack_require__(112);
 var $Object = __webpack_require__(0).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -4475,7 +5332,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 
 /***/ }),
-/* 106 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(3);
@@ -4484,7 +5341,7 @@ $export($export.S + $export.F * !__webpack_require__(6), 'Object', { definePrope
 
 
 /***/ }),
-/* 107 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4494,7 +5351,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = __webpack_require__(108);
+var _stringify = __webpack_require__(114);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -4537,8 +5394,6 @@ var DrizzleContract = function () {
         data: _this.contractArtifact.deployedBytecode
       });
 
-      _this.initContractState();
-
       // Merge web3 contract instance into DrizzleContract instance.
       (0, _assign2.default)(_this, web3Contract);
 
@@ -4554,6 +5409,8 @@ var DrizzleContract = function () {
         }
       }
 
+      _this.initContractState();
+
       // Register event listeners if any events.
       if (events.length > 0) {
         for (i = 0; i < events.length; i++) {
@@ -4564,10 +5421,8 @@ var DrizzleContract = function () {
       }
 
       var name = contractArtifact.contractName;
-      var methods = _this.methods;
-      var address = _this._address;
 
-      store.dispatch({ type: 'CONTRACT_INITIALIZED', name: name, methods: methods, address: address });
+      store.dispatch({ type: 'CONTRACT_INITIALIZED', name: name });
 
       return networkId;
     }).catch(function (error) {
@@ -4588,7 +5443,9 @@ var DrizzleContract = function () {
       var initialState = {
         initialized: false,
         synced: false,
-        state: {}
+        state: {},
+        methods: this.methods,
+        address: this._address
 
         // Constant getters
       };for (var i = 0; i < this.abi.length; i++) {
@@ -4688,13 +5545,13 @@ var DrizzleContract = function () {
 exports.default = DrizzleContract;
 
 /***/ }),
-/* 108 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(109), __esModule: true };
+module.exports = { "default": __webpack_require__(115), __esModule: true };
 
 /***/ }),
-/* 109 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var core = __webpack_require__(0);
@@ -4705,39 +5562,39 @@ module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
 
 
 /***/ }),
-/* 110 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(111), __esModule: true };
+module.exports = { "default": __webpack_require__(117), __esModule: true };
 
 /***/ }),
-/* 111 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(37);
+__webpack_require__(39);
 __webpack_require__(55);
-module.exports = __webpack_require__(39).f('iterator');
+module.exports = __webpack_require__(41).f('iterator');
 
 
 /***/ }),
-/* 112 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(113), __esModule: true };
+module.exports = { "default": __webpack_require__(119), __esModule: true };
 
 /***/ }),
-/* 113 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(114);
-__webpack_require__(50);
 __webpack_require__(120);
-__webpack_require__(121);
+__webpack_require__(50);
+__webpack_require__(126);
+__webpack_require__(127);
 module.exports = __webpack_require__(0).Symbol;
 
 
 /***/ }),
-/* 114 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4748,24 +5605,24 @@ var has = __webpack_require__(7);
 var DESCRIPTORS = __webpack_require__(6);
 var $export = __webpack_require__(3);
 var redefine = __webpack_require__(52);
-var META = __webpack_require__(115).KEY;
-var $fails = __webpack_require__(12);
-var shared = __webpack_require__(33);
+var META = __webpack_require__(121).KEY;
+var $fails = __webpack_require__(11);
+var shared = __webpack_require__(35);
 var setToStringTag = __webpack_require__(24);
-var uid = __webpack_require__(20);
+var uid = __webpack_require__(21);
 var wks = __webpack_require__(2);
-var wksExt = __webpack_require__(39);
-var wksDefine = __webpack_require__(40);
-var enumKeys = __webpack_require__(116);
-var isArray = __webpack_require__(117);
+var wksExt = __webpack_require__(41);
+var wksDefine = __webpack_require__(42);
+var enumKeys = __webpack_require__(122);
+var isArray = __webpack_require__(123);
 var anObject = __webpack_require__(5);
 var isObject = __webpack_require__(9);
-var toIObject = __webpack_require__(11);
-var toPrimitive = __webpack_require__(36);
+var toIObject = __webpack_require__(10);
+var toPrimitive = __webpack_require__(38);
 var createDesc = __webpack_require__(17);
 var _create = __webpack_require__(53);
-var gOPNExt = __webpack_require__(118);
-var $GOPD = __webpack_require__(119);
+var gOPNExt = __webpack_require__(124);
+var $GOPD = __webpack_require__(125);
 var $DP = __webpack_require__(4);
 var $keys = __webpack_require__(14);
 var gOPD = $GOPD.f;
@@ -4892,7 +5749,7 @@ if (!USE_NATIVE) {
   $DP.f = $defineProperty;
   __webpack_require__(69).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(25).f = $propertyIsEnumerable;
-  __webpack_require__(41).f = $getOwnPropertySymbols;
+  __webpack_require__(43).f = $getOwnPropertySymbols;
 
   if (DESCRIPTORS && !__webpack_require__(23)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
@@ -4978,10 +5835,10 @@ setToStringTag(global.JSON, 'JSON', true);
 
 
 /***/ }),
-/* 115 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(20)('meta');
+var META = __webpack_require__(21)('meta');
 var isObject = __webpack_require__(9);
 var has = __webpack_require__(7);
 var setDesc = __webpack_require__(4).f;
@@ -4989,7 +5846,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(12)(function () {
+var FREEZE = !__webpack_require__(11)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -5037,12 +5894,12 @@ var meta = module.exports = {
 
 
 /***/ }),
-/* 116 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
 var getKeys = __webpack_require__(14);
-var gOPS = __webpack_require__(41);
+var gOPS = __webpack_require__(43);
 var pIE = __webpack_require__(25);
 module.exports = function (it) {
   var result = getKeys(it);
@@ -5058,7 +5915,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 117 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.2.2 IsArray(argument)
@@ -5069,11 +5926,11 @@ module.exports = Array.isArray || function isArray(arg) {
 
 
 /***/ }),
-/* 118 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(11);
+var toIObject = __webpack_require__(10);
 var gOPN = __webpack_require__(69).f;
 var toString = {}.toString;
 
@@ -5094,13 +5951,13 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 
 /***/ }),
-/* 119 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(25);
 var createDesc = __webpack_require__(17);
-var toIObject = __webpack_require__(11);
-var toPrimitive = __webpack_require__(36);
+var toIObject = __webpack_require__(10);
+var toPrimitive = __webpack_require__(38);
 var has = __webpack_require__(7);
 var IE8_DOM_DEFINE = __webpack_require__(48);
 var gOPD = Object.getOwnPropertyDescriptor;
@@ -5116,53 +5973,53 @@ exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O,
 
 
 /***/ }),
-/* 120 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(40)('asyncIterator');
+__webpack_require__(42)('asyncIterator');
 
 
 /***/ }),
-/* 121 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(40)('observable');
+__webpack_require__(42)('observable');
 
 
 /***/ }),
-/* 122 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(123);
+__webpack_require__(129);
 module.exports = __webpack_require__(0).Object.assign;
 
 
 /***/ }),
-/* 123 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.3.1 Object.assign(target, source)
 var $export = __webpack_require__(3);
 
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(124) });
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(130) });
 
 
 /***/ }),
-/* 124 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
 var getKeys = __webpack_require__(14);
-var gOPS = __webpack_require__(41);
+var gOPS = __webpack_require__(43);
 var pIE = __webpack_require__(25);
-var toObject = __webpack_require__(19);
+var toObject = __webpack_require__(20);
 var IObject = __webpack_require__(47);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(12)(function () {
+module.exports = !$assign || __webpack_require__(11)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -5189,13 +6046,13 @@ module.exports = !$assign || __webpack_require__(12)(function () {
 
 
 /***/ }),
-/* 125 */
+/* 131 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_125__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_131__;
 
 /***/ }),
-/* 126 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5203,7 +6060,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_125__;
 
 var _redux = __webpack_require__(70);
 
-var _reduxThunk = __webpack_require__(127);
+var _reduxThunk = __webpack_require__(133);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -5211,11 +6068,11 @@ var _reduxSaga = __webpack_require__(71);
 
 var _reduxSaga2 = _interopRequireDefault(_reduxSaga);
 
-var _rootSaga = __webpack_require__(72);
+var _rootSaga = __webpack_require__(134);
 
 var _rootSaga2 = _interopRequireDefault(_rootSaga);
 
-var _reducer = __webpack_require__(75);
+var _reducer = __webpack_require__(144);
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
@@ -5239,23 +6096,70 @@ function generateStore(options) {
 module.exports = generateStore;
 
 /***/ }),
-/* 127 */
+/* 133 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_127__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_133__;
 
 /***/ }),
-/* 128 */
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(18);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+exports.default = root;
+
+var _effects = __webpack_require__(27);
+
+var _contractsSaga = __webpack_require__(74);
+
+var _contractsSaga2 = _interopRequireDefault(_contractsSaga);
+
+var _accountsSaga = __webpack_require__(75);
+
+var _accountsSaga2 = _interopRequireDefault(_accountsSaga);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _marked = /*#__PURE__*/_regenerator2.default.mark(root);
+
+function root() {
+  return _regenerator2.default.wrap(function root$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0, _effects.all)([(0, _effects.fork)(_accountsSaga2.default), (0, _effects.fork)(_contractsSaga2.default)]);
+
+        case 2:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+/***/ }),
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export takeEvery */
 /* unused harmony export takeLatest */
 /* unused harmony export throttle */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__takeEvery__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__takeLatest__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__throttle__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__takeEvery__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__takeLatest__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__throttle__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils__ = __webpack_require__(12);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__takeEvery__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__takeLatest__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__throttle__["a"]; });
@@ -5276,14 +6180,14 @@ var throttle = /*#__PURE__*/Object(__WEBPACK_IMPORTED_MODULE_3__utils__["g" /* d
 
 
 /***/ }),
-/* 129 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = takeEvery;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(45);
 
 
 
@@ -5314,7 +6218,7 @@ function takeEvery(patternOrChannel, worker) {
 }
 
 /***/ }),
-/* 130 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5385,14 +6289,14 @@ function flush() {
 }
 
 /***/ }),
-/* 131 */
+/* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = takeLatest;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(45);
 
 
 
@@ -5433,16 +6337,16 @@ function takeLatest(patternOrChannel, worker) {
 }
 
 /***/ }),
-/* 132 */
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = throttle;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__buffers__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__buffers__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(12);
 
 
 
@@ -5490,448 +6394,33 @@ function throttle(delayLength, pattern, worker) {
 }
 
 /***/ }),
-/* 133 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _assign = __webpack_require__(26);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-var _extends2 = __webpack_require__(10);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _toConsumableArray2 = __webpack_require__(28);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _typeof2 = __webpack_require__(68);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _regenerator = __webpack_require__(22);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _reduxSaga = __webpack_require__(71);
-
-var _effects = __webpack_require__(42);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _marked = /*#__PURE__*/_regenerator2.default.mark(callListenForContractEvent),
-    _marked2 = /*#__PURE__*/_regenerator2.default.mark(callSendContractTx),
-    _marked3 = /*#__PURE__*/_regenerator2.default.mark(callCallContractFn),
-    _marked4 = /*#__PURE__*/_regenerator2.default.mark(callSyncContract),
-    _marked5 = /*#__PURE__*/_regenerator2.default.mark(contractsSaga);
-
-/*
- * Events
- */
-
-function createContractEventChannel(_ref) {
-  var contract = _ref.contract,
-      eventName = _ref.eventName;
-
-  var name = contract.contractArtifact.contractName;
-
-  return (0, _reduxSaga.eventChannel)(function (emit) {
-    var eventListener = contract.events[eventName]().on('data', function (event) {
-      emit({ type: 'EVENT_FIRED', name: name, event: event });
-    }).on('changed', function (event) {
-      emit({ type: 'EVENT_CHANGED', name: name, event: event });
-    }).on('error', function (error) {
-      emit({ type: 'EVENT_ERROR', name: name, error: error });
-      emit(_reduxSaga.END);
-    });
-
-    var unsubscribe = function unsubscribe() {
-      eventListener.removeListener(eventName);
-    };
-
-    return unsubscribe;
-  });
-}
-
-function callListenForContractEvent(_ref2) {
-  var contract = _ref2.contract,
-      eventName = _ref2.eventName;
-  var contractEventChannel, event;
-  return _regenerator2.default.wrap(function callListenForContractEvent$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return (0, _effects.call)(createContractEventChannel, { contract: contract, eventName: eventName });
-
-        case 2:
-          contractEventChannel = _context.sent;
-
-        case 3:
-          if (false) {
-            _context.next = 11;
-            break;
-          }
-
-          _context.next = 6;
-          return (0, _effects.take)(contractEventChannel);
-
-        case 6:
-          event = _context.sent;
-          _context.next = 9;
-          return (0, _effects.put)(event);
-
-        case 9:
-          _context.next = 3;
-          break;
-
-        case 11:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, _marked, this);
-}
-
-/*
- * Send and Cache
- */
-
-function createTxChannel(_ref3) {
-  var txObject = _ref3.txObject,
-      stackId = _ref3.stackId,
-      _ref3$sendArgs = _ref3.sendArgs,
-      sendArgs = _ref3$sendArgs === undefined ? {} : _ref3$sendArgs,
-      contractName = _ref3.contractName;
-
-  var persistTxHash;
-
-  return (0, _reduxSaga.eventChannel)(function (emit) {
-    var txPromiEvent = txObject.send(sendArgs).on('transactionHash', function (txHash) {
-      persistTxHash = txHash;
-
-      emit({ type: 'TX_BROADCASTED', txHash: txHash, stackId: stackId });
-      emit({ type: 'CONTRACT_SYNC_IND', contractName: contractName });
-    }).on('confirmation', function (confirmationNumber, receipt) {
-      emit({ type: 'TX_CONFIRMAITON', confirmationReceipt: receipt, txHash: persistTxHash });
-    }).on('receipt', function (receipt) {
-      emit({ type: 'TX_SUCCESSFUL', receipt: receipt, txHash: persistTxHash });
-      emit(_reduxSaga.END);
-    }).on('error', function (error) {
-      emit({ type: 'TX_ERROR', error: error, txHash: persistTxHash });
-      emit(_reduxSaga.END);
-    });
-
-    var unsubscribe = function unsubscribe() {
-      txPromiEvent.off();
-    };
-
-    return unsubscribe;
-  });
-}
-
-function callSendContractTx(_ref4) {
-  var contract = _ref4.contract,
-      fnName = _ref4.fnName,
-      fnIndex = _ref4.fnIndex,
-      args = _ref4.args,
-      stackId = _ref4.stackId;
-  var finalArg, sendArgs, finalArgTest, contractName, txObject, txChannel, event;
-  return _regenerator2.default.wrap(function callSendContractTx$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          // Check for type of object and properties indicative of call/send options.
-          finalArg = args[args.length - 1];
-          sendArgs = {};
-          finalArgTest = (0, _effects.call)(isSendOrCallOptions, finalArg);
-
-
-          if ((typeof finalArg === 'undefined' ? 'undefined' : (0, _typeof3.default)(finalArg)) === 'object' && finalArgTest) {
-            sendArgs = finalArg;
-
-            delete args[args.length - 1];
-            args.length = args.length - 1;
-          }
-
-          // Get name to mark as desynchronized on tx creation
-          contractName = contract.contractArtifact.contractName;
-
-          // Create the transaction object and execute the tx.
-
-          _context2.next = 7;
-          return _effects.call.apply(undefined, [contract.methods[fnName]].concat((0, _toConsumableArray3.default)(args)));
-
-        case 7:
-          txObject = _context2.sent;
-          _context2.next = 10;
-          return (0, _effects.call)(createTxChannel, { txObject: txObject, stackId: stackId, sendArgs: sendArgs, contractName: contractName });
-
-        case 10:
-          txChannel = _context2.sent;
-          _context2.prev = 11;
-
-        case 12:
-          if (false) {
-            _context2.next = 20;
-            break;
-          }
-
-          _context2.next = 15;
-          return (0, _effects.take)(txChannel);
-
-        case 15:
-          event = _context2.sent;
-          _context2.next = 18;
-          return (0, _effects.put)(event);
-
-        case 18:
-          _context2.next = 12;
-          break;
-
-        case 20:
-          _context2.prev = 20;
-
-          txChannel.close();
-          return _context2.finish(20);
-
-        case 23:
-        case 'end':
-          return _context2.stop();
-      }
-    }
-  }, _marked2, this, [[11,, 20, 23]]);
-}
-
-/*
- * Call and Cache
- */
-
-function callCallContractFn(_ref5) {
-  var contract = _ref5.contract,
-      fnName = _ref5.fnName,
-      fnIndex = _ref5.fnIndex,
-      args = _ref5.args,
-      argsHash = _ref5.argsHash;
-  var finalArg, callArgs, finalArgTest, txObject, callResult, dispatchArgs, errorArgs;
-  return _regenerator2.default.wrap(function callCallContractFn$(_context3) {
-    while (1) {
-      switch (_context3.prev = _context3.next) {
-        case 0:
-          // Check for type of object and properties indicative of call/send options.
-          finalArg = args[args.length - 1];
-          callArgs = {};
-          finalArgTest = (0, _effects.call)(isSendOrCallOptions, finalArg);
-
-
-          if ((typeof finalArg === 'undefined' ? 'undefined' : (0, _typeof3.default)(finalArg)) === 'object' && finalArgTest) {
-            callArgs = finalArg;
-
-            delete args[args.length - 1];
-            args.length = args.length - 1;
-          }
-          _context3.prev = 4;
-          _context3.next = 7;
-          return _effects.call.apply(undefined, [contract.methods[fnName]].concat((0, _toConsumableArray3.default)(args)));
-
-        case 7:
-          txObject = _context3.sent;
-          _context3.next = 10;
-          return (0, _effects.call)(txObject.call, callArgs);
-
-        case 10:
-          callResult = _context3.sent;
-          dispatchArgs = {
-            name: contract.contractArtifact.contractName,
-            variable: contract.abi[fnIndex].name,
-            argsHash: argsHash,
-            args: args,
-            value: callResult,
-            fnIndex: fnIndex
-          };
-          _context3.next = 14;
-          return (0, _effects.put)((0, _extends3.default)({ type: 'GOT_CONTRACT_VAR' }, dispatchArgs));
-
-        case 14:
-          _context3.next = 22;
-          break;
-
-        case 16:
-          _context3.prev = 16;
-          _context3.t0 = _context3['catch'](4);
-
-          console.error(_context3.t0);
-
-          errorArgs = {
-            name: contract.contractArtifact.contractName,
-            variable: contract.abi[fnIndex].name,
-            argsHash: argsHash,
-            args: args,
-            error: _context3.t0,
-            fnIndex: fnIndex
-          };
-          _context3.next = 22;
-          return (0, _effects.put)((0, _extends3.default)({ type: 'ERROR_CONTRACT_VAR' }, errorArgs));
-
-        case 22:
-        case 'end':
-          return _context3.stop();
-      }
-    }
-  }, _marked3, this, [[4, 16]]);
-}
-
-/*
- * Sync Contract
- */
-
-function callSyncContract(action) {
-  var contract, contractName, contractsState, contractFnsState, fnName, argsHash, fnIndex, args;
-  return _regenerator2.default.wrap(function callSyncContract$(_context4) {
-    while (1) {
-      switch (_context4.prev = _context4.next) {
-        case 0:
-          // Get contract state from store
-          contract = action.contract;
-          contractName = contract.contractArtifact.contractName;
-          _context4.next = 4;
-          return (0, _effects.select)(getContractsState);
-
-        case 4:
-          contractsState = _context4.sent;
-          contractFnsState = (0, _assign2.default)({}, contractsState[contractName].state);
-
-          // Remove unecessary keys
-
-          delete contractFnsState.initialized;
-          delete contractFnsState.synced;
-          delete contractFnsState.events;
-
-          // Iterate over functions and hashes
-          _context4.t0 = _regenerator2.default.keys(contractFnsState);
-
-        case 10:
-          if ((_context4.t1 = _context4.t0()).done) {
-            _context4.next = 23;
-            break;
-          }
-
-          fnName = _context4.t1.value;
-          _context4.t2 = _regenerator2.default.keys(contractFnsState[fnName]);
-
-        case 13:
-          if ((_context4.t3 = _context4.t2()).done) {
-            _context4.next = 21;
-            break;
-          }
-
-          argsHash = _context4.t3.value;
-          fnIndex = contractFnsState[fnName][argsHash].fnIndex;
-          args = contractFnsState[fnName][argsHash].args;
-
-          // Pull args and call fn for each given function
-
-          _context4.next = 19;
-          return (0, _effects.put)({ type: 'CALL_CONTRACT_FN', contract: contract, fnName: fnName, fnIndex: fnIndex, args: args, argsHash: argsHash });
-
-        case 19:
-          _context4.next = 13;
-          break;
-
-        case 21:
-          _context4.next = 10;
-          break;
-
-        case 23:
-          _context4.next = 25;
-          return (0, _effects.put)({ type: 'CONTRACT_SYNCED', contractName: contractName });
-
-        case 25:
-        case 'end':
-          return _context4.stop();
-      }
-    }
-  }, _marked4, this);
-}
-
-var getContractsState = function getContractsState(state) {
-  return state.contracts;
-};
-
-function isSendOrCallOptions(options) {
-  if ('from' in options) return true;
-  if ('gas' in options) return true;
-  if ('gasPrice' in options) return true;
-  if ('value' in options) return true;
-
-  return false;
-}
-
-function contractsSaga() {
-  return _regenerator2.default.wrap(function contractsSaga$(_context5) {
-    while (1) {
-      switch (_context5.prev = _context5.next) {
-        case 0:
-          _context5.next = 2;
-          return (0, _effects.takeEvery)('SEND_CONTRACT_TX', callSendContractTx);
-
-        case 2:
-          _context5.next = 4;
-          return (0, _effects.takeEvery)('CALL_CONTRACT_FN', callCallContractFn);
-
-        case 4:
-          _context5.next = 6;
-          return (0, _effects.takeEvery)('CONTRACT_SYNCING', callSyncContract);
-
-        case 6:
-          _context5.next = 8;
-          return (0, _effects.takeEvery)('LISTEN_FOR_EVENT', callListenForContractEvent);
-
-        case 8:
-        case 'end':
-          return _context5.stop();
-      }
-    }
-  }, _marked5, this);
-}
-
-exports.default = contractsSaga;
+module.exports = { "default": __webpack_require__(141), __esModule: true };
 
 /***/ }),
-/* 134 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(135), __esModule: true };
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(37);
-__webpack_require__(136);
+__webpack_require__(39);
+__webpack_require__(142);
 module.exports = __webpack_require__(0).Array.from;
 
 
 /***/ }),
-/* 136 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var ctx = __webpack_require__(16);
 var $export = __webpack_require__(3);
-var toObject = __webpack_require__(19);
+var toObject = __webpack_require__(20);
 var call = __webpack_require__(57);
 var isArrayIter = __webpack_require__(58);
-var toLength = __webpack_require__(30);
-var createProperty = __webpack_require__(137);
+var toLength = __webpack_require__(32);
+var createProperty = __webpack_require__(143);
 var getIterFn = __webpack_require__(59);
 
 $export($export.S + $export.F * !__webpack_require__(64)(function (iter) { Array.from(iter); }), 'Array', {
@@ -5964,7 +6453,7 @@ $export($export.S + $export.F * !__webpack_require__(64)(function (iter) { Array
 
 
 /***/ }),
-/* 137 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5979,7 +6468,7 @@ module.exports = function (object, index, value) {
 
 
 /***/ }),
-/* 138 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5989,32 +6478,113 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(10);
+var _redux = __webpack_require__(70);
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _accountsReducer = __webpack_require__(76);
 
-var _regenerator = __webpack_require__(22);
+var _accountsReducer2 = _interopRequireDefault(_accountsReducer);
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _contractsReducer = __webpack_require__(77);
 
-var _defineProperty2 = __webpack_require__(45);
+var _contractsReducer2 = _interopRequireDefault(_contractsReducer);
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+var _drizzleStatusReducer = __webpack_require__(78);
 
-var _effects = __webpack_require__(42);
+var _drizzleStatusReducer2 = _interopRequireDefault(_drizzleStatusReducer);
+
+var _transactionsReducer = __webpack_require__(79);
+
+var _transactionsReducer2 = _interopRequireDefault(_transactionsReducer);
+
+var _transactionStackReducer = __webpack_require__(80);
+
+var _transactionStackReducer2 = _interopRequireDefault(_transactionStackReducer);
+
+var _web3Reducer = __webpack_require__(81);
+
+var _web3Reducer2 = _interopRequireDefault(_web3Reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _marked = /*#__PURE__*/_regenerator2.default.mark(callGetAccounts),
-    _marked2 = /*#__PURE__*/_regenerator2.default.mark(callGetBalances),
-    _marked3 = /*#__PURE__*/_regenerator2.default.mark(callGetAccountBalance),
-    _marked4 = /*#__PURE__*/_regenerator2.default.mark(accountsSaga);
+var reducer = (0, _redux.combineReducers)({
+  accounts: _accountsReducer2.default,
+  contracts: _contractsReducer2.default,
+  drizzleStatus: _drizzleStatusReducer2.default,
+  transactions: _transactionsReducer2.default,
+  transactionStack: _transactionStackReducer2.default,
+  web3: _web3Reducer2.default
+});
 
-function getAccounts(web3) {
-  return web3.eth.getAccounts().then(function (accounts) {
-    return accounts;
-  });
-}
+exports.default = reducer;
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(30);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends3 = __webpack_require__(13);
+
+var _extends4 = _interopRequireDefault(_extends3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {};
+
+var accountBalancesReducer = function accountBalancesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  if (action.type === 'ACCOUNT_BALANCE_FETCHED') {
+    return (0, _extends4.default)({}, state, (0, _defineProperty3.default)({}, action.account, action.accountBalance));
+  }
+
+  return state;
+};
+
+exports.default = accountBalancesReducer;
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(18);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _extends2 = __webpack_require__(13);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(30);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+exports.getAccountBalances = getAccountBalances;
+
+var _effects = __webpack_require__(27);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _marked = /*#__PURE__*/_regenerator2.default.mark(getAccountBalances),
+    _marked2 = /*#__PURE__*/_regenerator2.default.mark(getSingleAccountBalance),
+    _marked3 = /*#__PURE__*/_regenerator2.default.mark(accountBalancesSaga);
 
 function getBalance(account, web3) {
   return web3.eth.getBalance(account).then(function (balance) {
@@ -6022,67 +6592,85 @@ function getBalance(account, web3) {
   });
 }
 
-function callGetAccounts(action) {
-  var accounts;
-  return _regenerator2.default.wrap(function callGetAccounts$(_context) {
+function getAccountBalances(action) {
+  var accounts, web3, i, account;
+  return _regenerator2.default.wrap(function getAccountBalances$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return (0, _effects.call)(getAccounts, action.web3);
+          return (0, _effects.select)(getAccountsState);
 
         case 2:
           accounts = _context.sent;
+          web3 = action.web3;
 
-          if (accounts) {
-            _context.next = 7;
+
+          if (!accounts) {
+            console.error('No accounts found while attempting to fetch balances!');
+          }
+
+          _context.prev = 5;
+          _context.t0 = _regenerator2.default.keys(accounts);
+
+        case 7:
+          if ((_context.t1 = _context.t0()).done) {
+            _context.next = 14;
             break;
           }
 
-          console.error('No accounts found!');
+          i = _context.t1.value;
+          account = accounts[i];
+          _context.next = 12;
+          return getSingleAccountBalance((0, _extends3.default)({}, action, { account: account }));
+
+        case 12:
           _context.next = 7;
-          return (0, _effects.call)(action.reject, { source: 'accounts', message: 'Failed to get accounts.' });
+          break;
 
-        case 7:
-          _context.next = 9;
-          return (0, _effects.put)({ type: 'ACCOUNTS_FETCHED', accounts: accounts });
+        case 14:
+          _context.next = 22;
+          break;
 
-        case 9:
-          _context.next = 11;
-          return (0, _effects.call)(action.resolve);
+        case 16:
+          _context.prev = 16;
+          _context.t2 = _context['catch'](5);
+          _context.next = 20;
+          return (0, _effects.put)({ type: 'ACCOUNT_BALANCE_FAILED', error: _context.t2 });
 
-        case 11:
+        case 20:
+          console.error('Error fetching account balance:');
+          console.error(_context.t2);
+
+        case 22:
+          _context.next = 24;
+          return (0, _effects.put)({ type: 'ACCOUNT_BALANCES_FETCHED' });
+
+        case 24:
         case 'end':
           return _context.stop();
       }
     }
-  }, _marked, this);
+  }, _marked, this, [[5, 16]]);
 }
 
-function callGetBalances(action) {
-  var balances;
-  return _regenerator2.default.wrap(function callGetBalances$(_context2) {
+function getSingleAccountBalance(action) {
+  var account, accountBalance;
+  return _regenerator2.default.wrap(function getSingleAccountBalance$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-
-          if (!(!action.accounts || !action.accounts.length)) {
-            _context2.next = 4;
-            break;
-          }
-
-          console.error('No accounts');
-          return _context2.abrupt('return');
+          account = action.account;
+          _context2.next = 4;
+          return (0, _effects.call)(action.web3.eth.getBalance, account);
 
         case 4:
-          _context2.next = 6;
-          return (0, _effects.all)(action.accounts.map(function (account) {
-            return callGetAccountBalance((0, _extends3.default)({}, action, { account: account }));
-          }));
+          accountBalance = _context2.sent;
+          _context2.next = 7;
+          return (0, _effects.put)({ type: 'ACCOUNT_BALANCE_FETCHED', account: account, accountBalance: accountBalance });
 
-        case 6:
-          balances = _context2.sent;
+        case 7:
           _context2.next = 12;
           break;
 
@@ -6100,426 +6688,82 @@ function callGetBalances(action) {
   }, _marked2, this, [[0, 9]]);
 }
 
-function callGetAccountBalance(action) {
-  var balance;
-  return _regenerator2.default.wrap(function callGetAccountBalance$(_context3) {
+var getAccountsState = function getAccountsState(state) {
+  return state.accounts;
+};
+
+function accountBalancesSaga() {
+  return _regenerator2.default.wrap(function accountBalancesSaga$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          _context3.prev = 0;
-          _context3.next = 3;
-          return (0, _effects.call)(getBalance, action.account, action.web3);
+          _context3.next = 2;
+          return (0, _effects.takeLatest)('ACCOUNT_BALANCES_FETCHING', getAccountBalances);
 
-        case 3:
-          balance = _context3.sent;
-          _context3.next = 6;
-          return (0, _effects.put)({ type: 'ACCOUNT_BALANCE_FETCHED', balance: balance });
+        case 2:
+          _context3.next = 4;
+          return (0, _effects.takeEvery)('GET_ACCOUNT_BALANCE', getSingleAccountBalance);
 
-        case 6:
-          _context3.next = 11;
-          break;
-
-        case 8:
-          _context3.prev = 8;
-          _context3.t0 = _context3['catch'](0);
-
-          console.log(_context3.t0);
-
-        case 11:
+        case 4:
         case 'end':
           return _context3.stop();
       }
     }
-  }, _marked3, this, [[0, 8]]);
+  }, _marked3, this);
 }
 
-function accountsSaga() {
-  return _regenerator2.default.wrap(function accountsSaga$(_context4) {
-    while (1) {
-      switch (_context4.prev = _context4.next) {
-        case 0:
-          _context4.next = 2;
-          return (0, _effects.takeLatest)('ACCOUNTS_FETCHING', callGetAccounts);
-
-        case 2:
-          _context4.next = 4;
-          return (0, _effects.takeLatest)('GET_BALANCES', callGetBalances);
-
-        case 4:
-          _context4.next = 6;
-          return (0, _effects.takeEvery)('GET_ACCOUNT_BALANCE', callGetAccountBalance);
-
-        case 6:
-        case 'end':
-          return _context4.stop();
-      }
-    }
-  }, _marked4, this);
-}
-
-exports.default = accountsSaga;
+exports.default = accountBalancesSaga;
 
 /***/ }),
-/* 139 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(10);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _assign = __webpack_require__(26);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = {
-  ids: [],
-  balances: {}
-};
-
-var accountsReducer = function accountsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  if (action.type === 'ACCOUNTS_FETCHING') {
-    return state;
-  }
-
-  if (action.type === 'ACCOUNTS_FETCHED') {
-    return (0, _assign2.default)({}, state, { ids: action.accounts });
-  }
-
-  if (action.type === 'BALANCES_FETCHED') {
-    var balances = {};
-    action.balances.forEach(function (balance) {
-      return balances = (0, _extends3.default)({}, balances, balance);
-    });
-    return (0, _assign2.default)({}, state, { balances: balances });
-  }
-
-  if (action.type === 'ACCOUNT_BALANCE_FETCHED') {
-    return (0, _assign2.default)({}, state, {
-      balances: (0, _extends3.default)({}, state.balances, action.balance)
-    });
-  }
-
-  return state;
-};
-
-exports.default = accountsReducer;
+module.exports = { "default": __webpack_require__(148), __esModule: true };
 
 /***/ }),
-/* 140 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+__webpack_require__(149);
+module.exports = __webpack_require__(0).Object.values;
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(28);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _defineProperty2 = __webpack_require__(45);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends14 = __webpack_require__(10);
-
-var _extends15 = _interopRequireDefault(_extends14);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = {};
-
-var contractsReducer = function contractsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  /*
-   * Contract Status
-   */
-
-  if (action.type === 'INIT_CONTRACT_STATE') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.contractName, action.initialState));
-  }
-
-  if (action.type === 'CONTRACT_INITIALIZED') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
-      initialized: true,
-      synced: true,
-      events: [],
-      methods: action.methods,
-      address: action.address
-    })));
-  }
-
-  if (action.type === 'CONTRACT_SYNCING') {
-    var contractName = action.contract.contractArtifact.contractName;
-
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, contractName, (0, _extends15.default)({}, state[contractName], {
-      synced: false
-    })));
-  }
-
-  if (action.type === 'CONTRACT_SYNCED') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.contractName, (0, _extends15.default)({}, state[action.contractName], {
-      synced: true
-    })));
-  }
-
-  if (action.type === 'CONTRACT_SYNC_IND') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.contractName, (0, _extends15.default)({}, state[action.contractName], {
-      synced: false
-    })));
-  }
-
-  /*
-   * Contract Functions
-   */
-
-  if (action.type === 'GOT_CONTRACT_VAR') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
-      state: (0, _extends15.default)({}, state[action.name].state, (0, _defineProperty3.default)({}, action.variable, (0, _extends15.default)({}, state[action.name].state[action.variable], (0, _defineProperty3.default)({}, action.argsHash, (0, _extends15.default)({}, state[action.name].state[action.variable][action.argsHash], {
-        args: action.args,
-        fnIndex: action.fnIndex,
-        value: action.value
-      })))))
-    })));
-  }
-
-  if (action.type === 'ERROR_CONTRACT_VAR') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
-      state: (0, _extends15.default)({}, state[action.name].state, (0, _defineProperty3.default)({}, action.variable, (0, _extends15.default)({}, state[action.name][action.variable], (0, _defineProperty3.default)({}, action.argsHash, (0, _extends15.default)({}, state[action.name][action.variable][action.argsHash], {
-        args: action.args,
-        fnIndex: action.fnIndex,
-        error: action.error
-      })))))
-    })));
-  }
-
-  /*
-   * Contract Events
-   */
-
-  if (action.type === 'EVENT_FIRED') {
-    return (0, _extends15.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends15.default)({}, state[action.name], {
-      events: [].concat((0, _toConsumableArray3.default)(state[action.name].events), [action.event])
-    })));
-  }
-
-  return state;
-};
-
-exports.default = contractsReducer;
 
 /***/ }),
-/* 141 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+// https://github.com/tc39/proposal-object-values-entries
+var $export = __webpack_require__(3);
+var $values = __webpack_require__(150)(false);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+$export($export.S, 'Object', {
+  values: function values(it) {
+    return $values(it);
+  }
 });
 
-var _extends2 = __webpack_require__(10);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = {
-  initialized: false
-};
-
-var drizzleStatusReducer = function drizzleStatusReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  /*
-   * Drizzle Status
-   */
-
-  if (action.type === 'DRIZZLE_INITIALIZED') {
-    return (0, _extends3.default)({}, state, {
-      initialized: true
-      // drizzleInstance: action.drizzleInstance
-    });
-  }
-  return state;
-};
-
-exports.default = drizzleStatusReducer;
 
 /***/ }),
-/* 142 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(28);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _defineProperty2 = __webpack_require__(45);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends6 = __webpack_require__(10);
-
-var _extends7 = _interopRequireDefault(_extends6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = {};
-
-var transactionsReducer = function transactionsReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    if (action.type === 'TX_BROADCASTED') {
-        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, {
-            status: 'pending',
-            confirmations: []
-        }));
-    }
-
-    if (action.type === 'TX_CONFIRMAITON') {
-        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, (0, _extends7.default)({}, state[action.txHash], {
-            confirmations: [].concat((0, _toConsumableArray3.default)(state[action.txHash].confirmations), [action.confirmationReceipt])
-        })));
-    }
-
-    if (action.type === 'TX_SUCCESSFUL') {
-        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, (0, _extends7.default)({}, state[action.txHash], {
-            status: 'success',
-            receipt: action.receipt
-        })));
-    }
-
-    if (action.type === 'TX_ERROR') {
-        return (0, _extends7.default)({}, state, (0, _defineProperty3.default)({}, action.txHash, (0, _extends7.default)({}, state[action.txHash], {
-            status: 'error',
-            error: action.error
-        })));
-    }
-
-    return state;
+var getKeys = __webpack_require__(14);
+var toIObject = __webpack_require__(10);
+var isEnum = __webpack_require__(25).f;
+module.exports = function (isEntries) {
+  return function (it) {
+    var O = toIObject(it);
+    var keys = getKeys(O);
+    var length = keys.length;
+    var i = 0;
+    var result = [];
+    var key;
+    while (length > i) if (isEnum.call(O, key = keys[i++])) {
+      result.push(isEntries ? [key, O[key]] : O[key]);
+    } return result;
+  };
 };
 
-exports.default = transactionsReducer;
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(28);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = [];
-
-var transactionStackReducer = function transactionStackReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    if (action.type === 'PUSH_TO_TXSTACK') {
-        state.push('');
-
-        return [].concat((0, _toConsumableArray3.default)(state));
-    }
-
-    if (action.type === 'POP_FROM_TXSTACK') {
-        state.pop();
-
-        return [].concat((0, _toConsumableArray3.default)(state));
-    }
-
-    if (action.type === 'TX_BROADCASTED') {
-        state[action.stackId] = action.txHash;
-
-        return [].concat((0, _toConsumableArray3.default)(state));
-    }
-
-    return state;
-};
-
-exports.default = transactionStackReducer;
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(10);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = {
-  status: ''
-};
-
-var web3Reducer = function web3Reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  if (action.type === 'WEB3_INITIALIZING') {
-    return (0, _extends3.default)({}, state, {
-      status: 'initializing'
-    });
-  }
-
-  if (action.type === 'WEB3_INITIALIZED') {
-    return (0, _extends3.default)({}, state, {
-      status: 'initialized'
-    });
-  }
-
-  if (action.type === 'WEB3_FAILED') {
-    return (0, _extends3.default)({}, state, {
-      status: 'failed'
-    });
-  }
-
-  return state;
-};
-
-exports.default = web3Reducer;
 
 /***/ })
 /******/ ]);

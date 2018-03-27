@@ -19,7 +19,6 @@ class DrizzleContract {
         }
       )
 
-      this.initContractState();
 
       // Merge web3 contract instance into DrizzleContract instance.
       Object.assign(this, web3Contract)
@@ -35,6 +34,8 @@ class DrizzleContract {
           this.methods[item.name].cacheSend = this.cacheSendFunction(item.name, i)
         }
       }
+
+      this.initContractState();
 
       // Register event listeners if any events.
       if (events.length > 0) {
@@ -69,7 +70,7 @@ class DrizzleContract {
       synced: false,
       state: {},
       methods: this.methods,
-      address: this._adress
+      address: this._address
     }
 
     // Constant getters
