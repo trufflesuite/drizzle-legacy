@@ -5,7 +5,8 @@
   "main": "dist/drizzle.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack --config webpack.config.js --watch"
+    "publish": "webpack --config webpack.prod.js",
+    "dev": "webpack --config webpack.config.js --watch",
   },
   "keywords": [
     "ethereum",

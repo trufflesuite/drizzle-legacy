@@ -1,10 +1,10 @@
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 process.env.BABEL_ENV = 'production';
 
 module.exports = {
-  devtool: 'inline-source-map',
-  entry: ['./src/index.js'],
+  entry: './src/index.js',
   output: {
     filename: 'drizzle.js',
     library: 'drizzle',
@@ -27,10 +27,13 @@ module.exports = {
     }]
   },
   externals: {
-    web3: 'web3',
+    'web3': 'web3',
     'redux-saga': 'redux-saga',
-    'redux-thunk': 'redux-thunk',
-    'truffle-contract': 'truffle-contract',
     'redux': 'redux'
-  }
+  },
+  plugins: [
+    new UglifyJSPlugin({
+      sourceMap: true
+    })
+  ]
 };
