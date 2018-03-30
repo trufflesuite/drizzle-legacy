@@ -7,6 +7,8 @@ class DrizzleContract {
 
     var networkId = 0
 
+    this.initContractState();
+
     // Instantiate the contract.
     web3.eth.net.getId()
     .then((networkId) => {
@@ -35,7 +37,6 @@ class DrizzleContract {
         }
       }
 
-      this.initContractState();
 
       // Register event listeners if any events.
       if (events.length > 0) {
@@ -47,8 +48,9 @@ class DrizzleContract {
       }
 
       const name = contractArtifact.contractName
-
-      store.dispatch({type: 'CONTRACT_INITIALIZED', name})
+      const methods = this.methods
+      const address = this._address
+      store.dispatch({type: 'CONTRACT_INITIALIZED', name, methods, address})
 
       return networkId
     })
@@ -69,8 +71,7 @@ class DrizzleContract {
       initialized: false,
       synced: false,
       state: {},
-      methods: this.methods,
-      address: this._address
+      networks: this.contractArtifact.networks
     }
 
     // Constant getters
@@ -89,6 +90,13 @@ class DrizzleContract {
     var contract = this
 
     return function() {
+      const state = contract.store.getState();
+      // if (!state.drizzleStatus.initialize) return null;
+      const contractName = contract.contractArtifact.contractName
+      var contractState = state.contracts[contractName];
+      const functionState = contractState.state[fnName]
+
+      if (!contractState.initialized) return null
       // Collect args and hash to use as key, 0x0 if no args
       var argsHash = '0x0'
       var args = arguments
@@ -96,21 +104,19 @@ class DrizzleContract {
       if (args.length > 0) {
         argsHash = contract.generateArgsHash(args)
       }
-      const contractName = contract.contractArtifact.contractName
-      const functionState = contract.store.getState().contracts[contractName].state[fnName]
 
-      // If call result is in state and fresh, return value instead of calling
+      let result = null;
+      // If call result is in state, return value instead of calling
+      // Syncing is happening by other means so we don't have to worry about it
       if (argsHash in functionState) {
-        if (contract.store.getState().contracts[contractName].synced === true) {
-          return argsHash
-        }
+        return functionState[argsHash].value;
       }
 
       // Otherwise, call function and update store
       contract.store.dispatch({type: 'CALL_CONTRACT_FN', contract, fnName, fnIndex, args, argsHash})
 
       // Return nothing because state is currently empty.
-      return argsHash
+      return result
     }
   }
 
@@ -130,11 +136,11 @@ class DrizzleContract {
       // TODO: FOR DEMO, MOVE MOVE MOVE
       //const name = contract.contractArtifact.contractName
       //contract.store.dispatch({type: 'CONTRACT_SYNC_IND', contractName: name})
-      
+
       // Dispatch tx to saga
       // When txhash received, will be value of stack ID
       contract.store.dispatch({type: 'SEND_CONTRACT_TX', contract, fnName, fnIndex, args, stackId})
-     
+
       // return stack ID
       return stackId
     }

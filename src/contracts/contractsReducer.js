@@ -24,6 +24,8 @@ const contractsReducer = (state = initialState, action) => {
         initialized: true,
         synced: true,
         events: [],
+        methods: action.methods,
+        address: action.address,
       }
     }
   }
@@ -67,6 +69,27 @@ const contractsReducer = (state = initialState, action) => {
    * Contract Functions
    */
 
+  if (action.type === 'GETTING_CONTRACT_VAR')
+  {
+    return {
+      ...state,
+      [action.name]: {
+        ...state[action.name],
+        state: {
+          ...state[action.name].state,
+          [action.variable]: {
+            ...state[action.name].state[action.variable],
+            [action.argsHash]: {
+              ...state[action.name].state[action.variable][action.argsHash],
+              fetching: true
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   if (action.type === 'GOT_CONTRACT_VAR')
   {
     return {
@@ -81,7 +104,8 @@ const contractsReducer = (state = initialState, action) => {
               ...state[action.name].state[action.variable][action.argsHash],
               args: action.args,
               fnIndex: action.fnIndex,
-              value: action.value
+              value: action.value,
+              fetching: false
             }
           }
         }
@@ -103,7 +127,8 @@ const contractsReducer = (state = initialState, action) => {
               ...state[action.name].state[action.variable][action.argsHash],
               args: action.args,
               fnIndex: action.fnIndex,
-              error: action.error
+              error: action.error,
+              fetching: false
             }
           }
         }

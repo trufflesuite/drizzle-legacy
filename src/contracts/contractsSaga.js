@@ -106,10 +106,20 @@ function* callSendContractTx({contract, fnName, fnIndex, args, stackId}) {
  */
 
 function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
+  // set fetching contract (prevents multiple calls)
+  var dispatchArgs = {
+    name: contract.contractArtifact.contractName,
+    variable: contract.abi[fnIndex].name,
+    argsHash: argsHash,
+  }
+  yield put({ type: 'GETTING_CONTRACT_VAR', ...dispatchArgs})
+
+
   // Check for type of object and properties indicative of call/send options.
   const finalArg = args[args.length - 1]
   var callArgs = {}
   var finalArgTest = call(isSendOrCallOptions, finalArg)
+
 
   if (typeof finalArg === 'object' && finalArgTest) {
     callArgs = finalArg
