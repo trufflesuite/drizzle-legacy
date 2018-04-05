@@ -104,7 +104,7 @@ function* processBlock({blockHeader, contracts, contractAddresses, contractNames
         {
           const index = contractAddresses.indexOf(txs[i].from) !== -1 ? contractAddresses.indexOf(txs[i].from) : contractAddresses.indexOf(txs[i].to)
           const contractName = contractNames[index]
-                  
+
           yield put({type: 'CONTRACT_SYNCING', contract: contracts[contractName]})
 
           return
