@@ -128,10 +128,10 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
     delete args[args.length - 1]
     args.length = args.length - 1
   }
-  
+
   // Create the transaction object and execute the call.
   const txObject = yield call(contract.methods[fnName], ...args)
-  
+
   try {
     const callResult = yield call(txObject.call, callArgs)
 
@@ -143,7 +143,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
       value: callResult,
       fnIndex: fnIndex
     }
-  
+
     yield put({type: 'GOT_CONTRACT_VAR', ...dispatchArgs})
   }
   catch (error) {
@@ -157,7 +157,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
       error: error,
       fnIndex: fnIndex
     }
-  
+
     yield put({type: 'ERROR_CONTRACT_VAR', ...errorArgs})
   }
 }

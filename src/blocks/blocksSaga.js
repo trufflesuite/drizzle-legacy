@@ -53,16 +53,21 @@ function* callCreateBlockChannel({contracts, contractAddresses, contractNames, w
 
 function createBlockPollChannel({contracts, contractAddresses, contractNames, interval, web3}) {
   return eventChannel(emit => {
+    // Keep track of blocks we've already received so we don't trigger duplicate state changes
+    const receivedBlocks = {};
     const blockPoller = setInterval(() => {
       web3.eth.getBlock('latest').then((block) => {
-        emit({type: 'BLOCK_RECEIVED', blockHeader: block, contracts, contractAddresses, contractNames, web3})
+        if (!(block.hash in receivedBlocks)) {
+          emit({type: 'BLOCK_RECEIVED', blockHeader: block, contracts, contractAddresses, contractNames, web3})
+          receivedBlocks[block.hash] = true;
+        }
       })
       .catch((error) => {
         emit({type: 'BLOCKS_FAILED', error})
         emit(END)
       })
     }, interval) // options.polls.blocks
-    
+
     const unsubscribe = () => {
       clearInterval(blockPoller)
     }
