@@ -22,7 +22,8 @@
   "dependencies": {
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
-    "web3": "^1.0.0-beta.30"
+    "web3": "^1.0.0-beta.30",
+    "web3-eth-contract": "^1.0.0-beta.33"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

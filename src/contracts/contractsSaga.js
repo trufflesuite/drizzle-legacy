@@ -9,6 +9,7 @@ import DrizzleContract from '../DrizzleContract'
 export function* instantiateContract({contractArtifact, events, store, web3}) {
   const networkId = yield select(getNetworkId)
 
+  DrizzleContract.currentProvider = web3.currentProvider
   return new DrizzleContract(contractArtifact, web3, networkId, store, events)
 }
 
