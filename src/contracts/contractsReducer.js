@@ -1,64 +1,59 @@
-const initialState = {}
+const initialState = {};
 
 const contractsReducer = (state = initialState, action) => {
   /*
    * Contract Status
    */
 
-  if (action.type === 'CONTRACT_INITIALIZED')
-  {
+  if (action.type === "CONTRACT_INITIALIZED") {
     return {
       ...state,
       [action.name]: {
         ...state[action.name],
         initialized: true,
         synced: true,
-        events: []
-      }
-    }
+        events: [],
+      },
+    };
   }
 
-  if (action.type === 'CONTRACT_SYNCING')
-  {
-    const contractName = action.contract.contractArtifact.contractName
+  if (action.type === "CONTRACT_SYNCING") {
+    const contractName = action.contract.contractArtifact.contractName;
 
     return {
       ...state,
       [contractName]: {
         ...state[contractName],
-        synced: false
-      }
-    }
+        synced: false,
+      },
+    };
   }
 
-  if (action.type === 'CONTRACT_SYNCED')
-  {
+  if (action.type === "CONTRACT_SYNCED") {
     return {
       ...state,
       [action.contractName]: {
         ...state[action.contractName],
-        synced: true
-      }
-    }
+        synced: true,
+      },
+    };
   }
 
-  if (action.type === 'CONTRACT_SYNC_IND')
-  {
+  if (action.type === "CONTRACT_SYNC_IND") {
     return {
       ...state,
       [action.contractName]: {
         ...state[action.contractName],
-        synced: false
-      }
-    }
+        synced: false,
+      },
+    };
   }
 
   /*
    * Contract Functions
    */
 
-  if (action.type === 'GOT_CONTRACT_VAR')
-  {
+  if (action.type === "GOT_CONTRACT_VAR") {
     return {
       ...state,
       [action.name]: {
@@ -69,15 +64,14 @@ const contractsReducer = (state = initialState, action) => {
             ...state[action.name][action.variable][action.argsHash],
             args: action.args,
             fnIndex: action.fnIndex,
-            value: action.value
-          }
-        }
-      }
-    }
+            value: action.value,
+          },
+        },
+      },
+    };
   }
 
-  if (action.type === 'ERROR_CONTRACT_VAR')
-  {
+  if (action.type === "ERROR_CONTRACT_VAR") {
     return {
       ...state,
       [action.name]: {
@@ -88,32 +82,28 @@ const contractsReducer = (state = initialState, action) => {
             ...state[action.name][action.variable][action.argsHash],
             args: action.args,
             fnIndex: action.fnIndex,
-            error: action.error
-          }
-        }
-      }
-    }
+            error: action.error,
+          },
+        },
+      },
+    };
   }
 
   /*
    * Contract Events
    */
 
-  if (action.type === 'EVENT_FIRED')
-  {
+  if (action.type === "EVENT_FIRED") {
     return {
       ...state,
       [action.name]: {
         ...state[action.name],
-        events: [
-          ...state[action.name].events,
-          action.event
-        ]
-      }
-    }
+        events: [...state[action.name].events, action.event],
+      },
+    };
   }
 
-  return state
-}
+  return state;
+};
 
-export default contractsReducer
+export default contractsReducer;

@@ -1,20 +1,19 @@
 const initialState = {
-  initialized: false
-}
+  initialized: false,
+};
 
 const drizzleStatusReducer = (state = initialState, action) => {
   /*
    * Drizzle Status
    */
 
-  if (action.type === 'DRIZZLE_INITIALIZED')
-  {
+  if (action.type === "DRIZZLE_INITIALIZED") {
     return {
       ...state,
-      initialized: true
-    }
+      initialized: true,
+    };
   }
-  return state
-}
+  return state;
+};
 
-export default drizzleStatusReducer
+export default drizzleStatusReducer;

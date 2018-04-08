@@ -1,15 +1,14 @@
-const initialState = {}
+const initialState = {};
 
 const accountBalancesReducer = (state = initialState, action) => {
-  if (action.type === 'ACCOUNT_BALANCE_FETCHED')
-  {
+  if (action.type === "ACCOUNT_BALANCE_FETCHED") {
     return {
       ...state,
-      [action.account]: action.accountBalance
-    }
+      [action.account]: action.accountBalance,
+    };
   }
 
-  return state
-}
+  return state;
+};
 
-export default accountBalancesReducer
+export default accountBalancesReducer;

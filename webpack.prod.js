@@ -1,5 +1,4 @@
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 process.env.BABEL_ENV = 'production';
 
@@ -30,10 +29,5 @@ module.exports = {
     'web3': 'web3',
     'redux-saga': 'redux-saga',
     'redux': 'redux'
-  },
-  plugins: [
-    new UglifyJSPlugin({
-      sourceMap: true
-    })
-  ]
+  }
 };

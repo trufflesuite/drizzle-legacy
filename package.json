@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "publish": "webpack --config webpack.prod.js",
-    "dev": "webpack --config webpack.config.js --watch"
+    "dev": "webpack --config webpack.config.js --watch",
+    "precommit": "lint-staged"
   },
   "keywords": [
     "ethereum",
@@ -19,10 +20,18 @@
     "url": "http://truffleframework.com/"
   },
   "license": "ISC",
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
-    "web3": "^1.0.0-beta.30"
+    "web3": "^1.0.0-beta.30",
+    "web3-eth-contract": "^1.0.0-beta.33",
+    "web3-utils": "^1.0.0-beta.33"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -31,7 +40,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
-    "uglifyjs-webpack-plugin": "^1.2.4",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.11.1",
     "webpack": "^3.5.3"
   }
 }
