@@ -10,7 +10,7 @@ export function* initializeWeb3({options}) {
   var web3 = {}
 
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-  if (typeof window.web3 !== 'undefined' && false) {
+  if (typeof window.web3 !== 'undefined') {
     // Use Mist/MetaMask's provider.
     web3 = new Web3(window.web3.currentProvider)
     web3.eth.cacheSendTransaction = (txObject) => put({type: 'SEND_WEB3_TX', txObject, stackId, web3})
