@@ -19,6 +19,12 @@
     "url": "http://truffleframework.com/"
   },
   "license": "ISC",
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
@@ -32,6 +38,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.11.1",
     "webpack": "^3.5.3"
   }
 }
