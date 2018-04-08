@@ -9,7 +9,11 @@
     "dev": "webpack --config webpack.config.js --watch",
     "precommit": "lint-staged"
   },
-  "keywords": ["ethereum", "redux", "redux-saga"],
+  "keywords": [
+    "ethereum",
+    "redux",
+    "redux-saga"
+  ],
   "author": {
     "name": "Josh Quintal",
     "email": "josh@trufflesuite.com",
@@ -17,13 +21,17 @@
   },
   "license": "ISC",
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
     "web3": "^1.0.0-beta.30",
-    "web3-eth-contract": "^1.0.0-beta.33"
+    "web3-eth-contract": "^1.0.0-beta.33",
+    "web3-utils": "^1.0.0-beta.33"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

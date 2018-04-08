@@ -1,15 +1,15 @@
-var Web3EthContract = require("web3-eth-contract");
+const Web3EthContract = require("web3-eth-contract");
+const Web3Utils = require("web3-utils");
 
 class DrizzleContract extends Web3EthContract {
-  constructor(contractArtifact, web3, networkId, store, events = []) {
+  constructor(contractArtifact, networkId, store, events = []) {
     super(contractArtifact.abi, contractArtifact.networks[networkId].address, {
       from: store.getState().accounts[0],
-      data: contractArtifact.deployedBytecode,
+      data: contractArtifact.deployedBytecode
     });
 
     this.contractArtifact = contractArtifact;
     this.abi = contractArtifact.abi;
-    this.web3 = web3;
     this.store = store;
 
     for (var i = 0; i < this.abi.length; i++) {
@@ -74,7 +74,7 @@ class DrizzleContract extends Web3EthContract {
         fnName,
         fnIndex,
         args,
-        argsHash,
+        argsHash
       });
 
       // Return nothing because state is currently empty.
@@ -103,7 +103,7 @@ class DrizzleContract extends Web3EthContract {
         fnName,
         fnIndex,
         args,
-        stackId,
+        stackId
       });
 
       // return stack ID
@@ -112,7 +112,6 @@ class DrizzleContract extends Web3EthContract {
   }
 
   generateArgsHash(args) {
-    var web3 = this.web3;
     var hashString = "";
 
     for (var i = 0; i < args.length; i++) {
@@ -124,18 +123,12 @@ class DrizzleContract extends Web3EthContract {
           argToHash = JSON.stringify(argToHash);
         }
 
-        // This check is in place for web3 v0.x
-        if ("utils" in web3) {
-          var hashPiece = web3.utils.sha3(argToHash);
-        } else {
-          var hashPiece = web3.sha3(argToHash);
-        }
-
+        var hashPiece = Web3Utils.sha3(argToHash);
         hashString += hashPiece;
       }
     }
 
-    return web3.utils.sha3(hashString);
+    return Web3Utils.sha3(hashString);
   }
 }
 
