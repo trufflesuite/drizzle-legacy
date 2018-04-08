@@ -6,13 +6,10 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "publish": "webpack --config webpack.prod.js",
-    "dev": "webpack --config webpack.config.js --watch"
+    "dev": "webpack --config webpack.config.js --watch",
+    "precommit": "lint-staged"
   },
-  "keywords": [
-    "ethereum",
-    "redux",
-    "redux-saga"
-  ],
+  "keywords": ["ethereum", "redux", "redux-saga"],
   "author": {
     "name": "Josh Quintal",
     "email": "josh@trufflesuite.com",
@@ -20,10 +17,7 @@
   },
   "license": "ISC",
   "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
   "dependencies": {
     "redux": "^3.6.0",

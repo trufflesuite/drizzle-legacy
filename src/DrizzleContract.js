@@ -1,10 +1,10 @@
-var Web3EthContract = require('web3-eth-contract');
+var Web3EthContract = require("web3-eth-contract");
 
 class DrizzleContract extends Web3EthContract {
   constructor(contractArtifact, web3, networkId, store, events = []) {
     super(contractArtifact.abi, contractArtifact.networks[networkId].address, {
       from: store.getState().accounts[0],
-      data: contractArtifact.deployedBytecode
+      data: contractArtifact.deployedBytecode,
     });
 
     this.contractArtifact = contractArtifact;
@@ -74,7 +74,7 @@ class DrizzleContract extends Web3EthContract {
         fnName,
         fnIndex,
         args,
-        argsHash
+        argsHash,
       });
 
       // Return nothing because state is currently empty.
@@ -103,7 +103,7 @@ class DrizzleContract extends Web3EthContract {
         fnName,
         fnIndex,
         args,
-        stackId
+        stackId,
       });
 
       // return stack ID
