@@ -5,6 +5,7 @@ import generateContractsInitialState from "./generateContractsInitialState";
 // Reducers
 import accountsReducer from "./accounts/accountsReducer";
 import accountBalancesReducer from "./accountBalances/accountBalancesReducer";
+import blocksReducer from "./blocks/blocksReducer";
 import contractsReducer from "./contracts/contractsReducer";
 import drizzleStatusReducer from "./drizzleStatus/drizzleStatusReducer";
 import transactionsReducer from "./transactions/transactionsReducer";
@@ -14,6 +15,7 @@ import web3Reducer from "./web3/web3Reducer";
 const drizzleReducers = {
   accounts: accountsReducer,
   accountBalances: accountBalancesReducer,
+  blocks: blocksReducer,
   contracts: contractsReducer,
   drizzleStatus: drizzleStatusReducer,
   transactions: transactionsReducer,

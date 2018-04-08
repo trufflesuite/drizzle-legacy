@@ -22,7 +22,7 @@ export function* instantiateContract({
   const networkId = yield select(getNetworkId);
 
   DrizzleContract.currentProvider = web3.currentProvider;
-  return new DrizzleContract(contractArtifact, web3, networkId, store, events);
+  return new DrizzleContract(contractArtifact, networkId, store, events);
 }
 
 /*
