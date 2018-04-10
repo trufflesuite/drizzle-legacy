@@ -49,7 +49,7 @@ function* initializeDrizzle(action) {
         blocksInterval = options.polls.blocks
       }
 
-      yield put({type: 'BLOCKS_POLLING', contracts: action.drizzle.contracts, contractAddresses, contractNames, web3})
+      yield put({type: 'BLOCKS_POLLING', contracts: action.drizzle.contracts, contractAddresses, contractNames, blocksInterval, web3})
     }
     else {
       // Not using MetaMask, attempt subscription block listening.
