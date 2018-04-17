@@ -33,9 +33,12 @@ class DrizzleContract {
     // Register event listeners if any events.
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
-        const eventName = events[i]
-
-        store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName})
+        let event = events[i]
+        if ( typeof event === 'object' ) {
+          store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName: event.eventName, eventOptions: event.eventOptions})
+        } else {
+          store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName: event})
+        }
       }
     }
 
@@ -85,11 +88,11 @@ class DrizzleContract {
 
       // Add ID to "transactionStack" with empty value
       contract.store.dispatch({type: 'PUSH_TO_STACK'})
-      
+
       // Dispatch tx to saga
       // When txhash received, will be value of stack ID
       contract.store.dispatch({type: 'SEND_CONTRACT_TX', contract, fnName, fnIndex, args, stackId})
-     
+
       // return stack ID
       return stackId
     }

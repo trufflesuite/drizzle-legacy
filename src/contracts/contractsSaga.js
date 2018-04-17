@@ -16,11 +16,11 @@ export function* instantiateContract({contractArtifact, events, store, web3}) {
  * Events
  */
 
-function createContractEventChannel({contract, eventName}) {
+function createContractEventChannel({contract, eventName, eventOptions}) {
   const name = contract.contractArtifact.contractName
 
   return eventChannel(emit => {
-    const eventListener = contract.events[eventName]().on('data', event => {
+    const eventListener = contract.events[eventName](eventOptions).on('data', event => {
       emit({type: 'EVENT_FIRED', name, event})
     })
     .on('changed', event => {
@@ -39,8 +39,8 @@ function createContractEventChannel({contract, eventName}) {
   })
 }
 
-function* callListenForContractEvent({contract, eventName}) {
-  const contractEventChannel = yield call(createContractEventChannel, {contract, eventName})
+function* callListenForContractEvent({contract, eventName, eventOptions}) {
+  const contractEventChannel = yield call(createContractEventChannel, {contract, eventName, eventOptions})
 
   while (true) {
     var event = yield take(contractEventChannel)
@@ -128,10 +128,10 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
     delete args[args.length - 1]
     args.length = args.length - 1
   }
-  
+
   // Create the transaction object and execute the call.
   const txObject = yield call(contract.methods[fnName], ...args)
-  
+
   try {
     const callResult = yield call(txObject.call, callArgs)
 
@@ -143,7 +143,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
       value: callResult,
       fnIndex: fnIndex
     }
-  
+
     yield put({type: 'GOT_CONTRACT_VAR', ...dispatchArgs})
   }
   catch (error) {
@@ -157,7 +157,7 @@ function* callCallContractFn({contract, fnName, fnIndex, args, argsHash}) {
       error: error,
       fnIndex: fnIndex
     }
-  
+
     yield put({type: 'ERROR_CONTRACT_VAR', ...errorArgs})
   }
 }
