@@ -85,11 +85,11 @@ class DrizzleContract {
 
       // Add ID to "transactionStack" with empty value
       contract.store.dispatch({type: 'PUSH_TO_STACK'})
-      
+
       // Dispatch tx to saga
       // When txhash received, will be value of stack ID
       contract.store.dispatch({type: 'SEND_CONTRACT_TX', contract, fnName, fnIndex, args, stackId})
-     
+
       // return stack ID
       return stackId
     }
@@ -110,7 +110,7 @@ class DrizzleContract {
           argToHash = JSON.stringify(argToHash)
         }
 
-        // Convert number to strong to allow hashing
+        // Convert number to string to allow hashing
         if (typeof argToHash === 'number') {
           argToHash = argToHash.toString()
         }
