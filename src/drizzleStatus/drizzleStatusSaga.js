@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects'
 import defaultOptions from '../defaultOptions'
-import merge from 'deepmerge'
+import merge from '../mergeOptions'
 
 // Initialization Functions
 import { initializeWeb3, getNetworkId } from '../web3/web3Saga'
@@ -35,9 +35,9 @@ function* initializeDrizzle(action) {
       }
 
       if (contractConfig.web3Contract) {
-        drizzleContract = yield call(instantiateWeb3Contract, {web3Contract: contractConfig.web3Contract, name: contractName, events, store: action.drizzle.store, web3})
+        var drizzleContract = yield call(instantiateWeb3Contract, {web3Contract: contractConfig.web3Contract, name: contractName, events, store: action.drizzle.store, web3})
       } else {
-        drizzleContract = yield call(instantiateContract, {contractConfig, events, store: action.drizzle.store, web3})
+        drizzleContract = yield call(instantiateContract, {contractArtifact: contractConfig, events, store: action.drizzle.store, web3})
       }
 
       action.drizzle.contracts[contractName] = drizzleContract
