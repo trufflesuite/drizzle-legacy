@@ -2,6 +2,15 @@ import { END, eventChannel } from 'redux-saga'
 import { call, put, select, take, takeLatest, takeEvery } from 'redux-saga/effects'
 import DrizzleContract from '../DrizzleContract'
 
+export function* addContract({drizzle, contractConfig, events, web3}) {
+  if (contractConfig.web3Contract) {
+    var drizzleContract = yield call(instantiateWeb3Contract, {web3Contract: contractConfig.web3Contract, name: contractConfig.contractName, events, store: drizzle.store, web3})
+  } else {
+    drizzleContract = yield call(instantiateContract, {contractArtifact: contractConfig, events, store: drizzle.store, web3})
+  }
+  drizzle._addContract(drizzleContract)
+}
+
 /*
  * Instantiation
  */
@@ -246,6 +255,7 @@ function* contractsSaga() {
   yield takeEvery('CALL_CONTRACT_FN', callCallContractFn)
   yield takeEvery('CONTRACT_SYNCING', callSyncContract)
   yield takeEvery('LISTEN_FOR_EVENT', callListenForContractEvent)
+  yield takeEvery('ADD_CONTRACT', addContract)
 }
 
 export default contractsSaga;
