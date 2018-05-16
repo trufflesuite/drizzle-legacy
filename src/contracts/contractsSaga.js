@@ -9,6 +9,7 @@ export function* addContract({drizzle, contractConfig, events, web3}) {
     drizzleContract = yield call(instantiateContract, {contractArtifact: contractConfig, events, store: drizzle.store, web3})
   }
   drizzle._addContract(drizzleContract)
+  yield put({type: 'CONTRACT_INITIALIZED', name: contractConfig.contractName})
 }
 
 /*
