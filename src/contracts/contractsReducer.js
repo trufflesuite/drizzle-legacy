@@ -7,7 +7,7 @@ const contractsReducer = (state = initialState, action) => {
    * Contract Status
    */
 
-  if (action.type === 'ADD_CONTRACT') {
+  if (action.type === 'CONTRACT_INITIALIZING') {
     return {
       ...state,
       [action.contractConfig.contractName]: generateContractInitialState(action.contractConfig)
