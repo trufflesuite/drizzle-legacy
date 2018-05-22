@@ -23,7 +23,7 @@ class DrizzleContract {
 
       if (item.type == "function" && item.constant === true) {
         this.methods[item.name].cacheCall = this.cacheCallFunction(item.name, i)
-        this.methods[item.name].cacheRefreshCall = this.cacheCallFunction(item.name, i, true)
+        this.methods[item.name].cacheRefreshCall = this.cacheCallFunction(item.name, i, undefined, true)
       }
 
       if (item.type == "function" && item.constant === false) {
