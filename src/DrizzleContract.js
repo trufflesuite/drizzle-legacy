@@ -23,6 +23,7 @@ class DrizzleContract {
 
       if (item.type == "function" && item.constant === true) {
         this.methods[item.name].cacheCall = this.cacheCallFunction(item.name, i)
+        this.methods[item.name].cacheRefreshCall = this.cacheCallFunction(item.name, i, true)
       }
 
       if (item.type == "function" && item.constant === false) {
@@ -44,7 +45,7 @@ class DrizzleContract {
     store.dispatch({type: 'CONTRACT_INITIALIZED', name})
   }
 
-  cacheCallFunction(fnName, fnIndex, fn) {
+  cacheCallFunction(fnName, fnIndex, fn, forceRefresh) {
     var contract = this
 
     return function() {
@@ -58,8 +59,8 @@ class DrizzleContract {
       const contractName = contract.contractArtifact.contractName
       const functionState = contract.store.getState().contracts[contractName][fnName]
 
-      // If call result is in state and fresh, return value instead of calling
-      if (argsHash in functionState) {
+      // If both call result is in state and fresh and forceRefresh is false, return value instead of calling
+      if (argsHash in functionState && !forceRefresh) {
         if (contract.store.getState().contracts[contractName].synced === true) {
           return argsHash
         }
