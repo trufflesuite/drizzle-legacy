@@ -36,7 +36,7 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
    const drizzle = new Drizzle(this.props.options, drizzleStore)
    ```
 
-1. Get contract data. Calling the `cacheCall()` function on a contract will execute the desired call and return a corresponding key so the data can be retrieved from the store. When a new block is received, Drizzle will refresh the store automatically _if_ any transactions in the block touched our contract. For more information on how this works, see [How Data Stays Fresh](#how-data-stays-fresh).
+1. Get contract data. Calling the `cacheCall()` function on a contract will return a cached value from the store, and if none exists, make the desired contract call. When a new block is received, Drizzle will refresh the store automatically _if_ any transactions in the block touched our contract. For more information on how this works, see [How Data Stays Fresh](#how-data-stays-fresh).
 
    **Note:** We have to check that Drizzle is initialized before fetching data. A simple if statement such as below is fine for displaying a few pieces of data, but a better approach for larger dapps is to use a [loading component](https://github.com/trufflesuite/drizzle-react#recipe-loading-component). We've already built one for you in our [`drizzle-react-components` library](https://github.com/trufflesuite/drizzle-react-components) as well.
    ```javascript
@@ -46,19 +46,25 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
    // If Drizzle is initialized (and therefore web3, accounts and contracts), continue.
    if (state.drizzleStatus.initialized) {
     // Declare this call to be cached and synchronized. We'll receive the store key for recall.
-    const dataKey = drizzle.contracts.SimpleStorage.methods.storedData.cacheCall()
+    const storedData = state.contracts.SimpleStorage.methods.storedData.cacheCall()
 
-    // Use the dataKey to display data from the store.
-    return state.contracts.SimpleStorage.storedData[dataKey].value
+    // you can also access the contract methods via the drizzle instance
+    // const storedData = drizzle.contracts.SimpleStorage.methods.storedData.cacheCall()
+
+
+    // note the first time we make the cacheCall the returned data will be null, but the state will auto-updated once a result is returned
+    return storedData;
    }
 
    // If Drizzle isn't initialized, display some loading indication.
    return 'Loading...'
    ```
 
-   The contract instance has all of its standard web3 properties and methods. For example, you could still call as normal if you don't want something in the store:
+   The contract state has all of its standard web3 properties and methods. For example, you could still call as normal if you don't want something in the store:
    ```javascript
-   drizzle.contracts.SimpleStorage.methods.storedData().call()
+   state.contracts.SimpleStorage.methods.storedData().call()
+   // or drizzle.contracts.SimpleStorage.methods.storedData().call()
+
    ```
 
 1. Send a contract transaction. Calling the `cacheSend()` function on a contract will send the desired transaction and return a corresponding transaction hash so the status can be retrieved from the store. The last argument can optionally be an options object with the typical from, gas and gasPrice keys. Drizzle will update the transaction's state in the store (pending, success, error) and store the transaction receipt. For more information on how this works, see [How Data Stays Fresh](#how-data-stays-fresh).
@@ -71,7 +77,7 @@ Drizzle is a collection of front-end libraries that make writing dapp frontends 
    // If Drizzle is initialized (and therefore web3, accounts and contracts), continue.
    if (state.drizzleStatus.initialized) {
     // Declare this transaction to be observed. We'll receive the stackId for reference.
-    const stackId = drizzle.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
+    const stackId = state.contracts.SimpleStorage.methods.set.cacheSend(2, {from: '0x3f...'})
 
     // Use the dataKey to display the transaction status.
     if (state.transactionStack[stackId]) {
@@ -181,15 +187,19 @@ An object consisting of the type and url of a fallback web3 provider. This is us
   accounts,
   contracts: {
     contractName: {
+      state: {
+        callerFunctionName: {
+          argsHash: {
+            args,
+            value
+          }
+        }
+      }
       initialized,
       synced,
       events,
-      callerFunctionName: {
-        argsHash: {
-          args,
-          value
-        }
-      }
+      methods,
+      address
     }
   },
   transactions: {
@@ -224,11 +234,15 @@ A series of contract state objects, indexed by the contract name as declared in 
 
 `events` (array): An array of event objects. Drizzle will only listen for the events we declared in options.
 
-The contract's state also includes the state of each constant function called on the contract (`callerFunctionName`). The functions are indexed by name, and contain the outputs indexed by a hash of the arguments passed during the call (`argsHash`). If no arguments were passed, the hash is `0x0`. Drizzle reads from the store for you, so it should be unnecessary to touch this data cache manually.
+`state` (object): The state of each constant function called on the contract (`callerFunctionName`). The functions are indexed by name, and contain the outputs indexed by a hash of the arguments passed during the call (`argsHash`). If no arguments were passed, the hash is `0x0`. Drizzle reads from the store for you, so it should be unnecessary to touch this data cache manually.
 
 `args` (array): Arguments passed to function call.
 
 `value` (mixed): Value returned from function call.
+
+`methods` (object): Contract methods
+
+`address` (string): Contract address
 
 ### `transactions` (object)
 A series of transaction objects, indexed by transaction hash.

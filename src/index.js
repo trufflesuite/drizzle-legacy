@@ -39,7 +39,6 @@ const drizzleSagas = [
 
 export {
   Drizzle,
-  generateContractsInitialState,
   generateStore,
   drizzleReducers,
   drizzleSagas
