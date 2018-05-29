@@ -119,17 +119,10 @@ function* processBlock({block, contracts, contractAddresses, contractNames, web3
       // Loop through txs looking for any contract address of interest
       for (var i = 0; i < txs.length; i++)
       {
-        const fromAddr = txs[i].from
-        const toAddr = txs[i].to
-
-        // Some txs are special cases (e.g. undefined "to" when it is a contract deploy TX)
-        // Prevent the toLowerCase call when it is undefined.
-        const fromTxIndex = fromAddr ? contractAddresses.indexOf(fromAddr.toLowerCase()) : -1
-        const toTxIndex = toAddr ? contractAddresses.indexOf(toAddr.toLowerCase()) : -1
-
-        const index = fromTxIndex !== -1 ? fromTxIndex : toTxIndex
-
-        if (index !== -1)
+        var from = txs[i].from || ''
+        var to = txs[i].to || ''
+        
+        if (contractAddresses.indexOf(from.toLowerCase()) !== -1 || contractAddresses.indexOf(to.toLowerCase()) !== -1)
         {
           const contractName = contractNames[index]
 
@@ -154,7 +147,7 @@ function* blocksSaga() {
   yield takeEvery('BLOCK_RECEIVED', processBlockHeader)
 
   // Block Polling
-  yield takeLatest('BLOCKS_POLLING', callCreateBlockPollChannel)  
+  yield takeLatest('BLOCKS_POLLING', callCreateBlockPollChannel)
   yield takeEvery('BLOCK_FOUND', processBlock)
 }
 
