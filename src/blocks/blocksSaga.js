@@ -116,7 +116,7 @@ function* processBlock({block, contracts, contractAddresses, contractNames, web3
 
     if (txs.length > 0)
     {
-      // Loop through txs looking for contract address
+      // Loop through txs looking for any contract address of interest
       for (var i = 0; i < txs.length; i++)
       {
         var from = txs[i].from || ''
@@ -124,7 +124,6 @@ function* processBlock({block, contracts, contractAddresses, contractNames, web3
         
         if (contractAddresses.indexOf(from.toLowerCase()) !== -1 || contractAddresses.indexOf(to.toLowerCase()) !== -1)
         {
-          const index = contractAddresses.indexOf(txs[i].from.toLowerCase()) !== -1 ? contractAddresses.indexOf(txs[i].from.toLowerCase()) : contractAddresses.indexOf(txs[i].to.toLowerCase())
           const contractName = contractNames[index]
 
           yield put({type: 'CONTRACT_SYNCING', contract: contracts[contractName]})
