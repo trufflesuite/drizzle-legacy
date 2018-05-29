@@ -6,6 +6,8 @@ const BlockTracker = require('eth-block-tracker')
  * Listen for Blocks
  */
 
+let failedBlockCounter = {};
+
 function createBlockChannel({contracts, contractAddresses, contractNames, web3}) {
   return eventChannel(emit => {
     const blockEvents = web3.eth.subscribe('newBlockHeaders', (error, result) => {
@@ -139,13 +141,27 @@ function* processBlock({block, contracts, contractAddresses, contractNames, web3
     }
   }
   catch (error) {
-    console.error('Error in block processing:')
-    console.error(error)
+    let blockFails = failedBlockCounter[block.number];
+    if(blockFails === undefined){
+      blockFails = 1;
+    }else{
+      blockFails += 1;
+    }
 
-    yield put({type: 'BLOCK_FAILED', error})
+    if(failedBlockCounter[block.number] >= 3){
+      console.error(`Third Error in ${block.number} processing, ignoring block`)
+    }else{
+      console.error(`Error in block ${block.number} reprocessing:`)
+      console.error(error)
+      yield put({type: 'BLOCK_FAILED', blockHeader: block, contracts, contractAddresses, contractNames, web3})
+    }
 
     return
   }
+}
+
+function processFailedBlock({blockHeader, contracts, contractAddresses, contractNames, web3}){
+  processBlockHeader({blockHeader: blockHeader, contracts, contractAddresses, contractNames, web3})
 }
 
 function* blocksSaga() {
@@ -154,8 +170,9 @@ function* blocksSaga() {
   yield takeEvery('BLOCK_RECEIVED', processBlockHeader)
 
   // Block Polling
-  yield takeLatest('BLOCKS_POLLING', callCreateBlockPollChannel)  
+  yield takeLatest('BLOCKS_POLLING', callCreateBlockPollChannel)
   yield takeEvery('BLOCK_FOUND', processBlock)
+  yield takeEvery('BLOCK_FAILED', processFailedBlock)
 }
 
 export default blocksSaga
