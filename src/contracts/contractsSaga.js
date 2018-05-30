@@ -5,15 +5,22 @@ import DrizzleContract from '../DrizzleContract'
 export function* addContract({drizzle, contractConfig, events, web3}) {
   // Prevents double-adding contracts
   if (drizzle.loadingContract[contractConfig.contractName]) { return false }
+  
   drizzle.loadingContract[contractConfig.contractName] = true
+  
   yield put({type: 'CONTRACT_INITIALIZING', contractConfig})
+  
   let drizzleContract
+  
   if (contractConfig.web3Contract) {
     drizzleContract = yield call(instantiateWeb3Contract, {web3Contract: contractConfig.web3Contract, name: contractConfig.contractName, events, store: drizzle.store, web3})
   } else {
     drizzleContract = yield call(instantiateContract, {contractArtifact: contractConfig, events, store: drizzle.store, web3})
   }
+
   drizzle._addContract(drizzleContract)
+  
+
   yield put({type: 'CONTRACT_INITIALIZED', name: contractConfig.contractName})
 }
 
@@ -38,7 +45,7 @@ export function* instantiateContract({contractArtifact, events, store, web3}) {
     }
   )
 
-  return new DrizzleContract(web3Contract, web3, contractArtifact.contractName, store, events)
+  return new DrizzleContract(web3Contract, web3, contractArtifact.contractName, store, events, contractArtifact)
 }
 
 /*
@@ -46,7 +53,7 @@ export function* instantiateContract({contractArtifact, events, store, web3}) {
  */
 
 function createContractEventChannel({contract, eventName, eventOptions}) {
-  const name = contract.contractArtifact.contractName
+  const name = contract.contractName
 
   return eventChannel(emit => {
     const eventListener = contract.events[eventName](eventOptions).on('data', event => {
