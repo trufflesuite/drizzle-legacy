@@ -6,7 +6,7 @@ class DrizzleContract {
     this.contractName = name
     this.contractArtifact = contractArtifact
     this.store = store
-
+    this.network = web3Contract.networks;
 
     // Merge web3 contract instance into DrizzleContract instance.
     Object.assign(this, web3Contract)
@@ -28,7 +28,7 @@ class DrizzleContract {
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         let event = events[i]
-        
+
         if ( typeof event === 'object' ) {
           store.dispatch({type: 'LISTEN_FOR_EVENT', contract: this, eventName: event.eventName, eventOptions: event.eventOptions})
         } else {

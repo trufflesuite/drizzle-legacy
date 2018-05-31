@@ -29,6 +29,7 @@ class Drizzle {
     if (this.contracts[drizzleContract.contractName]) { throw `Contract already exists: ${drizzleContract.contractName}` }
     this.contracts[drizzleContract.contractName] = drizzleContract
     this.contractList.push(drizzleContract)
+    return drizzleContract;
   }
 
   findContractByAddress (address) {

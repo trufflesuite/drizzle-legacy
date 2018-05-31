@@ -3,7 +3,8 @@ import getAbi from './getAbi'
 export function generateContractInitialState (contractConfig) {
   var state = {
     initialized: false,
-    synced: false
+    synced: false,
+    state: {}
   }
 
   // Constant getters
@@ -12,7 +13,7 @@ export function generateContractInitialState (contractConfig) {
     var item = abi[i2];
 
     if (item.type == "function" && item.constant === true) {
-      state[item.name] = {}
+      state.state[item.name] = {}
     }
   }
 
