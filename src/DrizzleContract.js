@@ -6,7 +6,6 @@ class DrizzleContract {
     this.contractName = name
     this.contractArtifact = contractArtifact
     this.store = store
-    this.network = web3Contract.networks;
 
     // Merge web3 contract instance into DrizzleContract instance.
     Object.assign(this, web3Contract)
@@ -37,30 +36,6 @@ class DrizzleContract {
       }
     }
 
-  }
-
-  initContractState() {
-    // Initial contract details
-    var contractName = this.contractArtifact.contractName
-
-    // initialize contract state
-    var initialState = {
-      initialized: false,
-      synced: false,
-      state: {},
-      networks: this.contractArtifact.networks
-    }
-
-    // Constant getters
-    for (var i = 0; i < this.abi.length; i++) {
-      var item = this.abi[i]
-
-      if (item.type == "function" && item.constant === true) {
-        initialState.state[item.name] = {}
-      }
-    }
-
-    this.store.dispatch({ type: 'INIT_CONTRACT_STATE', contractName, initialState });
   }
 
   cacheCallFunction(fnName, fnIndex, fn) {

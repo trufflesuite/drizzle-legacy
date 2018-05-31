@@ -9,11 +9,6 @@ function generateStore(options) {
   // Redux DevTools
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  // Preloaded state
-  var preloadedState = {
-    contracts: generateContractsInitialState(options)
-  }
-
   // create the saga middleware
   const sagaMiddleware = createSagaMiddleware()
 
