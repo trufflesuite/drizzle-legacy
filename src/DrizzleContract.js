@@ -36,15 +36,7 @@ class DrizzleContract {
         }
       }
     }
-<<<<<<< HEAD
-=======
 
-    const name = contractArtifact.contractName
-    const methods = this.methods
-    const address = this._address
-
-    store.dispatch({type: 'CONTRACT_INITIALIZED', name, methods, address})
->>>>>>> slight refactor of contract initialization
   }
 
   initContractState() {
@@ -82,13 +74,9 @@ class DrizzleContract {
       if (args.length > 0) {
         argsHash = contract.generateArgsHash(args)
       }
-<<<<<<< HEAD
+
       const contractName = contract.contractName
-      const functionState = contract.store.getState().contracts[contractName][fnName]
-=======
-      const contractName = contract.contractArtifact.contractName
       const functionState = contract.store.getState().contracts[contractName].state[fnName]
->>>>>>> refactor contaract state
 
       // If call result is in state return value instead of calling
       if (argsHash in functionState) {
