@@ -1,4 +1,4 @@
-import { generateContractInitialState } from './generateContractInitialState'
+import generateContractInitialState from './generateContractInitialState'
 
 export default function generateContractsInitialState(options) {
   // Preloaded state
