@@ -11,6 +11,7 @@ module.exports = {
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist')
   },
+  mode: 'development',
   module: {
     rules: [{
       test: /\.(js)$/,
