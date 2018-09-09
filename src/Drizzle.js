@@ -19,6 +19,9 @@ class Drizzle {
       // Begin Drizzle initialization.
       store.dispatch({ type: 'DRIZZLE_INITIALIZING', drizzle: this, options })
     })
+    if (document && document.readyState === `complete`) {
+      store.dispatch({ type: 'DRIZZLE_INITIALIZING', drizzle: this, options })
+    }
   }
 
   addContract (contractConfig, events = []) {
