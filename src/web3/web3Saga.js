@@ -10,8 +10,25 @@ export function * initializeWeb3 ({ options }) {
   try {
     var web3 = {}
 
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof window.web3 !== 'undefined') {
+    // Checking if Web3 has been injected by Metamask (new version with ethereum.enable() method for privacy).
+    if (window.ethereum) {
+      web3 = new Web3(window.ethereum);
+      // Request account access if needed.
+      yield window.ethereum.enable();
+      // Accounts now exposed.
+      web3.eth.cacheSendTransaction = txObject =>
+        put({ type: 'SEND_WEB3_TX', txObject, stackId, web3 })
+
+      console.log('Injected web3 detected.')
+
+      yield put({ type: 'WEB3_INITIALIZED' })
+
+      return web3
+    }
+
+    // Checking if Web3 has been injected by the browser.
+    // Mist/MetaMask old version without ethereum.enable() method for privacy.
+    else if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider.
       web3 = new Web3(window.web3.currentProvider)
       web3.eth.cacheSendTransaction = txObject =>
