@@ -1,12 +1,19 @@
 import { generateStore } from './generateStore'
 
-// Load as promise so that async Drizzle initialization can still resolve
-var windowPromise = new Promise((resolve, reject) => {
-  window.addEventListener('load', resolve)
+// make sure env is ready for drizzle init
+//
+let isEnvReadyPromise = new Promise((resolve, reject) => {
+   
+  // short circuit initialization if web documents already loaded
+  if(document.readyState === `complete`) return resolve()
   
-  // resolve in any case if we missed the load event and the document is already loaded
-  if (document.readyState === `complete`) resolve()
+  // short circuit if react-native
+  if(navigator && navigator.product === 'ReactNative') return resolve()
+  
+  // browser and document not ready
+  window.addEventListener('load', resolve)
 })
+
 
 class Drizzle {
   constructor (options, store) {
@@ -20,7 +27,7 @@ class Drizzle {
     this.loadingContract = {}
 
     // Wait for window load event in case of injected web3.
-    windowPromise.then(() => {
+    isEnvReadyPromise.then(() => {
       // Begin Drizzle initialization.
       this.store.dispatch({ type: 'DRIZZLE_INITIALIZING', drizzle: this, options })
     })
