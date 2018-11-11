@@ -4,10 +4,10 @@ import { generateStore } from './generateStore'
 //
 let isEnvReadyPromise = new Promise((resolve, reject) => {
    
-  // short circuit initialization if web documents already loaded
+  // early return initialization if web documents already loaded
   if(document.readyState === `complete`) return resolve()
   
-  // short circuit if react-native
+  // early return if react-native
   if(navigator && navigator.product === 'ReactNative') return resolve()
   
   // browser and document not ready
