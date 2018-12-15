@@ -27,6 +27,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@drizzle-utils/get-web3": "^0.1.2-alpha.0",
     "deepmerge": "^2.1.1",
     "eth-block-tracker-es5": "^2.3.2",
     "is-plain-object": "^2.0.4",

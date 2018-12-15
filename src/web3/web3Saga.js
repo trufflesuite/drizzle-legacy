@@ -1,87 +1,49 @@
-import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
+import getWeb3 from '@drizzle-utils/get-web3'
+import Web3 from 'web3' // only required for custom/fallback provider option
 
-var Web3 = require('web3')
-
-/*
- * Initialization
+/**
+ * Initializes Web3
+ *
+ * @param {Object} param.options - The drizzle Web3 options.
+ * @param {Object} param.options.fallback - web3 fallbackProvider.
+ * @param {string} param.options.fallback.type - The provider protocol, either `ws` or `wss`.
+ * @param {string} param.options.fallback.url - The provider url.
+ * @returns web3
  */
-
-export function * initializeWeb3 ({ options }) {
+export function* initializeWeb3({ options }) {
   try {
-    var web3 = {}
+    const web3Options = {}
 
-    if (window.ethereum) {
-      const { ethereum } = window
-      web3 = new Web3(ethereum)
-      try {
-        yield call(ethereum.enable)
-
-        web3.eth.cacheSendTransaction = txObject =>
-          put({ type: 'SEND_WEB3_TX', txObject, stackId, web3 })
-
-        yield put({ type: 'WEB3_INITIALIZED' })
-
-        return web3
-      } catch (error) {
-        // User denied account access...
-        console.log(error)
-      }
+    // Todo:
+    //   * Verify wss is supported.
+    //   * Can this logic be pushed to get-web3 to remove Web3 dependency from drizzle?
+    //
+    const {fallback} = options
+    if (fallback && /ws.?$/i.test(fallback.type)) {
+      web3Options.fallbackProvider = new Web3.providers.WebsocketProvider(fallback.url)
     }
 
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    else if (typeof window.web3 !== 'undefined') {
-      // Use Mist/MetaMask's provider.
-      web3 = new Web3(window.web3.currentProvider)
-      web3.eth.cacheSendTransaction = txObject =>
-        put({ type: 'SEND_WEB3_TX', txObject, stackId, web3 })
+    const web3 = yield call(getWeb3, web3Options)
+    console.log('getWeb3 resolves web3:', web3)
 
-      console.log('Injected web3 detected.')
-
-      yield put({ type: 'WEB3_INITIALIZED' })
-
-      return web3
-    } else {
-      if (options.fallback) {
-        // Attempt fallback if no web3 injection.
-        console.log('No web3 instance injected, using fallback.')
-
-        switch (options.fallback.type) {
-          case 'ws':
-            var provider = new Web3.providers.WebsocketProvider(
-              options.fallback.url
-            )
-            web3 = new Web3(provider)
-
-            // Attach drizzle functions
-            web3.eth['cacheSendTransaction'] = txObject =>
-              put({ type: 'SEND_WEB3_TX', txObject, stackId, web3 })
-
-            yield put({ type: 'WEB3_INITIALIZED' })
-
-            return web3
-
-            break
-          default:
-            // Invalid options; throw.
-            throw 'Invalid web3 fallback provided.'
-        }
-      }
-
-      // Out of web3 options; throw.
-      throw 'Cannot find injected web3 or valid fallback.'
-    }
+    yield put({ type: 'WEB3_INITIALIZED' })
+    return web3
   } catch (error) {
-    yield put({ type: 'WEB3_FAILED', error })
-    console.error('Error intializing web3:')
+    console.error('Error intializing web3')
     console.error(error)
+    throw error
   }
 }
 
-/*
- * Network ID
+/**
+ * Resolve the networkId of web3 provider
+ *
+ * @param {Object} param.options - The drizzle state.
+ * @param {Object} - param.web3 - The Web3 provider
+ * @returns {string} - The networkId
  */
-
-export function * getNetworkId ({ web3 }) {
+export function* getNetworkId({ web3 }) {
   try {
     const networkId = yield call(web3.eth.net.getId)
 
@@ -96,65 +58,8 @@ export function * getNetworkId ({ web3 }) {
   }
 }
 
-/*
- * Send Transaction
- */
-
-function createTxChannel ({ txObject, stackId, web3 }) {
-  var persistTxHash
-
-  return eventChannel(emit => {
-    const txPromiEvent = web3.eth
-      .sendTransaction(txObject)
-      .on('transactionHash', txHash => {
-        persistTxHash = txHash
-
-        emit({ type: 'W3TX_BROADCASTED', txHash, stackId })
-      })
-      .on('confirmation', (confirmationNumber, receipt) => {
-        emit({
-          type: 'W3TX_CONFIRMAITON',
-          confirmationReceipt: receipt,
-          txHash: persistTxHash
-        })
-      })
-      .on('receipt', receipt => {
-        emit({
-          type: 'W3TX_SUCCESSFUL',
-          receipt: receipt,
-          txHash: persistTxHash
-        })
-        emit(END)
-      })
-      .on('error', error => {
-        emit({ type: 'W3TX_ERROR', error: error, txHash: persistTxHash })
-        emit(END)
-      })
-
-    const unsubscribe = () => {
-      txPromiEvent.off()
-    }
-
-    return unsubscribe
-  })
-}
-
-function * callSendTx ({ txObject, stackId, web3 }) {
-  const txChannel = yield call(createTxChannel, { txObject, stackId, web3 })
-
-  try {
-    while (true) {
-      var event = yield take(txChannel)
-      yield put(event)
-    }
-  } finally {
-    txChannel.close()
-  }
-}
-
-function * web3Saga () {
+function* web3Saga() {
   yield takeLatest('NETWORK_ID_FETCHING', getNetworkId)
-  yield takeEvery('SEND_WEB3_TX', callSendTx)
 }
 
 export default web3Saga
