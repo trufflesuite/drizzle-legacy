@@ -1,26 +1,16 @@
-const WEB3_INITIALIZING = 'WEB3_INITIALIZING'
+import * as type from './web3Types'
 
-export function web3Initializing (results) {
-  return {
-    type: WEB3_INITIALIZING,
-    payload: results
-  }
-}
+export const web3Initializing = results => ({
+  type: type.WEB3_INITIALIZING,
+  payload: results
+})
 
-const WEB3_INITIALIZED = 'WEB3_INITIALIZED'
+export const web3Initialized = results => ({
+  type: type.WEB3_INITIALIZED,
+  payload: results
+})
 
-export function web3Initialized (results) {
-  return {
-    type: WEB3_INITIALIZED,
-    payload: results
-  }
-}
-
-const WEB3_FAILED = 'WEB3_FAILED'
-
-export function web3Failed (results) {
-  return {
-    type: WEB3_FAILED,
-    payload: results
-  }
-}
+export const web3Failed = results => ({
+  type: type.WEB3_FAILED,
+  payload: results
+})
