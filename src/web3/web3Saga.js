@@ -62,12 +62,3 @@ export function* getNetworkId({ web3 }) {
     throw error
   }
 }
-
-function* web3Saga() {
-  // Todo: * No function currently puts `action.NETWORK_ID_FETCHING` to be
-  //         taken. Investigate if this can be removed.
-  //
-  yield takeLatest(action.NETWORK_ID_FETCHING, getNetworkId)
-}
-
-export default web3Saga
