@@ -1,6 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import getWeb3 from '@drizzle-utils/get-web3'
-import Web3 from 'web3' // only required for custom/fallback provider option
+import Web3 from 'web3'
 
 import * as action from './web3Types'
 
