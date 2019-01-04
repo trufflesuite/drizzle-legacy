@@ -7,10 +7,10 @@ let dispatchedActions;
 let store;
 
 beforeAll(() => {
-  web3 = new Web3('ws://127.0.0.1:8545');
+  web3 = new Web3(global.provider);
 
   dispatchedActions = [];
-  store = {
+  store = { 
     getState: () => ({
       accounts: [
         '0x8adb46251e9cd45b5027501766531825c04a2e06'
