@@ -7,7 +7,7 @@ let dispatchedActions;
 let store;
 
 beforeAll(() => {
-  web3 = new Web3('ws://127.0.0.1:8545');
+  web3 = new Web3(global.provider);
 
   dispatchedActions = [];
   store = {
