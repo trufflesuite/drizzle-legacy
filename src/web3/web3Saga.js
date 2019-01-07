@@ -10,7 +10,17 @@ export function * initializeWeb3 ({ options }) {
   try {
     var web3 = {}
 
-    if (window.ethereum) {
+    if (options.provider) {
+      web3 = new Web3(options.provider)
+      web3.eth.cacheSendTransaction = txObject =>
+        put({ type: 'SEND_WEB3_TX', txObject, stackId, web3 })
+
+      yield put({ type: 'WEB3_INITIALIZED' })
+
+      return web3
+    }
+
+    else if (window.ethereum) {
       const { ethereum } = window
       web3 = new Web3(ethereum)
       try {
