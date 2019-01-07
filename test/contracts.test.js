@@ -32,10 +32,14 @@ test('instantiateWeb3Contract', async () => {
     web3: web3Provider
   }
 
-  await runSaga(mockStore, instantiateWeb3Contract, options).done
-
+  const aContract = await runSaga(mockStore, instantiateWeb3Contract, options).done
   expect(MockedDrizzleContract).toHaveBeenCalledTimes(1)
 
   const expectedArgs = [mockWeb3Contract, web3Provider, mockContractName, mockStore, mockContractEvents]
   expect(MockedDrizzleContract).toHaveBeenCalledWith(...expectedArgs)
+
+  // It returns a Contract with the proper shape
+  expect(aContract).toHaveProperty('cacheCallFunction')
+  expect(aContract).toHaveProperty('cacheSendFunction')
+  expect(aContract).toHaveProperty('generateArgsHash')
 })
