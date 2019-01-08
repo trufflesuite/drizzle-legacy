@@ -96,7 +96,7 @@ export function * instantiateContract ({
  * Events
  */
 
-function createContractEventChannel ({ contract, eventName, eventOptions }) {
+export function createContractEventChannel ({ contract, eventName, eventOptions }) {
   const name = contract.contractName
 
   return eventChannel(emit => {
