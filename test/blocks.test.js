@@ -2,20 +2,20 @@ import { createBlockChannel } from '../src/blocks/blocksSaga'
 import { mockDrizzleStore, mockWeb3 } from './utils/helpers'
 
 let web3
-let mockStore
+let mockedStore
 let syncAlways
 let blockListener
 let blockPoller
 
 beforeAll(() => {
-  [mockStore] = mockDrizzleStore()
+  [mockedStore] = mockDrizzleStore()
   web3 = mockWeb3()
   syncAlways = false
 })
 
 describe('listening for blocks', () => {
   beforeEach(() => {
-    blockListener = createBlockChannel({ mockStore, web3, syncAlways })
+    blockListener = createBlockChannel({ mockedStore, web3, syncAlways })
   })
 
   test('listens for block headers', async () => {
@@ -23,10 +23,10 @@ describe('listening for blocks', () => {
       from: '0x8adb46251e9cd45b5027501766531825c04a2e06',
       to: '0x8adb46251e9cd45b5027501766531825c04a2e06',
       value: 200
-    }).then((receipt) => {
-      blockListener.take((event) => {
-        expect(event.type).toEqual('BLOCK_RECEIVED')
-      })
+    })
+
+    blockListener.take((event) => {
+      expect(event.type).toEqual('BLOCK_RECEIVED')
     })
   })
 
@@ -41,7 +41,7 @@ describe('listening for blocks', () => {
 
 describe('polling for blocks', () => {
   beforeEach(() => {
-    blockPoller = createBlockChannel({ mockStore, web3, syncAlways })
+    blockPoller = createBlockChannel({ mockedStore, web3, syncAlways })
   })
 
   test('polls for block headers', async () => {

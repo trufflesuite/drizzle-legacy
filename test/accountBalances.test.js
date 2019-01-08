@@ -12,6 +12,6 @@ beforeAll(() => {
 
 test('get account balances', async () => {
   await runSaga(mockStore, getAccountBalances, { web3 }).done
-  const defaultInitialBalance = 1e20
+  const defaultInitialBalance = 1e20 // 100 Eth
   expect(dispatchedActions[0].accountBalance).toEqual(String(defaultInitialBalance))
 })
