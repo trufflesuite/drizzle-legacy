@@ -1,5 +1,5 @@
 class DrizzleContract {
-  constructor(
+  constructor (
     web3Contract,
     web3,
     name,
@@ -52,7 +52,7 @@ class DrizzleContract {
     }
   }
 
-  cacheCallFunction(fnName, fnIndex, fn) {
+  cacheCallFunction (fnName, fnIndex, fn) {
     var contract = this
 
     return function () {
@@ -90,7 +90,7 @@ class DrizzleContract {
     }
   }
 
-  cacheSendFunction(fnName, fnIndex, fn) {
+  cacheSendFunction (fnName, fnIndex, fn) {
     // NOTE: May not need fn index
     var contract = this
 
@@ -122,7 +122,7 @@ class DrizzleContract {
     }
   }
 
-  generateArgsHash(args) {
+  generateArgsHash (args) {
     var web3 = this.web3
     var hashString = ''
 

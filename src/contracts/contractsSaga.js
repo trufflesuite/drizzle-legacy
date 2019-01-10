@@ -9,7 +9,7 @@ import {
 } from 'redux-saga/effects'
 import DrizzleContract from '../DrizzleContract'
 
-export function* addContract({ drizzle, contractConfig, events, web3 }) {
+export function * addContract ({ drizzle, contractConfig, events, web3 }) {
   // Prevents double-adding contracts
   if (drizzle.loadingContract[contractConfig.contractName]) {
     return false
@@ -46,7 +46,7 @@ export function* addContract({ drizzle, contractConfig, events, web3 }) {
  * Instantiation
  */
 
-export function* instantiateWeb3Contract({
+export function * instantiateWeb3Contract ({
   web3Contract,
   name,
   events,
@@ -56,7 +56,7 @@ export function* instantiateWeb3Contract({
   return new DrizzleContract(web3Contract, web3, name, store, events)
 }
 
-export function* instantiateContract({
+export function * instantiateContract ({
   contractArtifact,
   events,
   store,
@@ -84,7 +84,11 @@ export function* instantiateContract({
       contractArtifact
     )
   } catch (err) {
-    console.error(`Contract ${contractArtifact.contractName} not found on network ID: ${networkId}`)
+    console.error(
+      `Contract ${
+        contractArtifact.contractName
+      } not found on network ID: ${networkId}`
+    )
   }
 }
 
@@ -92,7 +96,7 @@ export function* instantiateContract({
  * Events
  */
 
-function createContractEventChannel({ contract, eventName, eventOptions }) {
+function createContractEventChannel ({ contract, eventName, eventOptions }) {
   const name = contract.contractName
 
   return eventChannel(emit => {
@@ -116,7 +120,7 @@ function createContractEventChannel({ contract, eventName, eventOptions }) {
   })
 }
 
-function* callListenForContractEvent({ contract, eventName, eventOptions }) {
+function * callListenForContractEvent ({ contract, eventName, eventOptions }) {
   const contractEventChannel = yield call(createContractEventChannel, {
     contract,
     eventName,
@@ -133,7 +137,13 @@ function* callListenForContractEvent({ contract, eventName, eventOptions }) {
  * Send and Cache
  */
 
-function createTxChannel({ txObject, stackId, sendArgs = {}, contractName, stackTempKey }) {
+function createTxChannel ({
+  txObject,
+  stackId,
+  sendArgs = {},
+  contractName,
+  stackTempKey
+}) {
   var persistTxHash
 
   return eventChannel(emit => {
@@ -172,7 +182,14 @@ function createTxChannel({ txObject, stackId, sendArgs = {}, contractName, stack
   })
 }
 
-function* callSendContractTx({ contract, fnName, fnIndex, args, stackId, stackTempKey }) {
+function * callSendContractTx ({
+  contract,
+  fnName,
+  fnIndex,
+  args,
+  stackId,
+  stackTempKey
+}) {
   // Check for type of object and properties indicative of call/send options.
   if (args.length) {
     const finalArg = args.length > 1 ? args[args.length - 1] : args[0]
@@ -218,7 +235,7 @@ function* callSendContractTx({ contract, fnName, fnIndex, args, stackId, stackTe
  * Call and Cache
  */
 
-function* callCallContractFn({
+function * callCallContractFn ({
   contract,
   fnName,
   fnIndex,
@@ -285,7 +302,7 @@ function* callCallContractFn({
  * Sync Contract
  */
 
-function* callSyncContract(action) {
+function * callSyncContract (action) {
   // Get contract state from store
   const contract = action.contract
   const contractName = contract.contractName
@@ -332,7 +349,7 @@ function* callSyncContract(action) {
 const getContractsState = state => state.contracts
 const getNetworkId = state => state.web3.networkId
 
-function isSendOrCallOptions(options) {
+function isSendOrCallOptions (options) {
   if ('from' in options) return true
   if ('gas' in options) return true
   if ('gasPrice' in options) return true
@@ -341,7 +358,7 @@ function isSendOrCallOptions(options) {
   return false
 }
 
-function* contractsSaga() {
+function * contractsSaga () {
   yield takeEvery('SEND_CONTRACT_TX', callSendContractTx)
   yield takeEvery('CALL_CONTRACT_FN', callCallContractFn)
   yield takeEvery('CONTRACT_SYNCING', callSyncContract)
