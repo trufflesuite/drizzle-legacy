@@ -7,13 +7,13 @@ import { /* addContract, */
   instantiateWeb3Contract
 } from '../../src/contracts/contractsSaga'
 
-import { mockDrizzleStore, mockWeb3AndContract } from '../utils/helpers'
+import { mockDrizzleStore, mockWeb3Assets } from '../utils/helpers'
 
 describe('Creates a contract', () => {
-  let mockedStore, web3Provider, abi, byteCode, deployedContract, accounts
+  let mockedStore, web3Provider, truffleArtifact, accounts
 
   beforeEach(async () => {
-    ;({ web3Provider, abi, byteCode, deployedContract, accounts } = await mockWeb3AndContract())
+    ({ web3Provider, accounts, truffleArtifact } = await mockWeb3Assets())
     ;[mockedStore] = mockDrizzleStore({ web3: { networkId: 6777 }, accounts })
   })
 
@@ -43,18 +43,8 @@ describe('Creates a contract', () => {
   });
 
   test('with instantiateContract Saga', async () => {
-    const mockedArtifact = {
-      contractName: 'TestContract',
-      abi,
-      networks: { 6777: { address: deployedContract._address } },
-      deployedByteCode: byteCode
-    }
-
-    // console.log('web3Provider network id', await web3Provider.eth.net.getId())
-    // console.log('deployedContract.address', deployedContract._address)
-
     const options = {
-      contractArtifact: mockedArtifact,
+      contractArtifact: truffleArtifact,
       events: [],
       store: mockedStore,
       web3: web3Provider
