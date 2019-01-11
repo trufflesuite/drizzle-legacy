@@ -14,7 +14,7 @@ describe('Creates a contract', () => {
 
   beforeEach(async () => {
     ({ web3Provider, accounts, truffleArtifact } = await mockWeb3Assets())
-    ;[mockedStore] = mockDrizzleStore({ web3: { networkId: 6777 }, accounts })
+    ;[mockedStore] = mockDrizzleStore({ web3: { networkId: global.defaultNetworkId }, accounts })
   })
 
   test('with instantiateWeb3Contract Saga', async () => {
