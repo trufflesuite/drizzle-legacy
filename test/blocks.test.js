@@ -8,7 +8,7 @@ let blockListener
 let blockPoller
 
 beforeAll(() => {
-  [mockedStore] = mockDrizzleStore()
+  ;[mockedStore] = mockDrizzleStore()
   web3 = mockWeb3()
   syncAlways = false
 })
@@ -20,8 +20,8 @@ describe('listening for blocks', () => {
 
   test('listens for block headers', async () => {
     await web3.eth.sendTransaction({
-      from: '0x8adb46251e9cd45b5027501766531825c04a2e06',
-      to: '0x8adb46251e9cd45b5027501766531825c04a2e06',
+      from: global.accounts[0],
+      to: global.accounts[1],
       value: 200
     })
 
@@ -46,13 +46,13 @@ describe('polling for blocks', () => {
 
   test('polls for block headers', async () => {
     await web3.eth.sendTransaction({
-      from: '0x8adb46251e9cd45b5027501766531825c04a2e06',
-      to: '0x8adb46251e9cd45b5027501766531825c04a2e06',
+      from: global.accounts[0],
+      to: global.accounts[1],
       value: 200
-    }).then((receipt) => {
-      blockPoller.take((event) => {
-        expect(event.type).toEqual('BLOCK_FOUND')
-      })
+    })
+
+    blockPoller.take((event) => {
+      expect(event.type).toEqual('BLOCK_FOUND')
     })
   })
 
