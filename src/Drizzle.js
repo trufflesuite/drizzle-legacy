@@ -63,6 +63,7 @@ class Drizzle {
   deleteContract (contractName) {
     this.store.dispatch({
       type: 'DELETE_CONTRACT',
+      drizzle: this,
       contractName
     })
   }
