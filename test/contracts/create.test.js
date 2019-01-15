@@ -18,14 +18,14 @@ describe('Creates a contract', () => {
   })
 
   test('with instantiateWeb3Contract Saga', async () => {
-    const mockWeb3Contract = 'TheGoodsContract'
-    const mockContractName = 'TheGoods'
-    const mockContractEvents = []
+    const mockedWeb3Contract = 'TheGoodsContract'
+    const mockedContractName = 'TheGoods'
+    const mockedContractEvents = []
 
     const options = {
-      web3Contract: mockWeb3Contract,
-      name: mockContractName,
-      events: mockContractEvents,
+      web3Contract: mockedWeb3Contract,
+      name: mockedContractName,
+      events: mockedContractEvents,
       store: mockedStore,
       web3: web3Provider
     }
@@ -33,7 +33,7 @@ describe('Creates a contract', () => {
     const aContract = await runSaga(mockedStore, instantiateWeb3Contract, options).done
     expect(MockedDrizzleContract).toHaveBeenCalledTimes(1)
 
-    const expectedArgs = [mockWeb3Contract, web3Provider, mockContractName, mockedStore, mockContractEvents]
+    const expectedArgs = [mockedWeb3Contract, web3Provider, mockedContractName, mockedStore, mockedContractEvents]
     expect(MockedDrizzleContract).toHaveBeenCalledWith(...expectedArgs)
 
     // It returns a Contract with the proper shape
