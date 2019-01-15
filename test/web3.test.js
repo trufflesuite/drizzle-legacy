@@ -42,7 +42,7 @@ describe('Loads Web3', () => {
     beforeAll(async () => {
       global.window = {}
       ;[mockedStore, dispatchedActions] = mockDrizzleStore()
-      mEnable = jest.fn((...args) => `hi ${args[0]}`)
+      mEnable = jest.fn()
 
       global.provider.enable = mEnable
       global.window.ethereum = global.provider
