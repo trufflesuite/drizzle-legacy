@@ -2,7 +2,7 @@ jest.mock('../../src/DrizzleContract')
 import MockedDrizzleContract from '../../src/DrizzleContract'
 
 import { runSaga } from 'redux-saga'
-import { /* addContract, */
+import {
   instantiateContract,
   instantiateWeb3Contract
 } from '../../src/contracts/contractsSaga'
@@ -40,7 +40,7 @@ describe('Creates a contract', () => {
     expect(aContract).toHaveProperty('cacheCallFunction')
     expect(aContract).toHaveProperty('cacheSendFunction')
     expect(aContract).toHaveProperty('generateArgsHash')
-  });
+  })
 
   test('with instantiateContract Saga', async () => {
     const options = {
@@ -61,5 +61,5 @@ describe('Creates a contract', () => {
     expect(aContract).toHaveProperty('cacheCallFunction')
     expect(aContract).toHaveProperty('cacheSendFunction')
     expect(aContract).toHaveProperty('generateArgsHash')
-  });
-});
+  })
+})
