@@ -30,16 +30,16 @@ describe('Creates a contract', () => {
       web3
     }
 
-    const aContract = await runSaga(mockedStore, instantiateWeb3Contract, options).done
+    const contractInstance = await runSaga(mockedStore, instantiateWeb3Contract, options).done
     expect(MockedDrizzleContract).toHaveBeenCalledTimes(1)
 
     const expectedArgs = [mockedWeb3Contract, web3, mockedContractName, mockedStore, mockedContractEvents]
     expect(MockedDrizzleContract).toHaveBeenCalledWith(...expectedArgs)
 
     // It returns a Contract with the proper shape
-    expect(aContract).toHaveProperty('cacheCallFunction')
-    expect(aContract).toHaveProperty('cacheSendFunction')
-    expect(aContract).toHaveProperty('generateArgsHash')
+    expect(contractInstance).toHaveProperty('cacheCallFunction')
+    expect(contractInstance).toHaveProperty('cacheSendFunction')
+    expect(contractInstance).toHaveProperty('generateArgsHash')
   })
 
   test('with instantiateContract Saga', async () => {
@@ -53,13 +53,13 @@ describe('Creates a contract', () => {
     const web3ContractCreator = jest.fn()
     web3.eth.Contract = web3ContractCreator
 
-    const aContract = await runSaga(mockedStore, instantiateContract, options).done
+    const contractInstance = await runSaga(mockedStore, instantiateContract, options).done
     expect(web3ContractCreator).toHaveBeenCalledTimes(1)
     expect(MockedDrizzleContract).toHaveBeenCalledTimes(1)
 
     // It returns a Contract with the proper shape
-    expect(aContract).toHaveProperty('cacheCallFunction')
-    expect(aContract).toHaveProperty('cacheSendFunction')
-    expect(aContract).toHaveProperty('generateArgsHash')
+    expect(contractInstance).toHaveProperty('cacheCallFunction')
+    expect(contractInstance).toHaveProperty('cacheSendFunction')
+    expect(contractInstance).toHaveProperty('generateArgsHash')
   })
 })
