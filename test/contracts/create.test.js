@@ -7,13 +7,13 @@ import {
   instantiateWeb3Contract
 } from '../../src/contracts/contractsSaga'
 
-import { mockDrizzleStore, mockWeb3Assets } from '../utils/helpers'
+import { mockDrizzleStore, getWeb3Assets } from '../utils/helpers'
 
 describe('Creates a contract', () => {
-  let mockedStore, web3Provider, truffleArtifact, accounts
+  let mockedStore, web3, truffleArtifact, accounts
 
   beforeEach(async () => {
-    ({ web3Provider, accounts, truffleArtifact } = await mockWeb3Assets())
+    ({ web3, accounts, truffleArtifact } = await getWeb3Assets())
     ;[mockedStore] = mockDrizzleStore({ web3: { networkId: global.defaultNetworkId }, accounts })
   })
 
@@ -27,13 +27,13 @@ describe('Creates a contract', () => {
       name: mockedContractName,
       events: mockedContractEvents,
       store: mockedStore,
-      web3: web3Provider
+      web3
     }
 
     const aContract = await runSaga(mockedStore, instantiateWeb3Contract, options).done
     expect(MockedDrizzleContract).toHaveBeenCalledTimes(1)
 
-    const expectedArgs = [mockedWeb3Contract, web3Provider, mockedContractName, mockedStore, mockedContractEvents]
+    const expectedArgs = [mockedWeb3Contract, web3, mockedContractName, mockedStore, mockedContractEvents]
     expect(MockedDrizzleContract).toHaveBeenCalledWith(...expectedArgs)
 
     // It returns a Contract with the proper shape
@@ -47,11 +47,11 @@ describe('Creates a contract', () => {
       contractArtifact: truffleArtifact,
       events: [],
       store: mockedStore,
-      web3: web3Provider
+      web3
     }
 
     const web3ContractCreator = jest.fn()
-    web3Provider.eth.Contract = web3ContractCreator
+    web3.eth.Contract = web3ContractCreator
 
     const aContract = await runSaga(mockedStore, instantiateContract, options).done
     expect(web3ContractCreator).toHaveBeenCalledTimes(1)

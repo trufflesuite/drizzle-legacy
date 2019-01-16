@@ -1,5 +1,5 @@
 import { createBlockChannel } from '../src/blocks/blocksSaga'
-import { mockDrizzleStore, mockWeb3 } from './utils/helpers'
+import { mockDrizzleStore, getWeb3 } from './utils/helpers'
 
 let web3
 let mockedStore
@@ -9,7 +9,7 @@ let blockPoller
 
 beforeAll(() => {
   ;[mockedStore] = mockDrizzleStore()
-  web3 = mockWeb3()
+  web3 = getWeb3()
   syncAlways = false
 })
 
