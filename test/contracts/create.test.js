@@ -1,3 +1,4 @@
+/* eslint import/first: 0 */
 jest.mock('../../src/DrizzleContract')
 import MockedDrizzleContract from '../../src/DrizzleContract'
 
