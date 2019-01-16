@@ -4,9 +4,9 @@ import { put } from 'redux-saga/effects'
 import { mockDrizzleStore } from './utils/helpers'
 import * as Action from '../src/web3/constants'
 
-let mockedStore, dispatchedActions, web3Options, resolvedWeb3
-
 describe('Loads Web3', () => {
+  let mockedStore, dispatchedActions, web3Options, resolvedWeb3
+
   describe('with customProvider', () => {
     beforeAll(async () => {
       global.window = {}
