@@ -30,6 +30,12 @@ class GanacheEnvironment extends NodeEnvironment {
     this.global.accounts = defaultAccounts
     this.global.defaultNetworkId = defaultNetworkId
   }
+
+  async teardown() {
+    // close  provider engine gracefully
+    this.global.provider.close(() => {})
+    await super.teardown()
+  }
 }
 
 module.exports = GanacheEnvironment
