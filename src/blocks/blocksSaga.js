@@ -56,7 +56,12 @@ function * callCreateBlockChannel ({ drizzle, web3, syncAlways }) {
  * Poll for Blocks
  */
 
-export function createBlockPollChannel ({ drizzle, interval, web3, syncAlways }) {
+export function createBlockPollChannel ({
+  drizzle,
+  interval,
+  web3,
+  syncAlways
+}) {
   return eventChannel(emit => {
     const blockTracker = new BlockTracker({
       provider: web3.currentProvider,
