@@ -33,7 +33,7 @@ const drizzleSagas = [
   accountBalancesSaga,
   blocksSaga,
   contractsSaga,
-  drizzleStatusSaga,
+  drizzleStatusSaga
 ]
 
 export {
