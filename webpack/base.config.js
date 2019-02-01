@@ -1,6 +1,6 @@
-const path = require('path');
+const path = require('path')
 
-process.env.BABEL_ENV = 'production';
+process.env.BABEL_ENV = 'production'
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -9,13 +9,13 @@ module.exports = {
     filename: 'drizzle.js',
     library: 'drizzle',
     libraryTarget: 'umd',
-    path: path.resolve(__dirname, 'dist')
+    globalObject: "typeof self !== 'undefined' ? self : this",
+    path: path.resolve(__dirname, '../dist')
   },
-  mode: 'development',
   module: {
     rules: [{
       test: /\.(js)$/,
-      include: path.resolve(__dirname, 'src'),
+      include: path.resolve(__dirname, '../src'),
       loader: 'babel-loader',
       options: {
         presets: ['env'],
@@ -27,13 +27,5 @@ module.exports = {
         ]
       }
     }]
-  },
-  externals: {
-    'eth-block-tracker': 'eth-block-tracker-es5',
-    'redux': 'redux',
-    'redux-saga': 'redux-saga',
-    'web3': 'web3',
-    'is-plain-object': 'is-plain-object',
-    'deepmerge': 'deepmerge'
   }
-};
+}

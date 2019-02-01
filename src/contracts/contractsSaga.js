@@ -37,10 +37,27 @@ export function * addContract ({ drizzle, contractConfig, events, web3 }) {
       web3
     })
   }
-
   drizzle._addContract(drizzleContract)
 
   yield put({ type: 'CONTRACT_INITIALIZED', name: contractConfig.contractName })
+}
+
+export function * deleteContract ({ drizzle, contractName }) {
+  drizzle.contractList = drizzle.contractList.filter(
+    contract => contract.contractName !== contractName
+  )
+
+  const {
+    [contractName]: omittedContract,
+    ...restContracts
+  } = drizzle.contracts
+  drizzle.contracts = restContracts
+
+  const {
+    [contractName]: omittedLoading,
+    ...restLoadingContract
+  } = drizzle.loadingContract
+  drizzle.loadingContract = restLoadingContract
 }
 
 /*
@@ -65,31 +82,43 @@ export function * instantiateContract ({
 }) {
   const networkId = yield select(getNetworkId)
 
-  // Instantiate the contract.
-  var web3Contract = new web3.eth.Contract(
-    contractArtifact.abi,
-    contractArtifact.networks[networkId].address,
-    {
-      from: store.getState().accounts[0],
-      data: contractArtifact.deployedBytecode
-    }
-  )
+  try {
+    // Instantiate the contract.
+    var web3Contract = new web3.eth.Contract(
+      contractArtifact.abi,
+      contractArtifact.networks[networkId].address,
+      {
+        from: store.getState().accounts[0],
+        data: contractArtifact.deployedBytecode
+      }
+    )
 
-  return new DrizzleContract(
-    web3Contract,
-    web3,
-    contractArtifact.contractName,
-    store,
-    events,
-    contractArtifact
-  )
+    return new DrizzleContract(
+      web3Contract,
+      web3,
+      contractArtifact.contractName,
+      store,
+      events,
+      contractArtifact
+    )
+  } catch (err) {
+    console.error(
+      `Contract ${
+        contractArtifact.contractName
+      } not found on network ID: ${networkId}`
+    )
+  }
 }
 
 /*
  * Events
  */
 
-function createContractEventChannel ({ contract, eventName, eventOptions }) {
+export function createContractEventChannel ({
+  contract,
+  eventName,
+  eventOptions
+}) {
   const name = contract.contractName
 
   return eventChannel(emit => {
@@ -130,7 +159,13 @@ function * callListenForContractEvent ({ contract, eventName, eventOptions }) {
  * Send and Cache
  */
 
-function createTxChannel ({ txObject, stackId, sendArgs = {}, contractName }) {
+function createTxChannel ({
+  txObject,
+  stackId,
+  sendArgs = {},
+  contractName,
+  stackTempKey
+}) {
   var persistTxHash
 
   return eventChannel(emit => {
@@ -153,8 +188,11 @@ function createTxChannel ({ txObject, stackId, sendArgs = {}, contractName }) {
         emit({ type: 'TX_SUCCESSFUL', receipt: receipt, txHash: persistTxHash })
         emit(END)
       })
-      .on('error', error => {
-        emit({ type: 'TX_ERROR', error: error, txHash: persistTxHash })
+      .on('error', (error, receipt) => {
+        console.error(error)
+        console.error(receipt)
+
+        emit({ type: 'TX_ERROR', error: error, stackTempKey })
         emit(END)
       })
 
@@ -166,7 +204,14 @@ function createTxChannel ({ txObject, stackId, sendArgs = {}, contractName }) {
   })
 }
 
-function * callSendContractTx ({ contract, fnName, fnIndex, args, stackId }) {
+function * callSendContractTx ({
+  contract,
+  fnName,
+  fnIndex,
+  args,
+  stackId,
+  stackTempKey
+}) {
   // Check for type of object and properties indicative of call/send options.
   if (args.length) {
     const finalArg = args.length > 1 ? args[args.length - 1] : args[0]
@@ -194,7 +239,8 @@ function * callSendContractTx ({ contract, fnName, fnIndex, args, stackId }) {
     txObject,
     stackId,
     sendArgs,
-    contractName
+    contractName,
+    stackTempKey
   })
 
   try {
@@ -340,6 +386,7 @@ function * contractsSaga () {
   yield takeEvery('CONTRACT_SYNCING', callSyncContract)
   yield takeEvery('LISTEN_FOR_EVENT', callListenForContractEvent)
   yield takeEvery('ADD_CONTRACT', addContract)
+  yield takeEvery('DELETE_CONTRACT', deleteContract)
 }
 
 export default contractsSaga

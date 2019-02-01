@@ -3,12 +3,11 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 import reducer from './reducer'
 import { generateContractsInitialState } from './generateContractsInitialState'
-import getAbi from './getAbi'
 
 export function generateStore (options) {
   // Redux DevTools
   const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
   // Preloaded state
   var preloadedState = {
