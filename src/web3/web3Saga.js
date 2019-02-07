@@ -44,6 +44,7 @@ export function * initializeWeb3 ({ options }) {
           )
           web3 = new Web3(provider)
           yield put({ type: Action.WEB3_INITIALIZED })
+          yield put({ type: Action.WEB3_FELLBACK })
           return web3
 
         default:

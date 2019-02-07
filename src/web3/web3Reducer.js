@@ -1,7 +1,8 @@
 import * as Action from './constants'
 
 const initialState = {
-  status: ''
+  status: '',
+  fellback: false
 }
 
 const web3Reducer = (state = initialState, action) => {
@@ -23,6 +24,13 @@ const web3Reducer = (state = initialState, action) => {
     return {
       ...state,
       status: 'failed'
+    }
+  }
+
+  if (action.type === Action.WEB3_FELLBACK) {
+    return {
+      ...state,
+      fellback: true
     }
   }
 
