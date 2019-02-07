@@ -307,7 +307,7 @@ In cases where a user cancels a transaction or the transaction is malformed and 
 
 `status` (string): `initializing`, `initialized` and `failed` are possible options. Useful for triggering warnings if `web3` fails to instantiate.
 
-`fellback` (boolean): `false` by default, becomes true once the `web3` fallback provider is instantiated.
+`fellback` (boolean): `false` by default, becomes `true` once the `web3` fallback provider is instantiated.
 
 ## How Data Stays Fresh
 
