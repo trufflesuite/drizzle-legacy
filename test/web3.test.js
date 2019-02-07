@@ -124,6 +124,8 @@ describe('Loads Web3', () => {
     test('get web3', async () => {
       // First action dispatched
       expect(dispatchedActions[0].type).toEqual(Action.WEB3_INITIALIZED)
+      // Fallback action dispatched second
+      expect(dispatchedActions[1].type).toEqual(Action.WEB3_FELLBACK)
 
       // is it a Web3 object?
       expect(resolvedWeb3).toHaveProperty('currentProvider')
