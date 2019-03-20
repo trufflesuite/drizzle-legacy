@@ -16,9 +16,9 @@ const composeSagas = sagas =>
  *
  * @param {object} config - The configuration object
  * @param {object} config.drizzleOptions - drizzle configuration object
- * @param {object} [config.reducers={}] - application level reducers to include in drizzle's redux store
- * @param {object[]} [config.appSagas=[]] - application sagas to be managed by drizzle's saga middleware
- * @param {boolean} [config.disableReduxDevTools=false] - disable redux devtools hook
+ * @param {object} config.reducers={} - application level reducers to include in drizzle's redux store
+ * @param {object[]} config.appSagas=[] - application sagas to be managed by drizzle's saga middleware
+ * @param {boolean} config.disableReduxDevTools=false - disable redux devtools hook
  * @returns {object} Redux store
  *
  */
