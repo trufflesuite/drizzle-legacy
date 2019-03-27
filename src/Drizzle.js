@@ -1,6 +1,7 @@
 import { generateStore } from './generateStore'
 import defaultOptions from './defaultOptions'
 import merge from './mergeOptions'
+import DrizzleContract from './DrizzleContract'
 
 // Load as promise so that async Drizzle initialization can still resolve
 var isEnvReadyPromise = new Promise((resolve, reject) => {
@@ -22,9 +23,23 @@ var isEnvReadyPromise = new Promise((resolve, reject) => {
   }
 })
 
+const getOrCreateWeb3Contract = (store, contractConfig, web3) => {
+  const state = store.getState()
+  const networkId = state.web3.networkId
+  const selectedAccount = state.accounts[0]
+
+  return new web3.eth.Contract(
+    contractConfig.abi,
+    contractConfig.networks[networkId].address,
+    {
+      from: selectedAccount,
+      data: contractConfig.deployedBytecode
+    }
+  )
+}
+
 class Drizzle {
   constructor (givenOptions, store) {
-
     const options = merge(defaultOptions, givenOptions)
 
     // Variables
@@ -48,21 +63,20 @@ class Drizzle {
   }
 
   addContract (contractConfig, events = []) {
-    this.store.dispatch({
-      type: 'ADD_CONTRACT',
-      drizzle: this,
-      contractConfig,
-      events,
-      web3: this.web3
-    })
-  }
+    const web3Contract = getOrCreateWeb3Contract(this.store, contractConfig, this.web3)
+    const drizzleContract = new DrizzleContract(web3Contract, this.web3,
+      contractConfig.contractName, this.store, events)
 
-  _addContract (drizzleContract) {
     if (this.contracts[drizzleContract.contractName]) {
-      throw `Contract already exists: ${drizzleContract.contractName}`
+      throw new Error(`Contract already exists: ${drizzleContract.contractName}`)
     }
+
+    this.store.dispatch({ type: 'CONTRACT_INITIALIZING', contractConfig })
+
     this.contracts[drizzleContract.contractName] = drizzleContract
     this.contractList.push(drizzleContract)
+
+    this.store.dispatch({ type: 'CONTRACT_INITIALIZED', name: contractConfig.contractName })
   }
 
   deleteContract (contractName) {
