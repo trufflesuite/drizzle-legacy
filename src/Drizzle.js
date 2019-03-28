@@ -28,14 +28,8 @@ const getOrCreateWeb3Contract = (store, contractConfig, web3) => {
   const networkId = state.web3.networkId
   const selectedAccount = state.accounts[0]
 
-  return new web3.eth.Contract(
-    contractConfig.abi,
-    contractConfig.networks[networkId].address,
-    {
-      from: selectedAccount,
-      data: contractConfig.deployedBytecode
-    }
-  )
+  const { web3Contract, abi, networks, deployedBytecode } = contractConfig
+  return web3Contract || new web3.eth.Contract(abi, networks[networkId].address, { from: selectedAccount, data: deployedBytecode })
 }
 
 class Drizzle {
