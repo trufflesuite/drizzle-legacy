@@ -23,7 +23,7 @@ var isEnvReadyPromise = new Promise((resolve, reject) => {
   }
 })
 
-const getOrCreateWeb3Contract = (store, contractConfig, web3) => {
+export const getOrCreateWeb3Contract = (store, contractConfig, web3) => {
   const state = store.getState()
   const networkId = state.web3.networkId
   const selectedAccount = state.accounts[0]
