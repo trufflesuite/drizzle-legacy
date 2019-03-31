@@ -1,4 +1,4 @@
-import { drizzleMiddleware } from '../src/drizzle-middleware'
+import { drizzleMiddleware } from '../../src/drizzle-middleware'
 
 const mockDrizzleInstance = (defaultAccount, numContracts = 1) => ({
   contractList: Array.from({length: numContracts}, () => ({options: {from: defaultAccount}}))
