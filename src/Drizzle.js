@@ -74,9 +74,29 @@ class Drizzle {
   }
 
   deleteContract (contractName) {
+    if (!this.contracts[contractName]) {
+      throw new Error(`Contract does not exist: ${contractName}`)
+    }
+
+    this.contractList = this.contractList.filter(
+      contract => contract.contractName !== contractName
+    )
+
+    const {
+      [contractName]: omittedContract,
+      ...restContracts
+    } = this.contracts
+    this.contracts = restContracts
+
+    const {
+      [contractName]: omittedLoading,
+      ...restLoadingContract
+    } = this.loadingContract
+
+    this.loadingContract = restLoadingContract
+
     this.store.dispatch({
       type: 'DELETE_CONTRACT',
-      drizzle: this,
       contractName
     })
   }

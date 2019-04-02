@@ -2,24 +2,6 @@ import { END, eventChannel } from 'redux-saga'
 import { call, put, select, take, takeEvery } from 'redux-saga/effects'
 import * as EventActions from './constants'
 
-export function * deleteContract ({ drizzle, contractName }) {
-  drizzle.contractList = drizzle.contractList.filter(
-    contract => contract.contractName !== contractName
-  )
-
-  const {
-    [contractName]: omittedContract,
-    ...restContracts
-  } = drizzle.contracts
-  drizzle.contracts = restContracts
-
-  const {
-    [contractName]: omittedLoading,
-    ...restLoadingContract
-  } = drizzle.loadingContract
-  drizzle.loadingContract = restLoadingContract
-}
-
 /*
  * Events
  */
@@ -294,7 +276,6 @@ function * contractsSaga () {
   yield takeEvery('CALL_CONTRACT_FN', callCallContractFn)
   yield takeEvery('CONTRACT_SYNCING', callSyncContract)
   yield takeEvery('LISTEN_FOR_EVENT', callListenForContractEvent)
-  yield takeEvery('DELETE_CONTRACT', deleteContract)
 }
 
 export default contractsSaga
