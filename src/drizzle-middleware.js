@@ -1,4 +1,4 @@
-export const drizzleMiddleware = drizzleInstance => _ => next => action => {
+export const drizzleMiddleware = drizzleInstance => store => next => action => {
   const { type } = action
 
   if (type === 'DRIZZLE_INITIALIZING') {
@@ -15,6 +15,25 @@ export const drizzleMiddleware = drizzleInstance => _ => next => action => {
     }
   }
 
+  if (type === 'ADD_CONTRACT' && drizzleInstance) {
+    try {
+      const { contractConfig, events } = action
+      drizzleInstance.addContract(contractConfig, events)
+    } catch (error) {
+      console.error('Attempt to add a duplicate contract.\n', error)
+
+      // Notify user via
+      const notificationAction = {
+        type: 'ERROR_ADD_CONTRACT',
+        error,
+        attemptedAction: action
+      }
+      store.dispatch(notificationAction)
+
+      // Don't propogate current action
+      return
+    }
+  }
   return next(action)
 }
 
