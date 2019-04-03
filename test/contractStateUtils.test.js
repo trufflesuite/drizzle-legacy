@@ -1,4 +1,9 @@
-import { isConstant, getAbi, generateContractInitialState, generateContractsInitialState } from '../src/contractStateUtils'
+import {
+  isConstant,
+  getAbi,
+  generateContractInitialState,
+  generateContractsInitialState
+} from '../src/contractStateUtils'
 import TestContractABI from './utils/data/TestContract-abi.json'
 
 describe('Contract State Utilities', () => {
@@ -21,7 +26,7 @@ describe('Contract State Utilities', () => {
     test('can parse Web3 contract', () => {
       const jsonInterface = {}
       const web3Contract = { options: { jsonInterface } }
-      expect(getAbi({web3Contract})).toEqual(jsonInterface)
+      expect(getAbi({ web3Contract })).toEqual(jsonInterface)
     })
 
     test('can parse TruffleArtifact', () => {
@@ -39,7 +44,7 @@ describe('Contract State Utilities', () => {
         storedData: {}
       }
 
-      const input = {abi: TestContractABI}
+      const input = { abi: TestContractABI }
       expect(generateContractInitialState(input)).toEqual(expectedState)
     })
 
@@ -50,7 +55,9 @@ describe('Contract State Utilities', () => {
         storedData: {}
       }
 
-      const input = { web3Contract: { options: { jsonInterface: TestContractABI } } }
+      const input = {
+        web3Contract: { options: { jsonInterface: TestContractABI } }
+      }
       expect(generateContractInitialState(input)).toEqual(expectedState)
     })
   })
@@ -75,7 +82,9 @@ describe('Contract State Utilities', () => {
         }
       }
 
-      expect(generateContractsInitialState({contracts})).toEqual(expectedStates)
+      expect(generateContractsInitialState({ contracts })).toEqual(
+        expectedStates
+      )
     })
   })
 })

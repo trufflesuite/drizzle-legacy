@@ -8,7 +8,7 @@ export const isConstant = x => x.type === 'function' && x.constant === true
 export const generateContractInitialState = contractConfig => {
   const constants = getAbi(contractConfig).filter(isConstant)
   const objectOfConstants = constants.reduce(
-    (acc, x) => ({...acc, [x.name]: {}}),
+    (acc, x) => ({ ...acc, [x.name]: {} }),
     {}
   )
   return {
