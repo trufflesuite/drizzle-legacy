@@ -213,7 +213,7 @@ function * callSendContractTx ({
     var finalArgTest = false
 
     if (typeof finalArg === 'object') {
-      var finalArgTest = yield call(isSendOrCallOptions, finalArg)
+      finalArgTest = yield call(isSendOrCallOptions, finalArg)
     }
 
     if (finalArgTest) {
@@ -271,7 +271,7 @@ function * callCallContractFn ({
     var finalArgTest = false
 
     if (typeof finalArg === 'object') {
-      var finalArgTest = yield call(isSendOrCallOptions, finalArg)
+      finalArgTest = yield call(isSendOrCallOptions, finalArg)
     }
 
     if (finalArgTest) {
