@@ -3,11 +3,12 @@ import { drizzleMiddleware } from '../../src/drizzle-middleware'
 import Drizzle from '../../src/Drizzle'
 import { getWeb3Assets } from '../utils/helpers'
 import configureStore from 'redux-mock-store'
+import defaultDrizzleOptions from '../../src/defaultOptions'
 
 jest.mock('../../src/DrizzleContract')
 
 const mockDrizzleInstance = (defaultAccount, numContracts = 1) => ({
-  contractList: Array.from({length: numContracts}, () => ({options: {from: defaultAccount}}))
+  contractList: Array.from({ length: numContracts }, () => ({ options: { from: defaultAccount } }))
 })
 
 describe('Drizzle Middleware', () => {
@@ -17,7 +18,7 @@ describe('Drizzle Middleware', () => {
   beforeEach(() => {
     mockedDrizzleInstance = mockDrizzleInstance(accounts[0], 10)
     next = jest.fn()
-    dmw = drizzleMiddleware({contractList: []})
+    dmw = drizzleMiddleware({ contractList: [] })
   })
 
   test('it passes action to the rest of middleware Pipeline', () => {
@@ -27,8 +28,8 @@ describe('Drizzle Middleware', () => {
 
   test('default sendFrom changes when wallet provider changes selectedAccount', () => {
     const selectedAccount = accounts[2]
-    dmw()(next)({type: 'DRIZZLE_INITIALIZING', drizzle: mockedDrizzleInstance})
-    dmw()(next)({type: 'ACCOUNTS_FETCHED', accounts: [selectedAccount]})
+    dmw()(next)({ type: 'DRIZZLE_INITIALIZING', drizzle: mockedDrizzleInstance })
+    dmw()(next)({ type: 'ACCOUNTS_FETCHED', accounts: [selectedAccount] })
 
     // All contract options should have from address set to selectedAccount
     const froms = mockedDrizzleInstance.contractList.map(x => x.options.from)
@@ -40,16 +41,16 @@ describe('Drizzle Middleware', () => {
   })
 
   test('default sendFrom does not change unnecessarily', () => {
-    dmw()(next)({type: 'DRIZZLE_INITIALIZING', drizzle: mockedDrizzleInstance})
+    dmw()(next)({ type: 'DRIZZLE_INITIALIZING', drizzle: mockedDrizzleInstance })
 
     // choose 1st account to indicate no change
     const selectedAccount = accounts[0]
 
     // Sentinel remains IFF no account change is detected
     const sentinel = {}
-    mockedDrizzleInstance.contractList.push({options: {from: sentinel}})
+    mockedDrizzleInstance.contractList.push({ options: { from: sentinel } })
 
-    dmw()(next)({type: 'ACCOUNTS_FETCHED', accounts: [selectedAccount]})
+    dmw()(next)({ type: 'ACCOUNTS_FETCHED', accounts: [selectedAccount] })
 
     const froms = mockedDrizzleInstance.contractList.map(x => x.options.from)
     expect(froms).toHaveLength(11)
@@ -65,6 +66,7 @@ describe('Drizzle Middleware', () => {
     const networkId = global.defaultNetworkId
     const accounts = global.accounts
     const drizzleOptions = {}
+    const expectedDrizzleOptions = defaultDrizzleOptions
     const state = { web3: { networkId }, accounts }
 
     let middlewares, mockedStore
@@ -88,7 +90,7 @@ describe('Drizzle Middleware', () => {
     test('is initialized', () => {
       const actions = mockedStore.getActions()
       expect(actions).toHaveLength(1)
-      expect(actions[0]).toEqual({type: 'DRIZZLE_INITIALIZING', drizzle, options: drizzleOptions})
+      expect(actions[0]).toEqual({ type: 'DRIZZLE_INITIALIZING', drizzle, options: expectedDrizzleOptions })
     })
 
     describe('Adds a Contract', () => {
@@ -100,19 +102,19 @@ describe('Drizzle Middleware', () => {
         // Arrange minimum mock of a ContractConfig
         ;({ truffleArtifact: mockedContractConfig } = await getWeb3Assets())
         MockedDrizzleContract.mockImplementation(() => ({ contractName: mockedContractConfig.contractName }))
-        mockedContractConfig.networks = {[networkId]: mockedContractAddress}
+        mockedContractConfig.networks = { [networkId]: mockedContractAddress }
       })
 
       test('successfully', async () => {
-        mockedStore.dispatch({type: 'ADD_CONTRACT', contractConfig: mockedContractConfig, mockedEvents})
+        mockedStore.dispatch({ type: 'ADD_CONTRACT', contractConfig: mockedContractConfig, mockedEvents })
 
         // Assert
         const actions = mockedStore.getActions()
         expect(actions).toHaveLength(4)
-        expect(actions[0]).toEqual({type: 'DRIZZLE_INITIALIZING', drizzle, options: drizzleOptions})
-        expect(actions[1]).toEqual({type: 'CONTRACT_INITIALIZING', contractConfig: mockedContractConfig})
-        expect(actions[2]).toEqual({type: 'CONTRACT_INITIALIZED', name: mockedContractConfig.contractName})
-        expect(actions[3]).toEqual({type: 'ADD_CONTRACT', contractConfig: mockedContractConfig, mockedEvents})
+        expect(actions[0]).toEqual({ type: 'DRIZZLE_INITIALIZING', drizzle, options: expectedDrizzleOptions })
+        expect(actions[1]).toEqual({ type: 'CONTRACT_INITIALIZING', contractConfig: mockedContractConfig })
+        expect(actions[2]).toEqual({ type: 'CONTRACT_INITIALIZED', name: mockedContractConfig.contractName })
+        expect(actions[3]).toEqual({ type: 'ADD_CONTRACT', contractConfig: mockedContractConfig, mockedEvents })
       })
 
       test('handles exception', async () => {
