@@ -29,7 +29,13 @@ export const getOrCreateWeb3Contract = (store, contractConfig, web3) => {
   const selectedAccount = state.accounts[0]
 
   const { web3Contract, abi, networks, deployedBytecode } = contractConfig
-  return web3Contract || new web3.eth.Contract(abi, networks[networkId].address, { from: selectedAccount, data: deployedBytecode })
+  return (
+    web3Contract ||
+    new web3.eth.Contract(abi, networks[networkId].address, {
+      from: selectedAccount,
+      data: deployedBytecode
+    })
+  )
 }
 
 class Drizzle {
@@ -57,12 +63,23 @@ class Drizzle {
   }
 
   addContract (contractConfig, events = []) {
-    const web3Contract = getOrCreateWeb3Contract(this.store, contractConfig, this.web3)
-    const drizzleContract = new DrizzleContract(web3Contract, this.web3,
-      contractConfig.contractName, this.store, events)
+    const web3Contract = getOrCreateWeb3Contract(
+      this.store,
+      contractConfig,
+      this.web3
+    )
+    const drizzleContract = new DrizzleContract(
+      web3Contract,
+      this.web3,
+      contractConfig.contractName,
+      this.store,
+      events
+    )
 
     if (this.contracts[drizzleContract.contractName]) {
-      throw new Error(`Contract already exists: ${drizzleContract.contractName}`)
+      throw new Error(
+        `Contract already exists: ${drizzleContract.contractName}`
+      )
     }
 
     this.store.dispatch({ type: 'CONTRACT_INITIALIZING', contractConfig })
@@ -70,7 +87,10 @@ class Drizzle {
     this.contracts[drizzleContract.contractName] = drizzleContract
     this.contractList.push(drizzleContract)
 
-    this.store.dispatch({ type: 'CONTRACT_INITIALIZED', name: contractConfig.contractName })
+    this.store.dispatch({
+      type: 'CONTRACT_INITIALIZED',
+      name: contractConfig.contractName
+    })
   }
 
   deleteContract (contractName) {
@@ -82,10 +102,7 @@ class Drizzle {
       contract => contract.contractName !== contractName
     )
 
-    const {
-      [contractName]: omittedContract,
-      ...restContracts
-    } = this.contracts
+    const { [contractName]: omittedContract, ...restContracts } = this.contracts
     this.contracts = restContracts
 
     const {

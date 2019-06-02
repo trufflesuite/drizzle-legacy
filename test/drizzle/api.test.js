@@ -36,7 +36,11 @@ describe('Drizzle API', () => {
   })
 
   test('Constructor fires up drizzle store', () => {
-    const expectedAction = { type: 'DRIZZLE_INITIALIZING', drizzle, options: defaultDrizzleOptions }
+    const expectedAction = {
+      type: 'DRIZZLE_INITIALIZING',
+      drizzle,
+      options: defaultDrizzleOptions
+    }
     expect(dispatchSpy).toHaveBeenCalledWith(expectedAction)
   })
 
@@ -68,10 +72,16 @@ describe('Drizzle API', () => {
       // 1 in cstor, 2 in addContract
       expect(dispatchSpy).toHaveBeenCalledTimes(3)
 
-      let expectedAction = { type: 'CONTRACT_INITIALIZING', contractConfig: truffleArtifact }
+      let expectedAction = {
+        type: 'CONTRACT_INITIALIZING',
+        contractConfig: truffleArtifact
+      }
       expect(dispatchSpy).toHaveBeenNthCalledWith(2, expectedAction)
 
-      expectedAction = { type: 'CONTRACT_INITIALIZED', name: truffleArtifact.contractName }
+      expectedAction = {
+        type: 'CONTRACT_INITIALIZED',
+        name: truffleArtifact.contractName
+      }
       expect(dispatchSpy).toHaveBeenNthCalledWith(3, expectedAction)
 
       expect(drizzle.contractList).toHaveLength(1)
