@@ -78,7 +78,7 @@ describe('Resolving Web3', () => {
 
       const result = await runSaga({
         dispatch: (action) => dispatched.push(action),
-        getState: () => ({state: 'test'})
+        getState: () => ({ state: 'test' })
       }, initializeWeb3, { options: {} }).done
 
       // result should be a proper web3 provider
@@ -103,7 +103,7 @@ describe('Resolving Web3', () => {
         { options: {} }
       ).done
 
-      // saga result is undefined when user opts out
+      // saga result should be undefined if an exception occurs
       expect(web3Result).toBe(undefined)
 
       // and the last action should be WEB3_USER_DENIED
@@ -119,10 +119,10 @@ describe('Resolving Web3', () => {
 
       const result = await runSaga({
         dispatch: (action) => dispatched.push(action),
-        getState: () => ({state: 'test'})
+        getState: () => ({ state: 'test' })
       }, initializeWeb3, { options: {} }).done
 
-      // saga result is undefined when user opts out
+      // saga result is undefined when exception is thrown
       expect(result).toBe(undefined)
 
       // and the last action should be WEB3_ERROR
