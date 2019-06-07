@@ -27,6 +27,9 @@ export function * initializeWeb3 ({ options }) {
       } catch (error) {
         // User denied account access...
         console.log(error)
+        if (typeof web3 !== 'undefined') {
+          return web3
+        }
       }
     } else if (typeof window.web3 !== 'undefined') {
       // Checking if Web3 has been injected by the browser (Mist/MetaMask)
