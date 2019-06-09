@@ -67,6 +67,33 @@ describe('Loads Web3', () => {
     })
   })
 
+  describe('metamask user denies access', () => {
+    let mockedEthereumEnable
+
+    beforeAll(async () => {
+      global.window = {}
+
+      // mockedEthereumEnable = jest.fn().mockImplementation(() => {throw new Error();});
+      mockedEthereumEnable = jest.fn()
+      global.provider.enable = mockedEthereumEnable
+      global.window.ethereum = global.provider
+
+      gen = initializeWeb3({ options: {} })
+    })
+
+    test('get web3', async () => {
+      let next = gen.next()
+      const error = new Error()
+      next = gen.throw(error)
+
+      expect(next.value).toEqual(put({ type: Action.WEB3_INITIALIZED }))
+
+      // is it a Web3 object?
+      resolvedWeb3 = gen.next().value
+      hasWeb3Shape(resolvedWeb3)
+    })
+  })
+
   describe('with injected web3', () => {
     beforeAll(async () => {
       global.window = {}
