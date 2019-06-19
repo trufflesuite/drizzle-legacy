@@ -5,6 +5,8 @@ import { initializeWeb3, getNetworkId } from '../web3/web3Saga'
 import { getAccounts } from '../accounts/accountsSaga'
 import { getAccountBalances } from '../accountBalances/accountBalancesSaga'
 
+import * as Action from './constants'
+
 function * initializeDrizzle (action) {
   try {
     const options = action.options
@@ -19,11 +21,18 @@ function * initializeDrizzle (action) {
     // further web3 interaction, and note web3 will be undefined
     //
     if (web3) {
-      yield call(getNetworkId, { web3 })
+      const networkId = yield call(getNetworkId, { web3 })
 
       // Get initial accounts list and balances.
       yield call(getAccounts, { web3 })
       yield call(getAccountBalances, { web3 })
+
+      const networkWhitelist = options.networkWhitelist
+      // const networkWhitelist = [4]
+      if (networkWhitelist.length && !networkWhitelist.includes(networkId)) {
+        console.log(networkId)
+        yield put({ type: Action.DRIZZLE_NETWORK_MISMATCH }) // add in params?
+      }
 
       // Instantiate contracts passed through via options.
       for (var i = 0; i < options.contracts.length; i++) {
