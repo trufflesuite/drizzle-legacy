@@ -46,7 +46,7 @@ describe('Drizzle options:', () => {
 
       await MockedDrizzleContract.mockImplementation(() => ({ contractName }))
 
-      const expectedAction = { type: 'DRIZZLE_NETWORK_MISMATCH' }
+      const expectedAction = { type: 'NETWORK_MISMATCH' }
       expect(dispatchSpy).toHaveBeenCalledWith(expectedAction)
 
       const unexpectedAction = { type: 'DRIZZLE_INITIALIZED' }
@@ -64,7 +64,7 @@ describe('Drizzle options:', () => {
       const expectedAction = { type: 'DRIZZLE_INITIALIZED' }
       expect(dispatchSpy).toHaveBeenCalledWith(expectedAction)
 
-      const unexpectedAction = { type: 'DRIZZLE_NETWORK_MISMATCH' }
+      const unexpectedAction = { type: 'NETWORK_MISMATCH' }
       expect(dispatchSpy).not.toHaveBeenCalledWith(unexpectedAction)
     })
   })
