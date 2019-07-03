@@ -5,7 +5,7 @@ import { initializeWeb3, getNetworkId } from '../web3/web3Saga'
 import { getAccounts } from '../accounts/accountsSaga'
 import { getAccountBalances } from '../accountBalances/accountBalancesSaga'
 
-import { NETWORK_MISMATCH } from '../web3/constants'
+import { NETWORK_IDS, NETWORK_MISMATCH } from '../web3/constants'
 
 export function * initializeDrizzle (action) {
   try {
@@ -27,11 +27,10 @@ export function * initializeDrizzle (action) {
       // Check whether network is allowed
       const networkWhitelist = options.networkWhitelist
       if (networkWhitelist.length &&
-          networkId !== 5777 &&
+          networkId !== NETWORK_IDS.ganache &&
           !networkWhitelist.includes(networkId)) {
         yield put({ type: NETWORK_MISMATCH, networkId })
       } else {
-
         // Get initial accounts list and balances.
         yield call(getAccounts, { web3 })
         yield call(getAccountBalances, { web3 })

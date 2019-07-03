@@ -3,9 +3,7 @@ import { put } from 'redux-saga/effects'
 import Drizzle from '../../src/Drizzle'
 import defaultDrizzleOptions from '../../src/defaultOptions'
 import { initializeDrizzle } from '../../src/drizzleStatus/drizzleStatusSaga'
-import { NETWORK_MISMATCH } from '../../src/web3/constants'
-import { NETWORK_MAINNET, NETWORK_RINKEBY,
-         NETWORK_ROPSTEN, NETWORK_GANACHE } from './constants'
+import { NETWORK_IDS, NETWORK_MISMATCH } from '../../src/web3/constants'
 
 describe('Drizzle options:', () => {
   const accounts = global.accounts
@@ -25,13 +23,13 @@ describe('Drizzle options:', () => {
   describe('Allowed Networks:', () => {
     beforeEach(() => {
       drizzleOptions['networkWhitelist'] = [
-        NETWORK_MAINNET,
-        NETWORK_RINKEBY
+        NETWORK_IDS.mainnet,
+        NETWORK_IDS.rinkeby
       ]
     })
 
     test('Unauthorized network fires a mismatch', () => {
-      networkId = NETWORK_ROPSTEN
+      networkId = NETWORK_IDS.ropsten
       drizzle = new Drizzle(drizzleOptions, mockedStore)
 
       let next = iterateInitializeDrizzleSagaToNetworkMismatch(drizzle, drizzleOptions, networkId)
@@ -41,7 +39,7 @@ describe('Drizzle options:', () => {
     })
 
     test('Authorized network does NOT fire a mismatch', () => {
-      networkId = NETWORK_ROPSTEN
+      networkId = NETWORK_IDS.ropsten
       drizzleOptions['networkWhitelist'].push(networkId)
 
       drizzle = new Drizzle(drizzleOptions, mockedStore)
@@ -53,7 +51,7 @@ describe('Drizzle options:', () => {
     })
 
     test('Ganache does NOT fire a mismatch', () => {
-      networkId = NETWORK_GANACHE
+      networkId = NETWORK_IDS.ganache
 
       drizzle = new Drizzle(drizzleOptions, mockedStore)
 
