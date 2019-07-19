@@ -73,7 +73,6 @@ export function * initializeDrizzle (action) {
     }
   } catch (error) {
     yield put({ type: 'DRIZZLE_FAILED', error })
-    // yield put({ type: 'DRIZZLE_INITIALIZED' })
     console.error('Error initializing Drizzle:')
     console.error(error)
 
