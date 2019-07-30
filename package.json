@@ -31,9 +31,9 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "deepmerge": "^3.2.0",
+    "deepmerge": "^4.0.0",
     "eth-block-tracker-es5": "^2.3.2",
-    "is-plain-object": "^3.0.0",
+    "is-plain-object": "^2.0.4",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
     "web3": "^1.2.0"
