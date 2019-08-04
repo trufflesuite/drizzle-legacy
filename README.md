@@ -178,7 +178,7 @@ contracts: [
 ```
 
 ### `events` (object)
-An object consisting of contract names each containing an array of strings of the event names we'd like to listen for and sync with the store. Furthermore, event names may be replaced with an object containing both `eventName` and `eventOptions`, where `eventOptions` field corresponds to the [web3 Contract.events options](https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#contract-events).
+An object consisting of contract names each containing an array of strings of the event names we'd like to listen for and sync with the store. Furthermore, event names may be replaced with an object containing both `eventName` and `eventOptions`, where `eventOptions` field corresponds to the [web3 Contract.events options](https://web3js.readthedocs.io/en/v1.2.0/web3-eth-contract.html#contract-events).
 
 ### `polls` (object)
 An object containing key/value pairs denoting what is being polled and the interval (in ms). Possible polls are accounts and blocks. Accounts will poll for addresses and balances, blocks for new blocks. **Default**: `{ blocks: 3000 }`
@@ -294,7 +294,7 @@ The contract's state also includes the state of each constant function called on
 `value` (mixed): Value returned from function call.
 
 ### `currentBlock` (object)
-An object the latest block as an object resulting from [`web3.getBlock()`](https://web3js.readthedocs.io/en/1.0/web3-eth.html#getblock). This is updated once the block is received from a subscription or fetched via polling, but before any processing takes place.
+An object the latest block as an object resulting from [`web3.getBlock()`](https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#getblock). This is updated once the block is received from a subscription or fetched via polling, but before any processing takes place.
 
 ## `drizzleStatus` (object)
 An object containing information about the status of Drizzle.
