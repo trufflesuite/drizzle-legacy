@@ -1,6 +1,6 @@
 **DEPRECATION NOTICE** This repository has been deprecated in favor of: https://github.com/trufflesuite/drizzle
 
-<div style="text-align: center"><img src="https://github.com/trufflesuite/drizzle/blob/master/readme/drizzle-logomark.png?raw=true" alt="Drizzle Logo" /></div>
+<div style="text-align: center"><img src="https://github.com/trufflesuite/drizzle-legacy/blob/master/readme/drizzle-logomark.png?raw=true" alt="Drizzle Logo" /></div>
 
 # drizzle
 
