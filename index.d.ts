@@ -1,10 +1,10 @@
 declare module drizzle {
   export class Drizzle {
-    constructor(options: any, store: any);
+    constructor(options: any, store?: any);
 
-    addContract(contractConfig: any, ...args: any[]): void;
+    addContract(contractConfig: any, events?: any[]): void;
 
-    deleteContract(contractName: any): void;
+    deleteContract(contractName: string): void;
 
     findContractByAddress(address: any): any;
 

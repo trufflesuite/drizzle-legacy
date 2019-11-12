@@ -76,7 +76,7 @@ describe('Resolving Web3', () => {
       const result = await runSaga({
         dispatch: (action) => dispatched.push(action),
         getState: () => ({ state: 'test' })
-      }, initializeWeb3, { options: {} }).done
+      }, initializeWeb3, { options: {} }).toPromise()
 
       // result should be a proper web3 provider
       expect(result).toBeInstanceOf(require('web3'))
@@ -94,7 +94,7 @@ describe('Resolving Web3', () => {
         },
         initializeWeb3,
         { options: {} }
-      ).done
+      ).toPromise()
 
       // saga result should be undefined if an exception occurs
       expect(web3Result).toBe(undefined)
@@ -113,7 +113,7 @@ describe('Resolving Web3', () => {
       const result = await runSaga({
         dispatch: (action) => dispatched.push(action),
         getState: () => ({ state: 'test' })
-      }, initializeWeb3, { options: {} }).done
+      }, initializeWeb3, { options: {} }).toPromise()
 
       // saga result is undefined when exception is thrown
       expect(result).toBe(undefined)
