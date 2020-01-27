@@ -17,7 +17,7 @@ describe('Resolving Web3', () => {
   describe('with customProvider', () => {
     beforeAll(async () => {
       global.window = {}
-      web3Options = { web3: { customProvider: global.provider } }
+      web3Options = { customProvider: global.provider }
     })
 
     test('get web3', async () => {
